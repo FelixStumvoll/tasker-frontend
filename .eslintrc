@@ -1,0 +1,11 @@
+{
+    "extends": "react-app",
+    "rules": {
+        "no-useless-escape": "off",
+        "indent": [2, 4, { "SwitchCase": 1 }],
+        "no-console": "off",
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "semi": ["error", "always"],
+        "no-empty-pattern": "off"
+    }
+}
