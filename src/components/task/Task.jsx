@@ -4,8 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import Textarea from 'react-textarea-autosize';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { updateTask } from './taskActions';
+import TaskView from './taskView/TaskView';
+import TaskEditView from './taskEditView/TaskEditView';
 
 const TaskField = styled.div`
     border-radius: 5px;
@@ -31,6 +35,7 @@ const TaskField = styled.div`
 const CheckedIcon = styled(FontAwesomeIcon)`
     margin: auto;
     color: ${({ checked }) => (checked ? 'white' : 'black')};
+    transition: 250ms;
 `;
 
 const CheckedField = styled.button`
@@ -41,75 +46,14 @@ const CheckedField = styled.button`
     outline: none;
     border: none;
     padding-top: 4px;
+    transition: 250ms;
 `;
-
-const TaskView = styled.div`
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding: 5px 5px 5px 0px;
-`;
-
-const TaskHeader = styled.div`
-    margin-bottom: 10px;
-    font-weight: bold;
-    font-size: 18px;
-`;
-
-const TaskText = styled.span`
-    white-space: pre-line;
-`;
-
-const BadgeWrapper = styled.div`
-    position: relative;
-`;
-
-const Badge = styled.button`
-    border: none;
-    outline: none;
-    position: absolute;
-    bottom: -15px;
-    right: -15px;
-    border-radius: 25px;
-    width: 30px;
-    height: 30px;
-    background-color: #ddca7d;
-`;
-
-const EditIcon = styled(FontAwesomeIcon)`
-    margin: auto;
-`;
-
-//feature: Modal
-/*
-
-position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-
-modal-main {
-    position:fixed;
-    background: white;
-    width: 80%;
-    height: auto;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2),  0 6px 20px 0 rgba(0, 0, 0, 0.2);
-  }
-}
-*/
 
 class Task extends Component {
-    // constructor() {
-    //     super();
-    //     // this.state = { checked: false };
-    // }
+    constructor() {
+        super();
+        this.state = { editing: false };
+    }
 
     textAreaChange = e => {
         let areaHeight = e.target.style.height;
@@ -124,8 +68,24 @@ class Task extends Component {
         this.props.updateTask(task);
     };
 
+    editClick = () => {
+        this.props.history.push(`/task/${this.props.task.id}`);
+    };
+
+    clicked = () => {
+        console.log('test');
+    };
+
+    beginEdit = () => {
+        if (!this.state.editing) {
+            console.log('cowboi');
+            this.setState({ editing: true });
+        }
+    };
+
     render() {
         let { task } = this.props;
+        let { editing } = this.state;
         return (
             <TaskField>
                 <CheckedField
@@ -138,15 +98,13 @@ class Task extends Component {
                         size="2x"
                     />
                 </CheckedField>
-                <TaskView>
-                    <TaskHeader> {task.title} </TaskHeader>
-                    <TaskText>{task.description}</TaskText>
-                    <BadgeWrapper>
-                        <Badge>
-                            <FontAwesomeIcon icon={faPencilAlt} size="lg" />
-                        </Badge>
-                    </BadgeWrapper>
-                </TaskView>
+                <div onClick={this.beginEdit}>
+                    {editing ? (
+                        <TaskEditView task={task} />
+                    ) : (
+                        <TaskView task={task} />
+                    )}
+                </div>
             </TaskField>
         );
     }
@@ -165,7 +123,9 @@ const mapStateToProps = ({ tasks }, ownProps) => {
 
 const mapDispatchToProps = { updateTask };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Task);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(Task)
+);
