@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Textarea from 'react-textarea-autosize';
 
-const TaskView = styled.div`
+const TaskArea = styled.div`
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -10,7 +10,7 @@ const TaskView = styled.div`
     padding: 5px 5px 5px 0px;
 `;
 
-const TitleText = styled.input`
+const TaskTitle = styled.input`
     margin-bottom: 10px;
     margin-bottom: 10px;
     font-weight: bold;
@@ -19,10 +19,10 @@ const TitleText = styled.input`
     background-color: inherit;
     font-weight: bold;
     font-size: 18px;
-    padding: none;
+    padding: 0px;
 `;
 
-const TaskText = styled(Textarea)`
+const TaskDescription = styled(Textarea)`
     border: none;
     outline: none;
     width: 100%;
@@ -36,30 +36,56 @@ const TaskText = styled(Textarea)`
     font-size: 16px;
 `;
 
+//#region Badge
+/*
+const BadgeWrapper = styled.div`
+    position: relative;
+`;
+
+const Badge = styled.button`
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    border-radius: 25px;
+    width: 30px;
+    height: 30px;
+    background-color: #ddca7d;
+`;
+
+const EditIcon = styled(FontAwesomeIcon)`
+    margin: auto;
+`;
+*/
+
+//#endregion
+
 class TaskEditView extends Component {
     constructor(props) {
         super(props);
-        this.state = { ...this.props.task };
+        this.state = { task: this.props.task };
     }
 
-    onTaskTextChange = e => {
-        this.setState({ description: e.target.value });
+    onDescriptionChange = e => {
+        let { task } = this.state;
+        task.description = e.target.value;
+        this.setState({ task });
     };
 
     onTitleChange = e => {
-        this.setState({});
-    }
+        let { task } = this.state;
+        task.title = e.target.value;
+        this.setState({ task });
+    };
 
     render() {
-        let { description, title } = this.state;
+        let { description, title } = this.state.task;
         return (
-            <TaskView>
-                <TitleText type="text" value={title} />
-                <TaskText
-                    value={description}
-                    onChange={this.onTaskTextChange}
-                />
-            </TaskView>
+            <TaskArea>
+                <TaskTitle type="text" value={title} onChange={this.onTitleChange} />
+                <TaskDescription value={description} onChange={this.onDescriptionChange} />
+            </TaskArea>
         );
     }
 }

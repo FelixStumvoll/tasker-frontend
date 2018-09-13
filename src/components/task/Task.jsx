@@ -1,36 +1,23 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
-import Textarea from 'react-textarea-autosize';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+// import Textarea from 'react-textarea-autosize';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import { updateTask } from './taskActions';
-import TaskView from './taskView/TaskView';
+import TaskDetailView from './taskDetailView/TaskDetailView';
 import TaskEditView from './taskEditView/TaskEditView';
 
-const TaskField = styled.div`
+const TaskArea = styled.div`
     border-radius: 5px;
     background-color: #d30c7b;
     display: grid;
     grid-template-columns: 50px 830px;
     grid-column-gap: 20px;
 `;
-
-// const TaskText = styled(Textarea)`
-//     border: none;
-//     outline: none;
-//     width: auto;
-//     box-sizing: border-box;
-//     display: block;
-//     margin: 5px;
-//     padding: 0px;
-//     background-color: inherit;
-//     resize: none;
-//     line-height: 30px;
-// `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
     margin: auto;
@@ -55,12 +42,6 @@ class Task extends Component {
         this.state = { editing: false };
     }
 
-    textAreaChange = e => {
-        let areaHeight = e.target.style.height;
-        let margin = areaHeight === '30px' ? 0 : 1;
-        this.setState({ margin });
-    };
-
     completedClick = () => {
         console.log(this.props.task);
         let { task } = this.props;
@@ -72,13 +53,8 @@ class Task extends Component {
         this.props.history.push(`/task/${this.props.task.id}`);
     };
 
-    clicked = () => {
-        console.log('test');
-    };
-
     beginEdit = () => {
         if (!this.state.editing) {
-            console.log('cowboi');
             this.setState({ editing: true });
         }
     };
@@ -87,25 +63,14 @@ class Task extends Component {
         let { task } = this.props;
         let { editing } = this.state;
         return (
-            <TaskField>
-                <CheckedField
-                    checked={task.completed}
-                    onClick={this.completedClick}
-                >
-                    <CheckedIcon
-                        checked={task.completed}
-                        icon={faCheck}
-                        size="2x"
-                    />
+            <TaskArea>
+                <CheckedField checked={task.completed} onClick={this.completedClick}>
+                    <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
                 </CheckedField>
                 <div onClick={this.beginEdit}>
-                    {editing ? (
-                        <TaskEditView task={task} />
-                    ) : (
-                        <TaskView task={task} />
-                    )}
+                    {editing ? <TaskEditView task={task} /> : <TaskDetailView task={task} />}
                 </div>
-            </TaskField>
+            </TaskArea>
         );
     }
 }
