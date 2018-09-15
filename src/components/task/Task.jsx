@@ -12,11 +12,9 @@ import TaskDetailView from './taskDetailView/TaskDetailView';
 import TaskEditView from './taskEditView/TaskEditView';
 
 const TaskArea = styled.div`
-    border-radius: 5px;
-    background-color: #d30c7b;
     display: grid;
     grid-template-columns: 50px 830px;
-    grid-column-gap: 20px;
+    
 `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
@@ -34,6 +32,17 @@ const CheckedField = styled.button`
     border: none;
     padding-top: 4px;
     transition: 250ms;
+`;
+
+const TaskView = styled.div`
+    /* border-top-right-radius: inherit; */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding-left: 20px;
+    background-color: ${({ editing }) => (editing ? 'blue' : '#d30c7b')};
+    color: ${({ editing }) => (editing ? 'white' : 'black')};
+    transition: 250ms;
+    transition-timing-function: ease-in;
 `;
 
 class Task extends Component {
@@ -63,13 +72,13 @@ class Task extends Component {
         let { task } = this.props;
         let { editing } = this.state;
         return (
-            <TaskArea>
+            <TaskArea editing={editing}>
                 <CheckedField checked={task.completed} onClick={this.completedClick}>
                     <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
                 </CheckedField>
-                <div onClick={this.beginEdit}>
+                <TaskView editing={editing} onClick={this.beginEdit}>
                     {editing ? <TaskEditView task={task} /> : <TaskDetailView task={task} />}
-                </div>
+                </TaskView>
             </TaskArea>
         );
     }

@@ -20,6 +20,7 @@ const TaskTitle = styled.input`
     font-weight: bold;
     font-size: 18px;
     padding: 0px;
+    color: inherit;
 `;
 
 const TaskDescription = styled(Textarea)`
@@ -34,6 +35,7 @@ const TaskDescription = styled(Textarea)`
     background-color: inherit;
     resize: none;
     font-size: 16px;
+    color: inherit;
 `;
 
 //#region Badge
