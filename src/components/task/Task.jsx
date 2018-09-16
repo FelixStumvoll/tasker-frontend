@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-// import Textarea from 'react-textarea-autosize';
+import { faCheck, faSave } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import { updateTask } from './taskActions';
@@ -14,7 +12,6 @@ import TaskEditView from './taskEditView/TaskEditView';
 const TaskArea = styled.div`
     display: grid;
     grid-template-columns: 50px 830px;
-    
 `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
@@ -35,15 +32,60 @@ const CheckedField = styled.button`
 `;
 
 const TaskView = styled.div`
-    /* border-top-right-radius: inherit; */
+    padding: 5px 5px 5px 0px;
+    padding-left: 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    padding-left: 20px;
     background-color: ${({ editing }) => (editing ? 'blue' : '#d30c7b')};
     color: ${({ editing }) => (editing ? 'white' : 'black')};
     transition: 250ms;
     transition-timing-function: ease-in;
 `;
+
+//#region Badge
+const SavePopupAnimation = keyframes`
+from {
+    transform: scale(0);
+    }
+to {
+    transform: scale(1);
+}
+`;
+
+const SavePopoutAnimation = keyframes`
+from {
+    transform: scale(1);
+    }
+to {
+    transform: scale(0);
+}
+`;
+
+const BadgeWrapper = styled.div`
+    position: relative;
+`;
+
+const Badge = styled.button`
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    border-radius: 25px;
+    width: 30px;
+    height: 30px;
+    opacity: ${({ editing }) => (editing ? 1 : 0)};
+    transition: 250ms;
+    background-color: #ddca7d;
+    animation-name: ${({ editing }) =>
+        editing ? SavePopupAnimation : SavePopoutAnimation};
+    animation-duration: 250ms;
+`;
+
+const SaveIcon = styled(FontAwesomeIcon)`
+    margin: auto;
+`;
+//#endregion
 
 class Task extends Component {
     constructor() {
@@ -68,17 +110,39 @@ class Task extends Component {
         }
     };
 
+    endEdit = () => {
+        this.setState({ editing: false });
+    };
+
     render() {
         let { task } = this.props;
         let { editing } = this.state;
         return (
             <TaskArea editing={editing}>
-                <CheckedField checked={task.completed} onClick={this.completedClick}>
-                    <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
+                <CheckedField
+                    checked={task.completed}
+                    onClick={this.completedClick}
+                >
+                    <CheckedIcon
+                        checked={task.completed}
+                        icon={faCheck}
+                        size="2x"
+                    />
                 </CheckedField>
-                <TaskView editing={editing} onClick={this.beginEdit}>
-                    {editing ? <TaskEditView task={task} /> : <TaskDetailView task={task} />}
-                </TaskView>
+                <div>
+                    <TaskView editing={editing} onClick={this.beginEdit}>
+                        {editing ? (
+                            <TaskEditView task={task} />
+                        ) : (
+                            <TaskDetailView task={task} />
+                        )}
+                    </TaskView>
+                    <BadgeWrapper>
+                        <Badge editing={editing} onClick={this.endEdit}>
+                            <SaveIcon icon={faSave} />
+                        </Badge>
+                    </BadgeWrapper>
+                </div>
             </TaskArea>
         );
     }

@@ -6,7 +6,6 @@ const TaskArea = styled.div`
     flex-direction: column;
     box-sizing: border-box;
     display: block;
-    padding: 5px 5px 5px 0px;
     transition: 250ms;
     transition-timing-function: ease-in;
 `;
