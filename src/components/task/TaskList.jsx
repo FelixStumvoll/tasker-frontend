@@ -10,7 +10,7 @@ const List = styled.div`
 `;
 
 const TaskWrapper = styled.div`
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 `;
 
 class TaskList extends Component {

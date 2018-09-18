@@ -1,4 +1,10 @@
-import { TASK_CREATE, TASK_REMOVE, TASK_UPDATE } from './taskActionTypes';
+import {
+    TASK_CREATE,
+    TASK_REMOVE,
+    TASK_UPDATE,
+    TASK_END_EDIT,
+    TASK_START_EDIT
+} from './taskActionTypes';
 
 const initialState = [
     {
@@ -6,13 +12,22 @@ const initialState = [
         title: 'test',
         description:
             'test-description\nasdfasdfasy xcvvvvvvvvvvvvvvvvvvvv\nvv vvvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvvvvvv vvvvvvvvvvv vvvvvvv vv vvvvvvvvvvvvvvvvvvvvvvvv vvvd',
-        completed: false
+        completed: false,
+        editing: false
     },
     {
         id: 2,
         title: 'test2',
         description: 'test-description1',
-        completed: false
+        completed: false,
+        editing: false
+    },
+    {
+        id: 3,
+        title: '',
+        description: 'test-description1',
+        completed: false,
+        editing: false
     }
 ];
 
@@ -21,24 +36,41 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case TASK_UPDATE:
-            let index = state.indexOf(payload.task);
+            let updateIndex = getTaskById(payload.task.id, state);
 
             return [
-                ...state.slice(0, index),
+                ...state.slice(0, updateIndex),
                 Object.assign({}, payload.task),
-                ...state.slice(index + 1)
+                ...state.slice(updateIndex + 1)
             ];
-        // return [
-        //     ...state.filter(task => task.id !== payload.task.id),
-        //     Object.assign({}, payload.task)
-        // ];
 
         case TASK_CREATE:
             return [...state, Object.assign({}, payload.event)];
 
         case TASK_REMOVE:
             return [...state.filter(task => task.id !== payload.task.id)];
+
+        case TASK_START_EDIT:
+            let startEditIndex = getTaskById(payload.id, state);
+
+            return [
+                ...state.slice(0, startEditIndex),
+                Object.assign({}, state[startEditIndex], { editing: true }),
+                ...state.slice(startEditIndex + 1)
+            ];
+        case TASK_END_EDIT:
+            let endEditIndex = getTaskById(payload.id, state);
+
+            return [
+                ...state.slice(0, endEditIndex),
+                Object.assign({}, state[endEditIndex], { editing: false }),
+                ...state.slice(endEditIndex + 1)
+            ];
         default:
             return state;
     }
+};
+
+const getTaskById = (id, state) => {
+    return state.findIndex(item => item.id === id);
 };

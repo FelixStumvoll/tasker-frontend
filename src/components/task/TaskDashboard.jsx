@@ -7,7 +7,7 @@ const TaskListGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 900px 1fr;
     grid-template-areas: '. TaskColumn .';
-    margin-top: 20px;
+    margin-top: 30px;
 `;
 
 const TaskColumn = styled.div`

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { updateTask } from './taskActions';
+import { updateTask, startEditTask } from './taskActions';
 import TaskDetailView from './taskDetailView/TaskDetailView';
 import TaskEditView from './taskEditView/TaskEditView';
 
@@ -17,7 +17,6 @@ const TaskArea = styled.div`
 const CheckedIcon = styled(FontAwesomeIcon)`
     margin: auto;
     color: ${({ checked }) => (checked ? 'white' : 'black')};
-    transition: 250ms;
 `;
 
 const CheckedField = styled.button`
@@ -27,7 +26,7 @@ const CheckedField = styled.button`
     padding: 0;
     outline: none;
     border: none;
-    padding-top: 4px;
+    cursor: pointer;
     transition: 250ms;
 `;
 
@@ -42,83 +41,24 @@ const TaskView = styled.div`
     transition-timing-function: ease-in;
 `;
 
-//#region Badge
-const SavePopupAnimation = keyframes`
-from {
-    transform: scale(0);
-    }
-to {
-    transform: scale(1);
-}
-`;
-
-const SavePopoutAnimation = keyframes`
-from {
-    transform: scale(1);
-    }
-to {
-    transform: scale(0);
-}
-`;
-
-const BadgeWrapper = styled.div`
-    position: relative;
-`;
-
-const Badge = styled.button`
-    border: none;
-    outline: none;
-    position: absolute;
-    bottom: -15px;
-    right: -15px;
-    border-radius: 25px;
-    width: 30px;
-    height: 30px;
-    opacity: ${({ editing }) => (editing ? 1 : 0)};
-    transition: 250ms;
-    background-color: #ddca7d;
-    animation-name: ${({ editing }) =>
-        editing ? SavePopupAnimation : SavePopoutAnimation};
-    animation-duration: 250ms;
-`;
-
-const SaveIcon = styled(FontAwesomeIcon)`
-    margin: auto;
-`;
-//#endregion
-
 class Task extends Component {
-    constructor() {
-        super();
-        this.state = { editing: false };
-    }
-
     completedClick = () => {
-        console.log(this.props.task);
         let { task } = this.props;
         task.completed = !task.completed;
         this.props.updateTask(task);
     };
 
-    editClick = () => {
-        this.props.history.push(`/task/${this.props.task.id}`);
-    };
-
     beginEdit = () => {
-        if (!this.state.editing) {
-            this.setState({ editing: true });
+        let { task } = this.props;
+        if (!task.editing) {
+            this.props.startEditTask(task.id);
         }
-    };
-
-    endEdit = () => {
-        this.setState({ editing: false });
     };
 
     render() {
         let { task } = this.props;
-        let { editing } = this.state;
         return (
-            <TaskArea editing={editing}>
+            <TaskArea>
                 <CheckedField
                     checked={task.completed}
                     onClick={this.completedClick}
@@ -129,20 +69,13 @@ class Task extends Component {
                         size="2x"
                     />
                 </CheckedField>
-                <div>
-                    <TaskView editing={editing} onClick={this.beginEdit}>
-                        {editing ? (
-                            <TaskEditView task={task} />
-                        ) : (
-                            <TaskDetailView task={task} />
-                        )}
-                    </TaskView>
-                    <BadgeWrapper>
-                        <Badge editing={editing} onClick={this.endEdit}>
-                            <SaveIcon icon={faSave} />
-                        </Badge>
-                    </BadgeWrapper>
-                </div>
+                <TaskView editing={task.editing} onDoubleClick={this.beginEdit}>
+                    {task.editing ? (
+                        <TaskEditView taskId={task.id} />
+                    ) : (
+                        <TaskDetailView task={task} />
+                    )}
+                </TaskView>
             </TaskArea>
         );
     }
@@ -153,13 +86,13 @@ const mapStateToProps = ({ tasks }, ownProps) => {
     let task = {};
 
     if (taskId && tasks.length > 0) {
-        task = tasks.filter(item => item.id === taskId)[0];
+        task = tasks.find(item => item.id === taskId);
     }
 
     return { task };
 };
 
-const mapDispatchToProps = { updateTask };
+const mapDispatchToProps = { updateTask, startEditTask };
 
 export default withRouter(
     connect(
