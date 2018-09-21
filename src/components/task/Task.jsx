@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
@@ -9,9 +9,25 @@ import { updateTask, startEditTask } from './taskActions';
 import TaskDetailView from './taskDetailView/TaskDetailView';
 import TaskEditView from './taskEditView/TaskEditView';
 
+const TaskAppearAnimation = keyframes`
+0%{
+    width: 50%;
+    top: -50px;
+}
+
+100%{
+    top: 0px;
+    width: 100%;
+}
+`;
+
 const TaskArea = styled.div`
     display: grid;
-    grid-template-columns: 50px 830px;
+    grid-template-columns: 50px 850px;
+    position: relative;
+    animation-name: ${TaskAppearAnimation};
+    animation-duration: 1s;
+
 `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
@@ -58,7 +74,7 @@ class Task extends Component {
     render() {
         let { task } = this.props;
         return (
-            <TaskArea>
+            <TaskArea showAnimation={task.showAnimation}>
                 <CheckedField
                     checked={task.completed}
                     onClick={this.completedClick}
@@ -69,7 +85,11 @@ class Task extends Component {
                         size="2x"
                     />
                 </CheckedField>
-                <TaskView editing={task.editing} onDoubleClick={this.beginEdit}>
+                <TaskView
+                    editing={task.editing}
+                    onDoubleClick={this.beginEdit}
+                    on
+                >
                     {task.editing ? (
                         <TaskEditView taskId={task.id} />
                     ) : (

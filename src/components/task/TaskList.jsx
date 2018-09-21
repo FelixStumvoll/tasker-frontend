@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import FlipMove from 'react-flip-move';
 
 import Task from './Task';
 
@@ -19,12 +20,14 @@ class TaskList extends Component {
         return (
             <div>
                 <List>
-                    {tasks &&
-                        tasks.map(task => (
-                            <TaskWrapper key={task.id}>
-                                <Task id={task.id} />
-                            </TaskWrapper>
-                        ))}
+                    <FlipMove>
+                        {tasks &&
+                            tasks.map(task => (
+                                <TaskWrapper key={task.id}>
+                                    <Task id={task.id} />
+                                </TaskWrapper>
+                            ))}
+                    </FlipMove>
                 </List>
             </div>
         );

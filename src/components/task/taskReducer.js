@@ -13,21 +13,24 @@ const initialState = [
         description:
             'test-description\nasdfasdfasy xcvvvvvvvvvvvvvvvvvvvv\nvv vvvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvvvvvv vvvvvvvvvvv vvvvvvv vv vvvvvvvvvvvvvvvvvvvvvvvv vvvd',
         completed: false,
-        editing: false
+        editing: false,
+        showAnimation: false
     },
     {
         id: 2,
         title: 'test2',
         description: 'test-description1',
         completed: false,
-        editing: false
+        editing: false,
+        showAnimation: false
     },
     {
         id: 3,
         title: '',
         description: 'test-description1',
         completed: false,
-        editing: false
+        editing: false,
+        showAnimation: false
     }
 ];
 
@@ -45,7 +48,7 @@ export default (state = initialState, action) => {
             ];
 
         case TASK_CREATE:
-            return [...state, Object.assign({}, payload.event)];
+            return [Object.assign({}, payload.task), ...state];
 
         case TASK_REMOVE:
             return [...state.filter(task => task.id !== payload.task.id)];
