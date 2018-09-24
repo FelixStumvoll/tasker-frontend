@@ -27,7 +27,6 @@ const TaskArea = styled.div`
     position: relative;
     animation-name: ${TaskAppearAnimation};
     animation-duration: 1s;
-
 `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
@@ -64,32 +63,18 @@ class Task extends Component {
         this.props.updateTask(task);
     };
 
-    beginEdit = () => {
-        let { task } = this.props;
-        if (!task.editing) {
-            this.props.startEditTask(task.id);
-        }
+    showDetailView = () => {
+        this.props.history.push(`task/${this.props.task.id}`);
     };
 
     render() {
         let { task } = this.props;
         return (
             <TaskArea showAnimation={task.showAnimation}>
-                <CheckedField
-                    checked={task.completed}
-                    onClick={this.completedClick}
-                >
-                    <CheckedIcon
-                        checked={task.completed}
-                        icon={faCheck}
-                        size="2x"
-                    />
+                <CheckedField checked={task.completed} onClick={this.completedClick}>
+                    <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
                 </CheckedField>
-                <TaskView
-                    editing={task.editing}
-                    onDoubleClick={this.beginEdit}
-                    on
-                >
+                <TaskView editing={task.editing} onDoubleClick={this.showDetailView} on>
                     {task.editing ? (
                         <TaskEditView taskId={task.id} />
                     ) : (

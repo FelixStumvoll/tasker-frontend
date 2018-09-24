@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import styled from 'styled-components';
 
 import Navbar from './components/navbar/Navbar';
 import TaskDashboard from './components/task/TaskDashboard';
 import Store from './data/Store';
-// import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
+import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
 
 const theme = {
     navheight: '50px',
     mainColor: '#00BD9D'
 };
+
+const MainView = styled.div`
+    padding: 10px;
+`;
 
 class App extends Component {
     render() {
@@ -21,7 +26,6 @@ class App extends Component {
                     <ThemeProvider theme={theme}>
                         <div>
                             <Navbar />
-
                             <Switch>
                                 <Route exact path="/">
                                     <Redirect to="/tasks" />
@@ -31,18 +35,12 @@ class App extends Component {
                             <Route
                                 path="/(.+)"
                                 render={() => (
-                                    <div>
+                                    <MainView>
                                         <Switch>
-                                            {/* <Route
-                                                path="/task/:id"
-                                                component={TaskDetailPage}
-                                            /> */}
-                                            <Route
-                                                path="/tasks"
-                                                component={TaskDashboard}
-                                            />
+                                            <Route path="/task/:id" component={TaskDetailPage} />
+                                            <Route path="/tasks" component={TaskDashboard} />
                                         </Switch>
-                                    </div>
+                                    </MainView>
                                 )}
                             />
                         </div>
