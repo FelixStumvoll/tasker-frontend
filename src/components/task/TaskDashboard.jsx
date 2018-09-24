@@ -57,8 +57,6 @@ class TaskDashboard extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
-
 const mapDispatchToProps = {
     createEmptyTask
 };
