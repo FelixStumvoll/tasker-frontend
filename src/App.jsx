@@ -13,6 +13,11 @@ const theme = {
     mainColor: '#00BD9D'
 };
 
+const MainView = styled.div`
+    padding: 10px;
+    margin-top: 50px;
+`;
+
 class App extends Component {
     render() {
         return (

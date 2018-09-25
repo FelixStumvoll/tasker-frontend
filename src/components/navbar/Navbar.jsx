@@ -7,7 +7,12 @@ const Nav = styled.div`
     height: ${props => props.theme.navheight};
     background-color: ${props => props.theme.mainColor};
     display: grid;
-    grid-template-columns: 100px 1fr 400px 2fr 100px
+    grid-template-columns: 100px 1fr 400px 2fr 100px;
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
     grid-template-areas: 'Home . Search . Controls';
 `;
 
