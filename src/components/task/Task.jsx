@@ -9,24 +9,9 @@ import { updateTask, startEditTask } from './taskActions';
 import TaskDetailView from './taskDetailView/TaskDetailView';
 import TaskEditView from './taskEditView/TaskEditView';
 
-const TaskAppearAnimation = keyframes`
-0%{
-    width: 50%;
-    top: -50px;
-}
-
-100%{
-    top: 0px;
-    width: 100%;
-}
-`;
-
 const TaskArea = styled.div`
     display: grid;
     grid-template-columns: 50px 850px;
-    position: relative;
-    animation-name: ${TaskAppearAnimation};
-    animation-duration: 1s;
 `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
@@ -53,7 +38,6 @@ const TaskView = styled.div`
     background-color: ${({ editing }) => (editing ? 'blue' : '#d30c7b')};
     color: ${({ editing }) => (editing ? 'white' : 'black')};
     transition: 250ms;
-    transition-timing-function: ease-in;
 `;
 
 class Task extends Component {
