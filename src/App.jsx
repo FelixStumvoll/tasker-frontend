@@ -16,6 +16,7 @@ const theme = {
 
 const MainView = styled.div`
     padding: 10px;
+    margin-top: 50px;
 `;
 
 class App extends Component {
