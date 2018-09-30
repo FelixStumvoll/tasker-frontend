@@ -14,7 +14,10 @@ const initialState = [
             'test-description\nasdfasdfasy xcvvvvvvvvvvvvvvvvvvvv\nvv vvvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvvvvvv vvvvvvvvvvv vvvvvvv vv vvvvvvvvvvvvvvvvvvvvvvvv vvvd',
         completed: false,
         editing: false,
-        showAnimation: false
+        showAnimation: false,
+        subtasks: [
+            5
+        ]
     },
     {
         id: 2,
@@ -22,7 +25,8 @@ const initialState = [
         description: 'test-description1',
         completed: false,
         editing: false,
-        showAnimation: false
+        showAnimation: false,
+        subtasks: []
     },
     {
         id: 3,
@@ -30,7 +34,17 @@ const initialState = [
         description: 'test-description1',
         completed: false,
         editing: false,
-        showAnimation: false
+        showAnimation: false,
+        subtasks: []
+    },
+    {
+        id: 5,
+        title: 'Okay this is epic',
+        description: 'alexa play despacito',
+        completed: false,
+        editing: false,
+        showAnimation: false,
+        subtasks: []
     }
 ];
 

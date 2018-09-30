@@ -64,26 +64,16 @@ class Task extends Component {
         this.props.updateTask(task);
     };
 
-    beginEdit = () => {
-        let { task } = this.props;
-        if (!task.editing) {
-            this.props.startEditTask(task.id);
-        }
+    showDetailView = () => {
+        this.props.history.push(`/task/${this.props.task.id}`);
     };
 
     render() {
         let { task } = this.props;
         return (
-            <TaskArea showAnimation={task.showAnimation}>
-                <CheckedField
-                    checked={task.completed}
-                    onClick={this.completedClick}
-                >
-                    <CheckedIcon
-                        checked={task.completed}
-                        icon={faCheck}
-                        size="2x"
-                    />
+            <TaskArea>
+                <CheckedField checked={task.completed} onClick={this.completedClick}>
+                    <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
                 </CheckedField>
                 <TaskView
                     editing={task.editing}

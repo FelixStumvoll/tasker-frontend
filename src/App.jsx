@@ -14,7 +14,7 @@ const theme = {
 };
 
 const MainView = styled.div`
-    padding: 10px;
+    padding: 20px;
     margin-top: 50px;
 `;
 

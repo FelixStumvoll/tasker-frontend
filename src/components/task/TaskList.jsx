@@ -9,8 +9,8 @@ const List = styled.div`
     flex-direction: column;
 `;
 
-const TaskWrapper = styled.div`
-    margin-bottom: 30px;
+const FlexItem = styled.div`
+    margin-bottom: 20px;
 `;
 
 class TaskList extends Component {
@@ -21,9 +21,9 @@ class TaskList extends Component {
                 <List>
                     {tasks &&
                         tasks.map(task => (
-                            <TaskWrapper key={task.id}>
+                            <FlexItem key={task.id}>
                                 <Task id={task.id} />
-                            </TaskWrapper>
+                            </FlexItem>
                         ))}
                 </List>
             </div>
@@ -31,13 +31,19 @@ class TaskList extends Component {
     }
 }
 
-const mapStateToProps = ({ tasks }) => ({
-    tasks
-});
+const mapStateToProps = ({ tasks }, ownProps) => {
+    let taskList = tasks;
 
-const mapDispatchToProps = {};
+    if (ownProps.taskId) {
+        let parentTask = tasks.find(item => item.id === ownProps.taskId);
+        if (parentTask && parentTask.subtasks) {
+            taskList = parentTask.subtasks;
+        } else {
+            taskList = [];
+        }
+    }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TaskList);
+    return { tasks: taskList };
+};
+
+export default connect(mapStateToProps)(TaskList);
