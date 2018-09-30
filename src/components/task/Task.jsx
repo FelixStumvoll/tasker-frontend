@@ -48,13 +48,13 @@ class Task extends Component {
     };
 
     showDetailView = () => {
-        this.props.history.push(`task/${this.props.task.id}`);
+        this.props.history.push(`/task/${this.props.task.id}`);
     };
 
     render() {
         let { task } = this.props;
         return (
-            <TaskArea showAnimation={task.showAnimation}>
+            <TaskArea>
                 <CheckedField checked={task.completed} onClick={this.completedClick}>
                     <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
                 </CheckedField>

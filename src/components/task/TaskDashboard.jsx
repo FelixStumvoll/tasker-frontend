@@ -14,10 +14,12 @@ const CreateTaskButton = styled.button`
     color: #419669;
     outline: none;
     border-radius: 5px;
-    background-color: transparent;
+    background-color: #ffff;
     width: 120px;
     cursor: pointer;
     transition: 250ms;
+    position: sticky;
+    top: 70px;
 
     :active {
         background-color: #419669;
@@ -29,7 +31,6 @@ const TaskListGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 900px 1fr;
     grid-template-areas: '. TaskColumn .';
-    margin-top: 30px;
 `;
 
 const TaskColumn = styled.div`
