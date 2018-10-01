@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import Task from './Task';
+import Task from './TaskListItem';
 
 const List = styled.div`
     display: flex;
@@ -32,15 +32,18 @@ class TaskList extends Component {
 }
 
 const mapStateToProps = ({ tasks }, ownProps) => {
-    let taskList = tasks;
+    let taskList;
 
     if (ownProps.taskId) {
-        let parentTask = tasks.find(item => item.id === ownProps.taskId);
-        if (parentTask && parentTask.subtasks) {
-            taskList = parentTask.subtasks;
+        if (tasks.length > 0) {
+            taskList = tasks.filter(
+                task => task.parentTask === ownProps.taskId
+            );
         } else {
             taskList = [];
         }
+    } else {
+        taskList = tasks.filter(task => !task.parentTask);
     }
 
     return { tasks: taskList };

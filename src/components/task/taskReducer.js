@@ -8,43 +8,38 @@ import {
 
 const initialState = [
     {
-        id: 1,
+        id: '1',
         title: 'test',
         description:
-            'test-description\nasdfasdfasy xcvvvvvvvvvvvvvvvvvvvv\nvv vvvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvvvvvv vvvvvvvvvvv vvvvvvv vv vvvvvvvvvvvvvvvvvvvvvvvv vvvd',
+            'task 1',
         completed: false,
         editing: false,
         showAnimation: false,
-        subtasks: [
-            5
-        ]
     },
     {
-        id: 2,
+        id: '2',
         title: 'test2',
         description: 'test-description1',
         completed: false,
         editing: false,
         showAnimation: false,
-        subtasks: []
     },
     {
-        id: 3,
+        id: '3',
         title: '',
         description: 'test-description1',
         completed: false,
         editing: false,
         showAnimation: false,
-        subtasks: []
     },
     {
-        id: 5,
+        id: '5',
         title: 'Okay this is epic',
         description: 'alexa play despacito',
         completed: false,
         editing: false,
         showAnimation: false,
-        subtasks: []
+        parentTask: '1'
     }
 ];
 

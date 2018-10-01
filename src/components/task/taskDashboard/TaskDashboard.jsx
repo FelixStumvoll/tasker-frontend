@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
-import TaskList from './TaskList';
-import { createEmptyTask } from './taskActions';
+import TaskList from '../taskList/TaskList';
+import { createEmptyTask } from '../taskActions';
 
 const CreateTaskButton = styled.button`
     height: 40px;
@@ -40,8 +40,8 @@ const TaskColumn = styled.div`
 `;
 
 class TaskDashboard extends Component {
-    createTask = () => {
-        this.props.createEmptyTask();
+    createTask = async () => {
+        await this.props.createEmptyTask();
     };
 
     render() {

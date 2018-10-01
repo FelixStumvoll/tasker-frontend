@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import { updateTask, startEditTask } from './taskActions';
-import TaskDetailView from './taskDetailView/TaskDetailView';
-import TaskEditView from './taskEditView/TaskEditView';
+import { updateTask, startEditTask } from '../taskActions';
+import TaskDetailView from '../taskDetailView/TaskDetailView';
+import TaskEditView from '../taskEditView/TaskEditView';
 
 const TaskArea = styled.div`
     display: grid;
@@ -40,7 +41,7 @@ const TaskView = styled.div`
     transition: 250ms;
 `;
 
-class Task extends Component {
+class TaskListItem extends Component {
     completedClick = () => {
         let { task } = this.props;
         task.completed = !task.completed;
@@ -55,10 +56,21 @@ class Task extends Component {
         let { task } = this.props;
         return (
             <TaskArea>
-                <CheckedField checked={task.completed} onClick={this.completedClick}>
-                    <CheckedIcon checked={task.completed} icon={faCheck} size="2x" />
+                <CheckedField
+                    checked={task.completed}
+                    onClick={this.completedClick}
+                >
+                    <CheckedIcon
+                        checked={task.completed}
+                        icon={faCheck}
+                        size="2x"
+                    />
                 </CheckedField>
-                <TaskView editing={task.editing} onDoubleClick={this.showDetailView} on>
+                <TaskView
+                    editing={task.editing}
+                    onDoubleClick={this.showDetailView}
+                    on
+                >
                     {task.editing ? (
                         <TaskEditView taskId={task.id} />
                     ) : (
@@ -69,6 +81,11 @@ class Task extends Component {
         );
     }
 }
+
+TaskListItem.propTypes = {
+    id: PropTypes.string.isRequired,
+    task: PropTypes.object
+};
 
 const mapStateToProps = ({ tasks }, ownProps) => {
     let taskId = ownProps.id;
@@ -87,5 +104,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(Task)
+    )(TaskListItem)
 );

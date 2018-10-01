@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Navbar from './components/navbar/Navbar';
-import TaskDashboard from './components/task/TaskDashboard';
+import TaskDashboard from './components/task/taskDashboard/TaskDashboard';
 import Store from './data/Store';
 import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
 
@@ -38,8 +38,14 @@ class App extends Component {
                                 render={() => (
                                     <MainView>
                                         <Switch>
-                                            <Route path="/task/:id" component={TaskDetailPage} />
-                                            <Route path="/tasks" component={TaskDashboard} />
+                                            <Route
+                                                path="/task/:id"
+                                                component={TaskDetailPage}
+                                            />
+                                            <Route
+                                                path="/tasks"
+                                                component={TaskDashboard}
+                                            />
                                         </Switch>
                                     </MainView>
                                 )}
