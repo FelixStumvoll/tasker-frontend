@@ -12,7 +12,7 @@ import TaskEditView from '../taskEditView/TaskEditView';
 
 const TaskArea = styled.div`
     display: grid;
-    grid-template-columns: 50px 850px;
+    grid-template-columns: 50px 95vh;
 `;
 
 const CheckedIcon = styled(FontAwesomeIcon)`
@@ -58,8 +58,7 @@ class TaskListItem extends Component {
             <TaskArea>
                 <CheckedField
                     checked={task.completed}
-                    onClick={this.completedClick}
-                >
+                    onClick={this.completedClick}>
                     <CheckedIcon
                         checked={task.completed}
                         icon={faCheck}
@@ -69,8 +68,7 @@ class TaskListItem extends Component {
                 <TaskView
                     editing={task.editing}
                     onDoubleClick={this.showDetailView}
-                    on
-                >
+                    on>
                     {task.editing ? (
                         <TaskEditView taskId={task.id} />
                     ) : (

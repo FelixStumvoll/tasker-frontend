@@ -6,12 +6,13 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
 import TaskList from '../taskList/TaskList';
 import { createEmptyTask } from '../taskActions';
+import { TaskCreatePanel } from '../taskCreatePanel/TaskCreatePanel';
 
 const CreateTaskButton = styled.button`
     height: 40px;
     margin-bottom: 30px;
-    border: 2px solid #419669;
-    color: #419669;
+    border: 2px solid ${props => props.theme.positiveColor};
+    color: ${props => props.theme.positiveColor};
     outline: none;
     border-radius: 5px;
     background-color: #ffff;
@@ -22,7 +23,7 @@ const CreateTaskButton = styled.button`
     top: 70px;
 
     :active {
-        background-color: #419669;
+        background-color: ${props => props.theme.positiveColor};
         color: white;
     }
 `;
@@ -39,6 +40,10 @@ const TaskColumn = styled.div`
     flex-direction: column;
 `;
 
+const Buffer = styled.div`
+    margin-bottom: 30px;
+`;
+
 class TaskDashboard extends Component {
     createTask = async () => {
         await this.props.createEmptyTask();
@@ -48,9 +53,11 @@ class TaskDashboard extends Component {
         return (
             <TaskListGrid>
                 <TaskColumn>
-                    <CreateTaskButton onClick={this.createTask}>
+                    <TaskCreatePanel />
+                    {/* <CreateTaskButton onClick={this.createTask}>
                         <FontAwesomeIcon icon={faPlus} /> Create Task
-                    </CreateTaskButton>
+                    </CreateTaskButton> */}
+                    <Buffer />
                     <TaskList />
                 </TaskColumn>
             </TaskListGrid>

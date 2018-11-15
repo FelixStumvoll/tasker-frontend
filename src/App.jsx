@@ -8,11 +8,7 @@ import Navbar from './components/navbar/Navbar';
 import TaskDashboard from './components/task/taskDashboard/TaskDashboard';
 import Store from './data/Store';
 import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
-
-const theme = {
-    navheight: '50px',
-    mainColor: '#00BD9D'
-};
+import theme from './theme/theme';
 
 const MainView = styled.div`
     padding: 20px;

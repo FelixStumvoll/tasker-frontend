@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 
-const Nav = styled.div`
-    height: ${props => props.theme.navheight};
+const Nav = styled.nav`
+    height: ${props => props.theme.navheight}px;
     background-color: ${props => props.theme.mainColor};
     display: grid;
     grid-template-columns: 100px 1fr 400px 2fr 100px;

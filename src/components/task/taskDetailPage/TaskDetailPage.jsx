@@ -27,11 +27,21 @@ const SubTaskHeader = styled.div`
     margin-bottom: 20px;
 `;
 
+const SubtaskGrid = styled.div`
+    width: 95vh;
+`;
+
 export class TaskDetailPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = { task: props.task };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.task.id !== prevProps.task.id) {
+            this.setState({ task: this.props.task });
+        }
     }
 
     render() {
@@ -44,11 +54,11 @@ export class TaskDetailPage extends Component {
                         <DetailViewWrapper>
                             <TaskDetailView taskId={task.id} />
                         </DetailViewWrapper>
-                        <div>
+                        <SubtaskGrid>
                             <SubTaskHeader>Tasks:</SubTaskHeader>
                             <TaskList taskId={task.id} />
                             {/* <DemonstrationBloc /> */}
-                        </div>
+                        </SubtaskGrid>
                     </DetailGrid>
                 )}
             </DetailPage>
