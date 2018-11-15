@@ -4,14 +4,13 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-import theme from './theme/theme';
 import Navbar from './components/navbar/Navbar';
 import TaskDashboard from './components/task/taskDashboard/TaskDashboard';
 import Store from './redux/store';
 import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
 import theme from './theme/theme';
 
-const MainView = styled.div`
+const Content = styled.div`
     padding: 20px;
     margin-top: 50px;
 `;

@@ -101,7 +101,7 @@ export class TaskCreatePanel extends Component {
         let { tagValue, task } = this.state;
         if (!this.taskTagExists(tagValue) && /\S/.test(tagValue)) {
             task.tags.push(tagValue);
-            this.setState({ tagValue: '' });
+            this.setState({ task, tagValue: '' });
         }
     };
 
@@ -110,9 +110,21 @@ export class TaskCreatePanel extends Component {
     };
 
     removeTag = tagName => {
-        let { task } = this.state;
-        task.tags.splice(task.tags.indexOf(tagName), 1);
+        let {
+            task: { tags }
+        } = this.state;
+        tags.splice(tags.indexOf(tagName), 1);
+        this.updateTask(tags, 'tags');
+    };
 
+    changeDateCallback = dueDate => {
+        console.log('dueDate :', dueDate);
+        this.updateTask(dueDate, 'dueDate');
+    };
+
+    updateTask = (value, property) => {
+        let { task } = this.state;
+        task[property] = value;
         this.setState({ task });
     };
 
@@ -122,7 +134,7 @@ export class TaskCreatePanel extends Component {
         return (
             <NewTaskPanel>
                 <TitleInput placeholder="Enter Task Title" />
-                <DateInput />
+                <DateInput callback={this.changeDateCallback} />
                 <TagInput
                     onKeyDown={this.onTagKeypress}
                     onChange={this.onTagInput}

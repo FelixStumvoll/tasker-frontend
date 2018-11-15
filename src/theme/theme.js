@@ -4,4 +4,4 @@ export default {
     positiveColor: '#419669',
     negativeColor: '#ED254E',
     transitionDuration: 250
-}
+};
