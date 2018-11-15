@@ -1,8 +1,7 @@
-const theme = {
-    navheight: 50,
-    mainColor: '#00BD9D',
+export default {
+    navHeight: 50,
+    navColor: '#00BD9D', 
     positiveColor: '#419669',
-    negativeColor: '#EE4266'
-};
-
-export default theme;
+    negativeColor: '#ED254E',
+    transitionDuration: 250
+}

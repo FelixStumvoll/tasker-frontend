@@ -13,49 +13,38 @@ const Nav = styled.nav`
     top: 0px;
     left: 0px;
     width: 100%;
-    grid-template-areas: 'Home . Search . Controls';
+    grid-template-areas: 'home . search . controls';
 `;
 
-const HomeButton = styled.div`
-    grid-area: Home;
+const Home = styled.a`
+    grid-area: home;
     font-weight: bold;
+    margin: auto;
 `;
 
-const VerticalCenter = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-area: ${props => props.area};
-`;
-
-const SearchBar = styled.input`
+const Searchbar = styled.input`
+    grid-area: search;
     height: 30px;
     width: 100%;
     border: none;
     outline: none;
     border-radius: 5px;
     padding-left: 5px;
+    margin: auto;
 `;
 
-// const Controls = styled.button`
-//     grid-area: Controls;
-// `;
+const Control = styled(FontAwesomeIcon)`
+    grid-area: controls;
+    margin: auto;
+`;
 
 class Navbar extends Component {
     render() {
         return (
             <Nav>
-                <VerticalCenter area="Home">
-                    <HomeButton>Home</HomeButton>
-                </VerticalCenter>
-
-                <VerticalCenter area="Search">
-                    <SearchBar color="red" type="text" placeholder="Search" />
-                </VerticalCenter>
-
-                <VerticalCenter area="Controls">
-                    <FontAwesomeIcon icon={faCog} />
-                </VerticalCenter>
+                <Home>Home</Home>
+                <Searchbar type="text" placeholder="Search..." />
+                <Control icon={faCog} />
             </Nav>
         );
     }

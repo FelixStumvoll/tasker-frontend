@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import TaskList from '../taskList/TaskList';
 import { createEmptyTask } from '../taskActions';
@@ -15,10 +15,10 @@ const CreateTaskButton = styled.button`
     color: ${props => props.theme.positiveColor};
     outline: none;
     border-radius: 5px;
-    background-color: #ffff;
+    background-color: transparent;
     width: 120px;
     cursor: pointer;
-    transition: 250ms;
+    transition: ${({ theme }) => theme.transitionDuration}ms;
     position: sticky;
     top: 70px;
 
