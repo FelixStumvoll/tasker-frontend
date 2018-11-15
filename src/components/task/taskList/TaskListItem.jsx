@@ -7,8 +7,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { updateTask, startEditTask } from '../taskActions';
-import TaskDetailView from '../taskDetailView/TaskDetailView';
-import TaskEditView from '../taskEditView/TaskEditView';
 
 const TaskArea = styled.div`
     display: grid;
@@ -69,11 +67,6 @@ class TaskListItem extends Component {
                     editing={task.editing}
                     onDoubleClick={this.showDetailView}
                     on>
-                    {task.editing ? (
-                        <TaskEditView taskId={task.id} />
-                    ) : (
-                        <TaskDetailView task={task} />
-                    )}
                 </TaskView>
             </TaskArea>
         );

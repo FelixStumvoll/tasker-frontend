@@ -7,8 +7,8 @@ import styled from 'styled-components';
 import Navbar from './components/navbar/Navbar';
 import TaskDashboard from './components/task/taskDashboard/TaskDashboard';
 import Store from './redux/store';
-import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
 import theme from './theme/theme';
+import TaskCreatePage from './components/task/taskCreatePage/TaskCreatePage';
 
 const Content = styled.div`
     padding: 20px;
@@ -37,10 +37,17 @@ class App extends Component {
                                         <Content>
                                             <Switch>
                                                 <Route
-                                                    path="/task/:id"
-                                                    component={TaskDetailPage}
+                                                    path="/task/create"
+                                                    component={TaskCreatePage}
                                                 />
-                                                <Route path="/tasks" component={TaskDashboard} />
+                                                <Route
+                                                    path="/task/:id"
+                                                    component={TaskCreatePage}
+                                                />
+                                                <Route
+                                                    path="/tasks"
+                                                    component={TaskDashboard}
+                                                />
                                             </Switch>
                                         </Content>
                                     )}

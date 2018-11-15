@@ -3,7 +3,6 @@ import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import styled from 'styled-components';
 import dateFnsFormat from 'date-fns/format';
-import dateFnsParse from 'date-fns/parse';
 import 'react-day-picker/lib/style.css';
 import './dateInput.css';
 
@@ -21,45 +20,28 @@ export default class DateInput extends Component {
         };
     }
 
-    parseDate = (str, format, locale) => {
-        const parsed = dateFnsParse(str, format, { locale });
-        if (DateUtils.isDate(parsed)) {
-            return parsed;
-        }
-        return undefined;
-    };
-
     formatDate = (date, format, locale) => {
         return dateFnsFormat(date, format, { locale });
     };
 
     handleDayClick = (selectedDay, { selected }) => {
-        let dayVal;
-        console.log('1 selected :', selected);
-        if (selected) {
-            dayVal = undefined;
-        } else {
-            dayVal = selectedDay;
-        }
-        this.setState({ selectedDay: dayVal });
+        this.setState({
+            selectedDay: selected ? undefined : selectedDay
+        });
     };
 
-    handleDayChange = dayVal => {
-        console.log('2');
+    handleDayChange = selectedDay => {
         let { callback } = this.props;
-        let { selectedDay } = this.state;
         if (!callback) {
             return;
         }
-        console.log('selectedDay :', selectedDay);
-        if (!dayVal) {
-            callback('');
-        } else {
-            callback(dateFnsFormat(dayVal, 'dd.MM.yyyy'));
-        }
+
+        callback(selectedDay); //sadly setState is to slow
     };
 
     render() {
+        let { selectedDay } = this.state;
+
         const modifiers = {
             today: new Date()
         };
@@ -75,10 +57,13 @@ export default class DateInput extends Component {
 
         return (
             <DayPickerInput
+                component={props => (
+                    <DateField value={selectedDay} {...props} readOnly />
+                )}
+                placeholder="Enter a due Date"
                 onDayChange={this.handleDayChange}
                 formatDate={this.formatDate}
                 format={FORMAT}
-                parseDate={this.parseDate}
                 clickUnselectsDay={true}
                 dayPickerProps={{
                     modifiers,
@@ -87,8 +72,6 @@ export default class DateInput extends Component {
                     selectedDays: this.state.selectedDay,
                     disabledDays: { before: new Date() }
                 }}
-                placeholder="Enter a due Date"
-                component={props => <DateField {...props} readOnly />}
             />
         );
     }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import TaskTag from '../taskTag/TaskTag';
 import DateInput from '../../dateInput/DateInput';
+import Editor from '../../editor/Editor';
 
 const NewTaskPanel = styled.div`
     width: 500px;
@@ -118,7 +119,6 @@ export class TaskCreatePanel extends Component {
     };
 
     changeDateCallback = dueDate => {
-        console.log('dueDate :', dueDate);
         this.updateTask(dueDate, 'dueDate');
     };
 
@@ -142,6 +142,7 @@ export class TaskCreatePanel extends Component {
                     value={tagValue}
                     maxLength="30"
                 />
+                <Editor />
 
                 {task.tags.length !== 0 && (
                     <TagArea>

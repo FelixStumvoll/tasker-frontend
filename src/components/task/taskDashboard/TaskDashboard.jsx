@@ -53,10 +53,10 @@ class TaskDashboard extends Component {
         return (
             <TaskListGrid>
                 <TaskColumn>
-                    <TaskCreatePanel />
-                    {/* <CreateTaskButton onClick={this.createTask}>
+                    {/* <TaskCreatePanel /> */}
+                    <CreateTaskButton onClick={this.createTask}>
                         <FontAwesomeIcon icon={faPlus} /> Create Task
-                    </CreateTaskButton> */}
+                    </CreateTaskButton>
                     <Buffer />
                     <TaskList />
                 </TaskColumn>
