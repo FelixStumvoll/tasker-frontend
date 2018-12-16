@@ -13,17 +13,17 @@ const Nav = styled.nav`
     top: 0px;
     left: 0px;
     width: 100%;
-    grid-template-areas: 'home . search . controls';
+    grid-template-areas: 'HomeArea . SearchArea . ControlsArea';
 `;
 
 const Home = styled.a`
-    grid-area: home;
+    grid-area: HomeArea;
     font-weight: bold;
     margin: auto;
 `;
 
 const Searchbar = styled.input`
-    grid-area: search;
+    grid-area: SearchArea;
     height: 30px;
     width: 100%;
     border: none;
@@ -34,7 +34,7 @@ const Searchbar = styled.input`
 `;
 
 const Control = styled(FontAwesomeIcon)`
-    grid-area: controls;
+    grid-area: ControlsArea;
     margin: auto;
 `;
 

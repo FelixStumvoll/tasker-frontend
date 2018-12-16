@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Navbar from './components/navbar/Navbar';
-import TaskDashboard from './components/task/taskDashboard/TaskDashboard';
+
 import Store from './redux/store';
 import theme from './theme/theme';
-import TaskCreatePage from './components/task/taskCreatePage/TaskCreatePage';
+import MainContent from './components/mainContent/MainContent';
 
-const Content = styled.div`
-    padding: 20px;
-    margin-top: 50px;
+const MainGrid = styled.div`
+    height: 100%;
+    display: grid;
+    grid-template-areas:
+        'NavArea'
+        'MainArea';
+    grid-template-rows: ${({ theme }) => theme.navHeight}px 1fr;
+    grid-template-columns: 1fr;
+`;
+
+const GridWrapper = styled.div`
+    height: 100%;
+    grid-area: ${props => props.area};
 `;
 
 class App extends Component {
@@ -21,39 +31,14 @@ class App extends Component {
             <Provider store={Store}>
                 <BrowserRouter>
                     <ThemeProvider theme={theme}>
-                        <div>
-                            <Navbar />
-
-                            <main>
-                                <Switch>
-                                    <Route exact path="/">
-                                        <Redirect to="/tasks" />
-                                    </Route>
-                                </Switch>
-
-                                <Route
-                                    path="/(.+)"
-                                    render={() => (
-                                        <Content>
-                                            <Switch>
-                                                <Route
-                                                    path="/task/create"
-                                                    component={TaskCreatePage}
-                                                />
-                                                <Route
-                                                    path="/task/:id"
-                                                    component={TaskCreatePage}
-                                                />
-                                                <Route
-                                                    path="/tasks"
-                                                    component={TaskDashboard}
-                                                />
-                                            </Switch>
-                                        </Content>
-                                    )}
-                                />
-                            </main>
-                        </div>
+                        <MainGrid>
+                            <GridWrapper area="NavArea">
+                                <Navbar />
+                            </GridWrapper>
+                            <GridWrapper area="MainArea">
+                                <MainContent />
+                            </GridWrapper>
+                        </MainGrid>
                     </ThemeProvider>
                 </BrowserRouter>
             </Provider>
