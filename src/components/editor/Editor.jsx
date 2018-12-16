@@ -2,30 +2,12 @@
 import React from 'react';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
+import Plain from 'slate-plain-serializer';
 
-import CodeNode from './CodeNode';
-import BoldMark from './BoldMark';
-
-const initialValue = Value.fromJSON({
-    document: {
-        nodes: [
-            {
-                object: 'block',
-                type: 'paragraph',
-                nodes: [
-                    {
-                        object: 'text',
-                        leaves: [
-                            {
-                                text: 'A line of text in a paragraph.'
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
-});
+const existingValue = JSON.parse(localStorage.getItem('content'));
+const initialValue = existingValue
+    ? Value.fromJSON(existingValue)
+    : Plain.deserialize('');
 
 const MarkHotkey = options => {
     const { type, key } = options;
@@ -49,7 +31,7 @@ const MarkHotkey = options => {
 
 const plugins = [
     MarkHotkey({ key: 'b', type: 'bold' }),
-    MarkHotkey({ key: '`', type: 'code' }),
+    MarkHotkey({ key: 'k', type: 'code' }),
     MarkHotkey({ key: 'i', type: 'italic' }),
     MarkHotkey({ key: '-', type: 'strikethrough' }),
     MarkHotkey({ key: 'u', type: 'underline' })
@@ -58,21 +40,23 @@ const plugins = [
 // Define our app...
 export default class MyEditor extends React.Component {
     // Set the initial value when the app is first constructed.
-    state = {
-        value: initialValue
-    };
+
+    constructor(props) {
+        super(props);
+
+        this.editor = React.createRef();
+
+        this.state = {
+            value: initialValue
+        };
+    }
 
     // On change, update the app's React state with the new editor value.
     onChange = ({ value }) => {
-        this.setState({ value });
-    };
-
-    renderNode = (props, editor, next) => {
-        switch (props.node.type) {
-            case 'code':
-                return <CodeNode {...props} />;
-            default:
-                return next();
+        if (value.document !== this.state.value.document) {
+            const content = JSON.stringify(value.toJSON());
+            localStorage.setItem('content', content);
+            this.setState({ value });
         }
     };
 
@@ -94,17 +78,28 @@ export default class MyEditor extends React.Component {
         }
     };
 
+    onMarkClick = (e, type) => {
+        const editor = this.editor.current;
+        e.preventDefault();
+        editor.toggleMark(type);
+        editor.focus();
+    };
+
     // Render the editor.
     render() {
         return (
-            <Editor
-                value={this.state.value}
-                plugins={plugins}
-                onChange={this.onChange}
-                // onKeyDown={this.onKeyDown}
-                renderNode={this.renderNode}
-                renderMark={this.renderMark}
-            />
+            <div>
+                <button onClick={e => this.onMarkClick(e, 'code')}>Bold</button>
+                <Editor
+                    value={this.state.value}
+                    plugins={plugins}
+                    onChange={this.onChange}
+                    // onKeyDown={this.onKeyDown}
+                    // renderNode={this.renderNode}
+                    renderMark={this.renderMark}
+                    ref={this.editor}
+                />
+            </div>
         );
     }
 }

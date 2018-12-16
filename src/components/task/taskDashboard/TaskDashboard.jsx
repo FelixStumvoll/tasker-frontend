@@ -6,7 +6,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import TaskList from '../taskList/TaskList';
 import { createEmptyTask } from '../taskActions';
-import { TaskCreatePanel } from '../taskCreatePanel/TaskCreatePanel';
 
 const CreateTaskButton = styled.button`
     height: 40px;
@@ -26,6 +25,21 @@ const CreateTaskButton = styled.button`
         background-color: ${props => props.theme.positiveColor};
         color: white;
     }
+`;
+
+const TaskDashboardGrid = styled.div`
+    display: grid;
+    grid-template-areas: 'TaskSidebar CurrentTask';
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    width: 100%;
+    background-color: royalblue;
+`;
+
+const TaskSidebar = styled.aside`
+    grid-area: TaskSidebar;
+    border-right: 2px solid black;
 `;
 
 const TaskListGrid = styled.div`
@@ -51,16 +65,19 @@ class TaskDashboard extends Component {
 
     render() {
         return (
-            <TaskListGrid>
-                <TaskColumn>
-                    {/* <TaskCreatePanel /> */}
-                    <CreateTaskButton onClick={this.createTask}>
-                        <FontAwesomeIcon icon={faPlus} /> Create Task
-                    </CreateTaskButton>
-                    <Buffer />
-                    <TaskList />
-                </TaskColumn>
-            </TaskListGrid>
+            <TaskDashboardGrid>
+                <TaskSidebar />
+            </TaskDashboardGrid>
+            // <TaskListGrid>
+            //     <TaskColumn>
+            //         {/* <TaskCreatePanel /> */}
+            //         <CreateTaskButton onClick={this.createTask}>
+            //             <FontAwesomeIcon icon={faPlus} /> Create Task
+            //         </CreateTaskButton>
+            //         <Buffer />
+            //         <TaskList />
+            //     </TaskColumn>
+            // </TaskListGrid>
         );
     }
 }

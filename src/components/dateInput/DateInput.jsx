@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { DateUtils } from 'react-day-picker';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import styled from 'styled-components';
 import dateFnsFormat from 'date-fns/format';
