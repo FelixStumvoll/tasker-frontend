@@ -10,7 +10,8 @@ const List = styled.div`
 `;
 
 const FlexItem = styled.div`
-    margin-bottom: 20px;
+    height: 80px;
+    border-bottom: 2px solid black;
 `;
 
 class TaskList extends Component {

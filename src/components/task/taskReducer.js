@@ -19,7 +19,7 @@ const initialState = [
     {
         id: '2',
         title: 'test2',
-        description: 'test-description1',
+        description: 'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
         completed: false,
         editing: false,
         showAnimation: false,

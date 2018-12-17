@@ -9,34 +9,26 @@ import PropTypes from 'prop-types';
 import { updateTask, startEditTask } from '../taskActions';
 
 const TaskArea = styled.div`
+    height: 100%;
     display: grid;
-    grid-template-columns: 50px 95vh;
+    grid-template-areas:
+        'TitleArea'
+        'DescriptionArea';
+    grid-template-rows: 20px 1fr;
 `;
 
-const CheckedIcon = styled(FontAwesomeIcon)`
+const TaskTitle = styled.h1`
     margin: auto;
-    color: ${({ checked }) => (checked ? 'white' : 'black')};
+    grid-area: TitleArea;
+    font-size: 20px;
 `;
 
-const CheckedField = styled.button`
-    background-color: ${props => (props.checked ? 'green' : 'red')};
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    padding: 0;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: 250ms;
-`;
-
-const TaskView = styled.div`
-    padding: 5px 5px 5px 0px;
-    padding-left: 20px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: ${({ editing }) => (editing ? 'blue' : '#d30c7b')};
-    color: ${({ editing }) => (editing ? 'white' : 'black')};
-    transition: 250ms;
+const TaskText = styled.div`
+    max-width: 100%;
+    grid-area: DescriptionArea;
+    padding-left: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 `;
 
 class TaskListItem extends Component {
@@ -54,20 +46,8 @@ class TaskListItem extends Component {
         let { task } = this.props;
         return (
             <TaskArea>
-                <CheckedField
-                    checked={task.completed}
-                    onClick={this.completedClick}>
-                    <CheckedIcon
-                        checked={task.completed}
-                        icon={faCheck}
-                        size="2x"
-                    />
-                </CheckedField>
-                <TaskView
-                    editing={task.editing}
-                    onDoubleClick={this.showDetailView}
-                    on>
-                </TaskView>
+                <TaskTitle>{task.title}</TaskTitle>
+                <TaskText>{task.description}</TaskText>
             </TaskArea>
         );
     }

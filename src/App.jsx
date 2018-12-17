@@ -8,7 +8,7 @@ import Navbar from './components/navbar/Navbar';
 
 import Store from './redux/store';
 import theme from './theme/theme';
-import MainContent from './components/mainContent/MainContent';
+import Router from './components/router/Router';
 
 const MainGrid = styled.div`
     height: 100%;
@@ -36,7 +36,7 @@ class App extends Component {
                                 <Navbar />
                             </GridWrapper>
                             <GridWrapper area="MainArea">
-                                <MainContent />
+                                <Router />
                             </GridWrapper>
                         </MainGrid>
                     </ThemeProvider>
