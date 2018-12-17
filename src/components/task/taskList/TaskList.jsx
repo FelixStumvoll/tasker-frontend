@@ -10,7 +10,7 @@ const List = styled.div`
 `;
 
 const FlexItem = styled.div`
-    height: 80px;
+    height: 85px;
     border-bottom: 2px solid black;
 `;
 

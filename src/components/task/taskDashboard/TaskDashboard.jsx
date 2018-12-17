@@ -20,12 +20,13 @@ const TaskSidebar = styled.aside`
     grid-template-areas:
         'AddTaskArea'
         'TaskList';
-    grid-template-rows: 80px 1fr;
+    grid-template-rows: 85px 1fr;
     border-right: 2px solid black;
     width: 100%;
 `;
 
 const AddTaskButton = styled.button`
+    cursor: pointer;
     grid-area: AddTaskArea;
     border: none;
     font-size: 16px;

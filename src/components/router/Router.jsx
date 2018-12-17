@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import TaskDashboard from '../task/taskDashboard/TaskDashboard';
 import TaskCreatePage from '../task/taskCreatePage/TaskCreatePage';
 
-export default class MainContent extends Component {
+export default class Router extends Component {
     render() {
         return (
             <main style={{ height: '100%' }}>
@@ -18,11 +18,11 @@ export default class MainContent extends Component {
                     render={() => (
                         <Switch>
                             <Route
-                                path="/task/create"
+                                path="/tasks/create"
                                 component={TaskCreatePage}
                             />
                             <Route
-                                path="/task/:id"
+                                path="/tasks/:id"
                                 component={TaskCreatePage}
                             />
                             <Route path="/tasks" component={TaskDashboard} />

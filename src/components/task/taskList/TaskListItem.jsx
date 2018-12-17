@@ -14,11 +14,13 @@ const TaskArea = styled.div`
     grid-template-areas:
         'TitleArea'
         'DescriptionArea';
-    grid-template-rows: 20px 1fr;
+    grid-template-rows: 30px 1fr;
+    cursor: pointer;
 `;
 
 const TaskTitle = styled.h1`
     margin: auto;
+    padding-top: 5px;
     grid-area: TitleArea;
     font-size: 20px;
 `;
@@ -26,7 +28,7 @@ const TaskTitle = styled.h1`
 const TaskText = styled.div`
     max-width: 100%;
     grid-area: DescriptionArea;
-    padding-left: 5px;
+    padding: 5px 0px 0px 5px;
     text-overflow: ellipsis;
     overflow: hidden;
 `;
