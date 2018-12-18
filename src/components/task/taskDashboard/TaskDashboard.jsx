@@ -6,14 +6,16 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { createEmptyTask } from '../taskActions';
 import TaskList from '../taskList/TaskList';
+import TaskDetailPage from '../taskDetailPage/TaskDetailPage';
 
 const TaskDashboardGrid = styled.div`
     display: grid;
     grid-template-areas: 'TaskSidebarArea CurrentTaskArea';
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 300px 1fr;
     height: 100%;
 `;
 
+//todo make add Task Sticky
 const TaskSidebar = styled.aside`
     grid-area: TaskSidebarArea;
     display: grid;
@@ -23,6 +25,7 @@ const TaskSidebar = styled.aside`
     grid-template-rows: 85px 1fr;
     border-right: 2px solid black;
     width: 100%;
+    overflow-y: scroll;
 `;
 
 const AddTaskButton = styled.button`
@@ -60,7 +63,9 @@ class TaskDashboard extends Component {
                         <TaskList />
                     </div>
                 </TaskSidebar>
-                <CurrentTask />
+                <CurrentTask>
+                    <TaskDetailPage />
+                </CurrentTask>
             </TaskDashboardGrid>
         );
     }

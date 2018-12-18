@@ -10,19 +10,19 @@ const initialState = [
     {
         id: '1',
         title: 'test',
-        description:
-            'task 1',
+        description: 'task 1',
         completed: false,
         editing: false,
-        showAnimation: false,
+        showAnimation: false
     },
     {
         id: '2',
         title: 'test2',
-        description: 'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
         completed: false,
         editing: false,
-        showAnimation: false,
+        showAnimation: false
     },
     {
         id: '3',
@@ -30,16 +30,79 @@ const initialState = [
         description: 'test-description1',
         completed: false,
         editing: false,
-        showAnimation: false,
+        showAnimation: false
     },
     {
-        id: '5',
-        title: 'Okay this is epic',
-        description: 'alexa play despacito',
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
         completed: false,
         editing: false,
-        showAnimation: false,
-        parentTask: '1'
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
+    },
+    {
+        id: '2',
+        title: 'test2',
+        description:
+            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
+        completed: false,
+        editing: false,
+        showAnimation: false
     }
 ];
 
