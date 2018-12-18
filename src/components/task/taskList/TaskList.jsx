@@ -7,27 +7,27 @@ import Task from './TaskListItem';
 const List = styled.div`
     display: flex;
     flex-direction: column;
+    height: 100%;
 `;
 
 const FlexItem = styled.div`
     height: 85px;
     border-bottom: 1px solid black;
+    overflow: auto;
 `;
 
 class TaskList extends Component {
     render() {
         let { tasks } = this.props;
         return (
-            <div>
-                <List>
-                    {tasks &&
-                        tasks.map(task => (
-                            <FlexItem key={task.id}>
-                                <Task id={task.id} />
-                            </FlexItem>
-                        ))}
-                </List>
-            </div>
+            <List>
+                {tasks &&
+                    tasks.map(task => (
+                        <FlexItem key={task.id}>
+                            <Task id={task.id} />
+                        </FlexItem>
+                    ))}
+            </List>
         );
     }
 }

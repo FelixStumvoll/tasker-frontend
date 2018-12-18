@@ -11,12 +11,11 @@ import TaskDetailPage from '../taskDetailPage/TaskDetailPage';
 const TaskDashboardGrid = styled.div`
     display: grid;
     grid-template-areas: 'TaskSidebarArea CurrentTaskArea';
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: ${({ theme }) => theme.sidebarWidth}px 1fr;
     height: 100%;
 `;
 
-//todo make add Task Sticky
-const TaskSidebar = styled.aside`
+const TaskSidebar = styled.div`
     grid-area: TaskSidebarArea;
     display: grid;
     grid-template-areas:
@@ -24,8 +23,12 @@ const TaskSidebar = styled.aside`
         'TaskList';
     grid-template-rows: 85px 1fr;
     border-right: 2px solid black;
-    width: 100%;
-    overflow-y: scroll;
+    width: ${({ theme }) => theme.sidebarWidth}px;
+    height: calc(100% - 50px);
+    position: fixed;
+    top: ${({ theme }) => theme.navHeight}px;
+    left: 0;
+    overflow: auto;
 `;
 
 const AddTaskButton = styled.button`
@@ -47,6 +50,10 @@ const CurrentTask = styled.div`
     grid-area: CurrentTaskArea;
 `;
 
+const ListWrapper = styled.div`
+    grid-area: TaskList;
+`;
+
 class TaskDashboard extends Component {
     createTask = async () => {
         await this.props.createEmptyTask();
@@ -59,13 +66,11 @@ class TaskDashboard extends Component {
                     <AddTaskButton>
                         <FontAwesomeIcon icon={faPlus} /> Add Task
                     </AddTaskButton>
-                    <div style={{ gridArea: 'TaskList' }}>
+                    <ListWrapper>
                         <TaskList />
-                    </div>
+                    </ListWrapper>
                 </TaskSidebar>
-                <CurrentTask>
-                    <TaskDetailPage />
-                </CurrentTask>
+                <CurrentTask>ABCD</CurrentTask>
             </TaskDashboardGrid>
         );
     }
