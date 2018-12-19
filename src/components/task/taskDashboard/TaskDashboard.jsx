@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom';
 
 import { createEmptyTask } from '../taskActions';
 import TaskList from '../taskList/TaskList';
-import { TaskMainPage } from '../taskMainPage/TaskMainPage';
+import TaskMainPage from '../taskMainPage/TaskMainPage';
 
 const TaskDashboardGrid = styled.div`
     display: grid;
@@ -17,33 +17,25 @@ const TaskDashboardGrid = styled.div`
     width: 100%;
 `;
 
-const TaskSidebar = styled.div`
+const TaskSidebar = styled.aside`
     grid-area: TaskSidebarArea;
-    display: grid;
-    grid-template-areas:
-        'AddTaskArea'
-        'TaskList';
-    grid-template-rows: 85px 1fr;
     border-right: 2px solid black;
+    height: 100%;
     width: ${({ theme }) => theme.sidebarWidth};
-    height: calc(100% - ${({ theme }) => theme.navHeight});
-    position: fixed;
-    top: ${({ theme }) => theme.navHeight};
-    left: 0;
-    overflow: auto;
 `;
 
 //todo move to taskList
 const AddTaskButton = styled.button`
     cursor: pointer;
-    grid-area: AddTaskArea;
     border: none;
     font-size: 16px;
     background-color: white;
     border-bottom: 2px solid black;
     transition: ${({ theme }) => theme.transitionDuration};
-    position: sticky;
-    top: 0;
+    width: ${({ theme }) => theme.sidebarWidth};
+    height: 85px;
+    position: fixed;
+    top: ${({ theme }) => theme.navHeight};
 
     :hover {
         background-color: green;
@@ -51,14 +43,15 @@ const AddTaskButton = styled.button`
     }
 `;
 
-const CurrentTask = styled.div`
-    grid-area: CurrentTaskArea;
-    height: 100%;
-`;
-
 const ListWrapper = styled.div`
     grid-area: TaskList;
-    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 135px;
+    box-sizing: border-box;
+    width: ${({ theme }) => theme.sidebarWidth};
+    height: calc(100% - 135px);
+    overflow: auto;
 `;
 
 class TaskDashboard extends Component {
@@ -81,9 +74,7 @@ class TaskDashboard extends Component {
                         <TaskList />
                     </ListWrapper>
                 </TaskSidebar>
-                <CurrentTask>
-                    <Route path={`${match.url}/:id`} component={TaskMainPage} />
-                </CurrentTask>
+                <Route path={`${match.url}/:id`} component={TaskMainPage} />
             </TaskDashboardGrid>
         );
     }

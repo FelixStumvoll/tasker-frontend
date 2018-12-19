@@ -7,13 +7,15 @@ import Task from './TaskListItem';
 const List = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100%;
 `;
 
 const FlexItem = styled.div`
     height: 85px;
     border-bottom: 1px solid black;
-    overflow: auto;
+
+    /* :last-child {
+        border-bottom: none;
+    } */
 `;
 
 class TaskList extends Component {
