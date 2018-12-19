@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
 
 const Nav = styled.nav`
-    height: ${props => props.theme.navHeight}px;
+    height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
     grid-template-columns: 100px 1fr 400px 2fr 100px;

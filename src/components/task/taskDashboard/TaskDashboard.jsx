@@ -3,16 +3,18 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Route } from 'react-router-dom';
 
 import { createEmptyTask } from '../taskActions';
 import TaskList from '../taskList/TaskList';
-import TaskDetailPage from '../taskDetailPage/TaskDetailPage';
+import { TaskMainPage } from '../taskMainPage/TaskMainPage';
 
 const TaskDashboardGrid = styled.div`
     display: grid;
     grid-template-areas: 'TaskSidebarArea CurrentTaskArea';
-    grid-template-columns: ${({ theme }) => theme.sidebarWidth}px 1fr;
+    grid-template-columns: ${({ theme }) => theme.sidebarWidth} 1fr;
     height: 100%;
+    width: 100%;
 `;
 
 const TaskSidebar = styled.div`
@@ -23,22 +25,25 @@ const TaskSidebar = styled.div`
         'TaskList';
     grid-template-rows: 85px 1fr;
     border-right: 2px solid black;
-    width: ${({ theme }) => theme.sidebarWidth}px;
-    height: calc(100% - 50px);
+    width: ${({ theme }) => theme.sidebarWidth};
+    height: calc(100% - ${({ theme }) => theme.navHeight});
     position: fixed;
-    top: ${({ theme }) => theme.navHeight}px;
+    top: ${({ theme }) => theme.navHeight};
     left: 0;
     overflow: auto;
 `;
 
+//todo move to taskList
 const AddTaskButton = styled.button`
     cursor: pointer;
     grid-area: AddTaskArea;
     border: none;
     font-size: 16px;
-    background-color: transparent;
+    background-color: white;
     border-bottom: 2px solid black;
-    transition: ${({ theme }) => theme.transitionDuration}ms;
+    transition: ${({ theme }) => theme.transitionDuration};
+    position: sticky;
+    top: 0;
 
     :hover {
         background-color: green;
@@ -48,10 +53,12 @@ const AddTaskButton = styled.button`
 
 const CurrentTask = styled.div`
     grid-area: CurrentTaskArea;
+    height: 100%;
 `;
 
 const ListWrapper = styled.div`
     grid-area: TaskList;
+    height: 100%;
 `;
 
 class TaskDashboard extends Component {
@@ -60,6 +67,10 @@ class TaskDashboard extends Component {
     };
 
     render() {
+        let { match } = this.props;
+
+        // console.log('match.url :', match.url);
+
         return (
             <TaskDashboardGrid>
                 <TaskSidebar>
@@ -70,7 +81,9 @@ class TaskDashboard extends Component {
                         <TaskList />
                     </ListWrapper>
                 </TaskSidebar>
-                <CurrentTask>ABCD</CurrentTask>
+                <CurrentTask>
+                    <Route path={`${match.url}/:id`} component={TaskMainPage} />
+                </CurrentTask>
             </TaskDashboardGrid>
         );
     }

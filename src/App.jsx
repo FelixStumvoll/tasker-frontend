@@ -16,7 +16,7 @@ const MainGrid = styled.div`
     grid-template-areas:
         'NavArea'
         'MainArea';
-    grid-template-rows: ${({ theme }) => theme.navHeight}px 1fr;
+    grid-template-rows: ${({ theme }) => theme.navHeight} 1fr;
     grid-template-columns: 1fr;
 `;
 
