@@ -2,31 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
-import { TaskCreatePanel } from '../taskCreatePanel/TaskCreatePanel';
+import TaskCreatePanel from '../taskCreatePanel/TaskCreatePanel';
 
-const MainPanel = styled.div`
-    height: 100%;
-    box-sizing: border-box;
+const MainPanel = styled.main`
     padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    height: 100%;
 `;
 
 class TaskMainPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { task: undefined };
-    }
     render() {
         let { task } = this.props;
-
-        if (task === undefined) return <TaskEmptyPage />;
-
-        return <TaskCreatePanel />;
+        console.log('undefined', task === undefined);
+        return (
+            <MainPanel>
+                {task === undefined ? <TaskEmptyPage /> : <TaskCreatePanel />}
+            </MainPanel>
+        );
     }
 }
 
+//todo only save task id
 const mapStateToProps = ({ tasks }, ownprops) => {
     let task = tasks.find(x => x.id === ownprops.match.params.id);
-    return { task: task };
+    console.log('task :', task);
+    return { task };
 };
 
 const mapDispatchToProps = {};

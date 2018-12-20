@@ -80,7 +80,7 @@ export default class MyEditor extends React.Component {
 
     hasBlock = type => {
         const { value } = this.state;
-        return value.blocks.some(node => node.type == type);
+        return value.blocks.some(node => node.type === type);
     };
 
     onMarkClick = (e, type) => {
@@ -90,7 +90,6 @@ export default class MyEditor extends React.Component {
         editor.focus();
     };
 
-    // Render the editor.
     render() {
         return (
             <div>

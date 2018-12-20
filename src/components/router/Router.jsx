@@ -5,7 +5,7 @@ import TaskDashboard from '../task/taskDashboard/TaskDashboard';
 export default class Router extends Component {
     render() {
         return (
-            <main style={{ height: '100%' }}>
+            <div style={{ height: '100%' }}>
                 <Switch>
                     <Route exact path="/">
                         <Redirect to="/tasks" />
@@ -15,20 +15,10 @@ export default class Router extends Component {
                 <Route
                     path="/(.+)"
                     render={() => (
-                        // <Switch>
-                        //     <Route
-                        //         path="/tasks/create"
-                        //         component={TaskCreatePage}
-                        //     />
-                        //     <Route
-                        //         path="/tasks/:id"
-                        //         component={TaskCreatePage}
-                        //     />
                         <Route path="/tasks" component={TaskDashboard} />
-                        // </Switch>
                     )}
                 />
-            </main>
+            </div>
         );
     }
 }

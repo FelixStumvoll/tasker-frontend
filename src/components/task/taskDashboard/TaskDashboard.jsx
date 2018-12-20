@@ -24,7 +24,6 @@ const TaskSidebar = styled.aside`
     width: ${({ theme }) => theme.sidebarWidth};
 `;
 
-//todo move to taskList
 const AddTaskButton = styled.button`
     cursor: pointer;
     border: none;
@@ -38,7 +37,7 @@ const AddTaskButton = styled.button`
     top: ${({ theme }) => theme.navHeight};
 
     :hover {
-        background-color: green;
+        background-color: ${({ theme }) => theme.positiveColor};
         color: white;
     }
 `;
@@ -66,7 +65,8 @@ class TaskDashboard extends Component {
             <TaskDashboardGrid>
                 <TaskSidebar>
                     <AddTaskButton>
-                        <FontAwesomeIcon icon={faPlus} /> Add Task
+                        {/* todo change size of Plus Icon */}
+                        <FontAwesomeIcon icon={faPlus} /> Add Task 
                     </AddTaskButton>
                     <ListWrapper>
                         <TaskList />
