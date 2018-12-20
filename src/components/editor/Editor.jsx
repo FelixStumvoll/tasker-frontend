@@ -78,9 +78,14 @@ export default class MyEditor extends React.Component {
         }
     };
 
+    hasBlock = type => {
+        const { value } = this.state;
+        return value.blocks.some(node => node.type == type);
+    };
+
     onMarkClick = (e, type) => {
-        const editor = this.editor.current;
         e.preventDefault();
+        const editor = this.editor.current;
         editor.toggleMark(type);
         editor.focus();
     };
@@ -89,7 +94,7 @@ export default class MyEditor extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={e => this.onMarkClick(e, 'code')}>Bold</button>
+                <button onClick={e => this.onMarkClick(e, 'bold')}>Bold</button>
                 <Editor
                     value={this.state.value}
                     plugins={plugins}

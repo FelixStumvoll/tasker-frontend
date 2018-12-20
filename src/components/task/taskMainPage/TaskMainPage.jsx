@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
+import { TaskCreatePanel } from '../taskCreatePanel/TaskCreatePanel';
 
 const MainPanel = styled.div`
     height: 100%;
@@ -14,15 +16,16 @@ class TaskMainPage extends Component {
         this.state = { task: undefined };
     }
     render() {
-        console.log('this.state.task :', this.props.task);
+        let { task } = this.props;
 
-        return <MainPanel>ABCD</MainPanel>;
+        if (task === undefined) return <TaskEmptyPage />;
+
+        return <TaskCreatePanel />;
     }
 }
 
 const mapStateToProps = ({ tasks }, ownprops) => {
     let task = tasks.find(x => x.id === ownprops.match.params.id);
-    console.log('task', task);
     return { task: task };
 };
 

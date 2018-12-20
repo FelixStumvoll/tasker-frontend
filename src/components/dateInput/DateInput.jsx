@@ -3,7 +3,6 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import styled from 'styled-components';
 import dateFnsFormat from 'date-fns/format';
 import 'react-day-picker/lib/style.css';
-import './dateInput.css';
 
 const DateField = styled.input`
     border: none;
