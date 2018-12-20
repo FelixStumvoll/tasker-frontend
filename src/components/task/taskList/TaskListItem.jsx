@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { updateTask, startEditTask } from '../taskActions';
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+`;
 
 const TaskArea = styled.div`
     height: 100%;
@@ -13,7 +19,6 @@ const TaskArea = styled.div`
         'TitleArea'
         'DescriptionArea';
     grid-template-rows: 30px 1fr;
-    cursor: pointer;
 `;
 
 const TaskTitle = styled.h1`
@@ -39,16 +44,18 @@ class TaskListItem extends Component {
     };
 
     showDetailView = () => {
-        this.props.history.push(`/task/${this.props.task.id}`);
+        this.props.history.push(`/tasks/${this.props.task.id}`);
     };
 
     render() {
         let { task } = this.props;
         return (
-            <TaskArea>
-                <TaskTitle>{task.title}</TaskTitle>
-                <TaskText>{task.description}</TaskText>
-            </TaskArea>
+            <StyledLink to={`/tasks/${task.id}`}>
+                <TaskArea>
+                    <TaskTitle>{task.title}</TaskTitle>
+                    <TaskText>{task.description}</TaskText>
+                </TaskArea>
+            </StyledLink>
         );
     }
 }

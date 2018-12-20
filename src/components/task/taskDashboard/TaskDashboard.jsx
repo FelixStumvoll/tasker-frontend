@@ -62,8 +62,6 @@ class TaskDashboard extends Component {
     render() {
         let { match } = this.props;
 
-        // console.log('match.url :', match.url);
-
         return (
             <TaskDashboardGrid>
                 <TaskSidebar>
