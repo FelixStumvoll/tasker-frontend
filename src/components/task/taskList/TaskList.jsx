@@ -11,11 +11,15 @@ const List = styled.div`
 
 const FlexItem = styled.div`
     height: 85px;
-    border-bottom: 1px solid black;
+    background-color: ${({ theme }) => theme.primaryColor};
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 2px;
+    margin: 5px;
 
-    /* :last-child {
-        border-bottom: none;
-    } */
+    :last-child {
+        margin-bottom: 0px;
+    }
 `;
 
 class TaskList extends Component {

@@ -8,6 +8,7 @@ const DateField = styled.input`
     border: none;
     outline: none;
     padding-left: 5px;
+    cursor: pointer;
 `;
 
 export default class DateInput extends Component {
@@ -34,7 +35,7 @@ export default class DateInput extends Component {
             return;
         }
 
-        callback(selectedDay); //sadly setState is to slow
+        callback(selectedDay);
     };
 
     render() {

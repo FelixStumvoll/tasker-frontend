@@ -13,7 +13,8 @@ const initialState = [
         description: 'task 1',
         completed: false,
         editing: false,
-        showAnimation: false
+        showAnimation: false,
+        tags: []
     },
     {
         id: '2',
@@ -22,7 +23,8 @@ const initialState = [
             'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb6666',
         completed: false,
         editing: false,
-        showAnimation: false
+        showAnimation: false,
+        tags: []
     },
     {
         id: '3',
@@ -30,94 +32,14 @@ const initialState = [
         description: 'test-description1',
         completed: false,
         editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxc6656516156516556156561561vb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '2',
-        title: 'test2',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '500',
-        title: 'test25',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
-    },
-    {
-        id: '501',
-        title: 'test26',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb',
-        completed: false,
-        editing: false,
-        showAnimation: false
+        showAnimation: false,
+        tags: []
     }
 ];
 
 export default (state = initialState, action) => {
     let { type, payload } = action;
-
+    console.log('action triggered');
     switch (type) {
         case TASK_UPDATE:
             let updateIndex = getTaskById(payload.task.id, state);

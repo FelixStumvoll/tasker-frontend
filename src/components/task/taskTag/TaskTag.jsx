@@ -15,18 +15,21 @@ const Tag = styled.div`
 `;
 
 const TagText = styled.div`
-    height: 12px;
     display: inline;
 `;
 
 const RemoveArea = styled.div`
     margin-left: 5px;
     cursor: pointer;
+    border: none;
+    padding: 0;
+    outline: blue;
 `;
 
 const RemoveIcon = styled(FontAwesomeIcon)`
     height: 12px;
     color: white;
+    margin: auto;
 `;
 
 export default props => {

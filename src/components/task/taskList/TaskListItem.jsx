@@ -6,13 +6,11 @@ import PropTypes from 'prop-types';
 
 import { updateTask, startEditTask } from '../taskActions';
 
-const StyledLink = styled(Link)`
+const TaskArea = styled(Link)`
     text-decoration: none;
     color: black;
+    background-color: inherit;
     cursor: pointer;
-`;
-
-const TaskArea = styled.div`
     height: 100%;
     display: grid;
     grid-template-areas:
@@ -25,13 +23,14 @@ const TaskTitle = styled.h1`
     margin: auto;
     padding-top: 5px;
     grid-area: TitleArea;
-    font-size: 20px;
+    font-size: ${({ theme }) => theme.defaultFontSize};
 `;
 
 const TaskText = styled.div`
     max-width: 100%;
     grid-area: DescriptionArea;
-    padding: 5px 0px 0px 5px;
+    padding: 5px;
+    white-space: pre;
     text-overflow: ellipsis;
     overflow: hidden;
 `;
@@ -50,12 +49,10 @@ class TaskListItem extends Component {
     render() {
         let { task } = this.props;
         return (
-            <StyledLink to={`/tasks/${task.id}`}>
-                <TaskArea>
-                    <TaskTitle>{task.title}</TaskTitle>
-                    <TaskText>{task.description}</TaskText>
-                </TaskArea>
-            </StyledLink>
+            <TaskArea to={`/tasks/${task.id}`}>
+                <TaskTitle>{task.title}</TaskTitle>
+                <TaskText>{task.description}</TaskText>
+            </TaskArea>
         );
     }
 }
