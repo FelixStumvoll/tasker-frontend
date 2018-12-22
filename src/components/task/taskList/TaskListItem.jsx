@@ -21,9 +21,12 @@ const TaskArea = styled(Link)`
 
 const TaskTitle = styled.h1`
     margin: auto;
+    max-width: 100%;
     padding-top: 5px;
     grid-area: TitleArea;
     font-size: ${({ theme }) => theme.defaultFontSize};
+    text-overflow: ellipsis;
+    overflow: hidden;
 `;
 
 const TaskText = styled.div`

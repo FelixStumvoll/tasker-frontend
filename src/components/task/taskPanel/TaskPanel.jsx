@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import debounce from 'debounce';
 
 import DateInput from '../../dateInput/DateInput';
-import TaskTag from '../taskTag/TaskTag';
+
 import { updateTask } from '../taskActions';
 import Editor from '../../editor/Editor';
+import TagArea from '../taskTag/tagArea/TagArea';
 
 const MainGrid = styled.article`
     display: grid;
@@ -46,16 +47,7 @@ const InfoGrid = styled.div`
     padding: 5px;
 `;
 
-const TagGrid = styled.div`
-    grid-area: Tag;
-    display: grid;
-    background-color: ${({ theme }) => theme.primaryColor};
-    border-radius: 10px;
-    padding: 5px;
-    grid-template-areas: 'TagInput' 'TagArea';
-    grid-template-rows: 30px 1fr;
-    grid-row-gap: 10px;
-`;
+const TagGrid = styled.div``;
 
 const DetailLabel = styled.label`
     grid-area: ${props => props.gridArea};
@@ -79,44 +71,33 @@ const TitleInput = styled.input`
     font-size: 20px;
     width: 100%;
     box-sizing: border-box;
-    margin: auto;
-`;
-
-const TagInput = styled.input`
-    grid-area: TagInput;
-    height: 30px;
     border: none;
+    border-radius: 10px;
     padding-left: 5px;
-    width: 100%;
-    box-sizing: border-box;
 `;
 
-const TagArea = styled.div`
-    grid-area: TagArea;
-    display: flex;
-    flex-wrap: wrap;
-    overflow: auto;
+const TagAreaWrapper = styled.div`
+    grid-area: Tag;
+    background-color: ${({ theme }) => theme.primaryColor};
+    border-radius: 10px;
+    padding: 5px;
+    max-height: 100%;
 `;
 
 const DateWrapper = styled.div`
     grid-area: DateInput;
 `;
 
-const TagWrapper = styled.div`
-    margin: 2.5px;
-`;
-
 class TaskPanel extends Component {
     constructor(props) {
         super(props);
-        this.state = { task: Object.assign({}, props.task), tagValue: '' };
+        this.state = { task: Object.assign({}, props.task) };
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.task.id !== prevProps.task.id) {
             this.setState({
-                task: Object.assign({}, this.props.task),
-                tagValue: ''
+                task: Object.assign({}, this.props.task)
             });
         }
     }
@@ -135,37 +116,6 @@ class TaskPanel extends Component {
         this.updateTaskState(dueDate, 'dueDate');
     };
 
-    onTagInput = e => {
-        this.setState({ tagValue: e.target.value });
-    };
-
-    onTagKeypress = e => {
-        if (e.key === 'Enter') {
-            this.addTaskTag();
-        }
-    };
-
-    addTaskTag = () => {
-        let { tagValue, task } = this.state;
-        if (!this.taskTagExists(tagValue) && /\S/.test(tagValue)) {
-            task.tags.push(tagValue);
-            this.setState({ task, tagValue: '' });
-            this.debouncedSave();
-        }
-    };
-
-    taskTagExists = tagName => {
-        return this.state.task.tags.includes(tagName);
-    };
-
-    removeTag = tagName => {
-        let {
-            task: { tags }
-        } = this.state;
-        tags.splice(tags.indexOf(tagName), 1);
-        this.updateTaskState(tags, 'tags');
-    };
-
     updateTaskState = (value, property) => {
         let { task } = this.state;
         task[property] = value;
@@ -175,7 +125,7 @@ class TaskPanel extends Component {
     //#endregion
 
     render() {
-        let { tagValue, task } = this.state;
+        let { task } = this.state;
 
         return (
             <MainGrid>
@@ -191,6 +141,7 @@ class TaskPanel extends Component {
                             value={task.title}
                             name="Tasktitle"
                             id="title"
+                            placeholder="Task Title"
                         />
                         <DetailLabel gridArea="DateLabel" for="duedate">
                             Duedate:
@@ -199,29 +150,9 @@ class TaskPanel extends Component {
                             <DateInput callback={this.changeDateCallback} />
                         </DateWrapper>
                     </InfoGrid>
-                    <TagGrid>
-                        <TagInput
-                            onKeyDown={this.onTagKeypress}
-                            onChange={this.onTagInput}
-                            placeholder="Enter Tags"
-                            value={tagValue}
-                            maxLength="30"
-                        />
-                        <TagArea>
-                            {task.tags.map((tagText, index) => {
-                                return (
-                                    <TagWrapper key={index}>
-                                        <TaskTag
-                                            callback={() =>
-                                                this.removeTag(tagText)
-                                            }
-                                            value={tagText}
-                                        />
-                                    </TagWrapper>
-                                );
-                            })}
-                        </TagArea>
-                    </TagGrid>
+                    <TagAreaWrapper>
+                        <TagArea taskId={task.id} />
+                    </TagAreaWrapper>
                 </DetailGrid>
                 <EditorArea>
                     <Editor />
