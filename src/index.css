@@ -14,5 +14,5 @@ body {
 
 * {
     font-family: sans-serif;
-    transition-duration: 250ms;
+    /* transition-duration: 250ms; */
 }

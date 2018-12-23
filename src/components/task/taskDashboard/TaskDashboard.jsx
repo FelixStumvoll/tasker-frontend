@@ -24,7 +24,6 @@ const AddTaskButton = styled.button`
     font-weight: bold;
     background-color: white;
     border-bottom: 2px solid black;
-    transition: ${({ theme }) => theme.transitionDuration};
     width: ${({ theme }) => theme.sidebarWidth};
     height: 85px;
     position: fixed;

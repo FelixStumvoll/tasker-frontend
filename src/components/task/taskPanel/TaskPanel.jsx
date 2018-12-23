@@ -31,7 +31,7 @@ const DetailGrid = styled.div`
         '.    Tag';
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
-    grid-template-rows: 50px 50px 50px;
+    grid-template-rows: 30px 50px 50px;
 `;
 
 const InfoGrid = styled.div`
@@ -40,19 +40,17 @@ const InfoGrid = styled.div`
     grid-template-areas:
         'TitleLabel TitleInput'
         'DateLabel DateInput';
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 70px 1fr;
     grid-auto-rows: 1fr 1fr;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: 10px;
     padding: 5px;
 `;
 
-const TagGrid = styled.div``;
-
 const DetailLabel = styled.label`
     grid-area: ${props => props.gridArea};
-    margin: auto auto auto 0px;
-    font-size: 20px;
+    margin: auto;
+    font-size: 16px;
     font-weight: bold;
 `;
 
@@ -126,7 +124,7 @@ class TaskPanel extends Component {
 
     render() {
         let { task } = this.state;
-
+        console.log('task.dueDate', task.dueDate);
         return (
             <MainGrid>
                 <DetailGrid>
@@ -147,7 +145,10 @@ class TaskPanel extends Component {
                             Duedate:
                         </DetailLabel>
                         <DateWrapper>
-                            <DateInput callback={this.changeDateCallback} />
+                            <DateInput
+                                selectedDate={task.dueDate}
+                                callback={this.changeDateCallback}
+                            />
                         </DateWrapper>
                     </InfoGrid>
                     <TagAreaWrapper>

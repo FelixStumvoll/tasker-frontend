@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
 import styled from 'styled-components';
 import dateFnsFormat from 'date-fns/format';
 import 'react-day-picker/lib/style.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const DateField = styled.input`
     border: none;
@@ -14,9 +15,13 @@ const DateField = styled.input`
 export default class DateInput extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            selectedDay: undefined
-        };
+        this.state = { date: props.selectedDate };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.selectedDate !== prevProps.selectedDate) {
+            this.setState({ date: this.props.selectedDate });
+        }
     }
 
     formatDate = (date, format, locale) => {
@@ -38,39 +43,24 @@ export default class DateInput extends Component {
         callback(selectedDay);
     };
 
+    handleChange = date => {
+        this.setState({
+            date
+        });
+        this.props.callback(date);
+    };
+
     render() {
-        let { selectedDay } = this.state;
-
-        const modifiers = {
-            today: new Date()
-        };
-
-        const modifiersStyles = {
-            today: {
-                backgroundColor: 'green',
-                color: 'white'
-            }
-        };
-
-        const FORMAT = 'dd.MM.yyyy';
+        let { date } = this.state;
 
         return (
-            <DayPickerInput
-                component={props => (
-                    <DateField value={selectedDay} {...props} readOnly />
-                )}
-                placeholder="Enter a due Date"
-                onDayChange={this.handleDayChange}
-                formatDate={this.formatDate}
-                format={FORMAT}
-                clickUnselectsDay={true}
-                dayPickerProps={{
-                    modifiers,
-                    modifiersStyles,
-                    onDayClick: this.handleDayClick,
-                    selectedDays: this.state.selectedDay,
-                    disabledDays: { before: new Date() }
-                }}
+            <DatePicker
+                dateFormat="dd.MM.yyyy"
+                selected={date}
+                onChange={this.handleChange}
+                placeholderText="Select a date"
+                isClearable={true}
+                minDate={new Date()}
             />
         );
     }
