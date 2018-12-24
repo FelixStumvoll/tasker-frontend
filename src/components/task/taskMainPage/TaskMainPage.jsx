@@ -27,7 +27,6 @@ class TaskMainPage extends Component {
     }
 }
 
-//todo only save task id
 const mapStateToProps = ({ tasks }, ownprops) => {
     let task = tasks.find(x => x.id === ownprops.match.params.id);
     return { task };

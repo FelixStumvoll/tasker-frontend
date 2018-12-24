@@ -31,7 +31,7 @@ const DetailGrid = styled.div`
         '.    Tag';
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
-    grid-template-rows: 30px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
 `;
 
 const InfoGrid = styled.div`
@@ -49,7 +49,7 @@ const InfoGrid = styled.div`
 
 const DetailLabel = styled.label`
     grid-area: ${props => props.gridArea};
-    margin: auto;
+    margin: auto auto auto 0px;
     font-size: 16px;
     font-weight: bold;
 `;
@@ -61,13 +61,13 @@ const EditorArea = styled.div`
     padding: 5px;
     overflow: auto;
     display: flex;
+    height: fit-content;
 `;
 
 const TitleInput = styled.input`
     grid-area: TitleInput;
     height: 30px;
-    font-size: 20px;
-    width: 100%;
+    margin: auto 0px auto 0px;
     box-sizing: border-box;
     border: none;
     border-radius: 10px;
@@ -84,6 +84,9 @@ const TagAreaWrapper = styled.div`
 
 const DateWrapper = styled.div`
     grid-area: DateInput;
+    /* width: 100%;
+    height: 100%; */
+    margin: auto 0px auto 0px;
 `;
 
 class TaskPanel extends Component {

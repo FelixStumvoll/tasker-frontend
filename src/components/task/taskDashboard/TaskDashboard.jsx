@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { createEmptyTask } from '../taskActions';
 import TaskList from '../taskList/TaskList';
 import TaskMainPage from '../taskMainPage/TaskMainPage';
+import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
 
 const TaskSidebar = styled.aside`
     position: fixed;
@@ -79,7 +80,14 @@ class TaskDashboard extends Component {
                     </ListWrapper>
                 </TaskSidebar>
                 <ContentWrapper>
-                    <Route path={`${match.url}/:id`} component={TaskMainPage} />
+                    <Switch>
+                        {/* todo remove mainpage */}
+                        <Route
+                            path={`${match.url}/:id`}
+                            component={TaskMainPage} 
+                        />
+                        <Route path="" component={TaskEmptyPage} />
+                    </Switch>
                 </ContentWrapper>
             </MainView>
         );

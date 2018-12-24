@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import dateFnsFormat from 'date-fns/format';
-import 'react-day-picker/lib/style.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
-const DateField = styled.input`
-    border: none;
-    outline: none;
-    padding-left: 5px;
-    cursor: pointer;
-`;
+import './datepicker.css';
 
 export default class DateInput extends Component {
     constructor(props) {
@@ -61,6 +53,7 @@ export default class DateInput extends Component {
                 placeholderText="Select a date"
                 isClearable={true}
                 minDate={new Date()}
+                className="datepicker"
             />
         );
     }

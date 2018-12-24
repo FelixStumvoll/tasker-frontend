@@ -13,6 +13,7 @@ const Nav = styled.nav`
     top: 0px;
     left: 0px;
     width: 100%;
+    z-index: 1000;
     grid-template-areas: 'HomeArea . SearchArea . ControlsArea';
 `;
 
