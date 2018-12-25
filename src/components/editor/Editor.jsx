@@ -62,18 +62,7 @@ const MarkHotkey = options => {
     };
 };
 
-const plugins = [
-    MarkHotkey({ key: 'b', type: 'bold' }),
-    MarkHotkey({ key: 'k', type: 'code' }),
-    MarkHotkey({ key: 'i', type: 'italic' }),
-    MarkHotkey({ key: '-', type: 'strikethrough' }),
-    MarkHotkey({ key: 'u', type: 'underline' })
-];
-
-// Define our app...
 export default class MyEditor extends React.Component {
-    // Set the initial value when the app is first constructed.
-
     constructor(props) {
         super(props);
 
@@ -88,7 +77,6 @@ export default class MyEditor extends React.Component {
         switch (props.mark.type) {
             case 'bold':
                 return <strong>{props.children}</strong>;
-            // Add our new mark renderers...
             case 'code':
                 return <code>{props.children}</code>;
             case 'italic':
@@ -134,7 +122,6 @@ export default class MyEditor extends React.Component {
     };
 
     onMarkClick = (e, type) => {
-        console.log(e);
         e.preventDefault();
         const editor = this.editor.current;
         editor.toggleMark(type);
@@ -209,9 +196,7 @@ export default class MyEditor extends React.Component {
         const isActive = this.hasMark(type);
         console.log('isActive :', isActive);
 
-        return (
-            <button onClick={e => this.onMarkClick(e, 'bold')}>{icon}</button>
-        );
+        return <button onClick={e => this.onMarkClick(e, type)}>{icon}</button>;
     };
 
     renderBlockButton = (type, icon) => {
@@ -244,7 +229,16 @@ export default class MyEditor extends React.Component {
                 <EditorScrollPane>
                     {/* <button onClick={e => this.onMarkClick(e, 'bold')}>Bold</button> */}
                     {this.renderMarkButton('bold', 'bold')}
+                    {this.renderMarkButton('italic', 'italic')}
+                    {this.renderMarkButton('underline', 'underline')}
+                    {this.renderMarkButton('strikethrough', 'strikethrough')}
+                    {this.renderMarkButton('code', 'code')}
                     {this.renderBlockButton('heading-one', 'Heading')}
+                    {this.renderBlockButton('heading-two', 'Heading2')}
+                    {this.renderBlockButton('block-quote', 'Quote')}
+                    {this.renderBlockButton('numbered-list', 'Numbered List')}
+                    {this.renderBlockButton('bulleted-list', 'Bullet List')}
+
                     <Editor
                         spellCheck
                         autoFocus
