@@ -13,6 +13,7 @@ const Nav = styled.nav`
     top: 0px;
     left: 0px;
     width: 100%;
+    font-family: ${({ theme }) => theme.defaultFont};
     z-index: 1000;
     grid-template-areas: 'HomeArea . SearchArea . ControlsArea';
 `;
@@ -32,6 +33,7 @@ const Searchbar = styled.input`
     border-radius: 5px;
     padding-left: 5px;
     margin: auto;
+    font-family: inherit;
 `;
 
 const Control = styled(FontAwesomeIcon)`

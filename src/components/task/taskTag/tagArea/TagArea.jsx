@@ -23,6 +23,7 @@ const TagInput = styled.input`
     width: 100%;
     box-sizing: border-box;
     border-radius: 10px;
+    font-family: ${({ theme }) => theme.defaultFont};
 `;
 
 const Tags = styled.div`

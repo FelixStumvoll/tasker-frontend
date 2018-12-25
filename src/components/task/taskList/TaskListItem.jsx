@@ -17,6 +17,7 @@ const TaskArea = styled(Link)`
         'TitleArea'
         'DescriptionArea';
     grid-template-rows: 30px 1fr;
+    font-family: ${({ theme }) => theme.defaultFont};
 `;
 
 const TaskTitle = styled.h1`

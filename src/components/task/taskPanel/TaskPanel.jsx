@@ -20,6 +20,7 @@ const MainGrid = styled.article`
     grid-row-gap: 20px;
     width: 100%;
     height: 100%;
+    font-family: ${({ theme }) => theme.defaultFont};
 `;
 
 const DetailGrid = styled.div`
@@ -72,6 +73,7 @@ const TitleInput = styled.input`
     border: none;
     border-radius: 10px;
     padding-left: 5px;
+    font-family: inherit;
 `;
 
 const TagAreaWrapper = styled.div`

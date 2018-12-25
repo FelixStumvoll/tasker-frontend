@@ -6,5 +6,6 @@ export default {
     negativeColor: '#ED254E',
     transitionDuration: '250ms',
     sidebarWidth: '20vw',
-    defaultFontSize: '16px'
+    defaultFontSize: '16px',
+    defaultFont: 'sans-serif'
 };
