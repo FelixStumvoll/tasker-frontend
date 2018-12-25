@@ -182,19 +182,15 @@ export default class MyEditor extends React.Component {
 
     onKeyDown = (event, editor, next) => {
         let hotkey = isHotkey(event);
-        // console.log('hotkey', hotkey);
         if (hotkey) {
-            // event.preventDefault();
             editor.toggleMark(hotkey);
         } else {
-            // console.log('next');
             return next();
         }
     };
 
     renderMarkButton = (type, icon) => {
         const isActive = this.hasMark(type);
-        console.log('isActive :', isActive);
 
         return <button onClick={e => this.onMarkClick(e, type)}>{icon}</button>;
     };

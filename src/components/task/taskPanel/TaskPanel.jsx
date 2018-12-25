@@ -9,6 +9,8 @@ import DateInput from '../../dateInput/DateInput';
 import { updateTask } from '../taskActions';
 import Editor from '../../editor/Editor';
 import TagArea from '../taskTag/tagArea/TagArea';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const MainGrid = styled.article`
     display: grid;
@@ -50,7 +52,7 @@ const InfoGrid = styled.div`
 
 const DetailLabel = styled.label`
     grid-area: ${props => props.gridArea};
-    margin: auto auto auto 0px;
+    margin: auto auto auto 5px;
     font-size: 16px;
     font-weight: bold;
 `;
@@ -86,8 +88,6 @@ const TagAreaWrapper = styled.div`
 
 const DateWrapper = styled.div`
     grid-area: DateInput;
-    /* width: 100%;
-    height: 100%; */
     margin: auto 0px auto 0px;
 `;
 
@@ -129,7 +129,6 @@ class TaskPanel extends Component {
 
     render() {
         let { task } = this.state;
-        console.log('task.dueDate', task.dueDate);
         return (
             <MainGrid>
                 <DetailGrid>
@@ -147,12 +146,13 @@ class TaskPanel extends Component {
                             placeholder="Task Title"
                         />
                         <DetailLabel gridArea="DateLabel" for="duedate">
-                            Duedate:
+                            <FontAwesomeIcon icon={faCalendarAlt} /> :
                         </DetailLabel>
                         <DateWrapper>
                             <DateInput
                                 selectedDate={task.dueDate}
                                 callback={this.changeDateCallback}
+                                id="duedate"
                             />
                         </DateWrapper>
                     </InfoGrid>
