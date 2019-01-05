@@ -10,29 +10,55 @@ const initialState = [
     {
         id: '1',
         title: 'test',
-        description: 'task 1',
-        completed: false,
-        editing: false,
-        showAnimation: false,
+        text: undefined,
         tags: []
     },
     {
         id: '2',
         title: 'test554',
-        description:
-            'test-description1cvxyvxyc\nasdfasdfsadfasfcxvbcvxbcxvbxcvbxcvb6666',
-        completed: false,
-        editing: false,
-        showAnimation: false,
+        text: undefined,
         tags: []
     },
     {
         id: '3',
-        title: '',
-        description: 'test-description1',
-        completed: false,
-        editing: false,
-        showAnimation: false,
+        title: 'biggus Dickus',
+        text: undefined,
+        tags: []
+    },
+    {
+        id: '4',
+        title: 'biggus Dickus',
+        text: undefined,
+        tags: []
+    },
+    {
+        id: '5',
+        title: 'biggus Dickus',
+        text: undefined,
+        tags: []
+    },
+    {
+        id: '6',
+        title: 'biggus Dickus',
+        text: undefined,
+        tags: []
+    },
+    {
+        id: '7',
+        title: 'biggus Dickus',
+        text: undefined,
+        tags: []
+    },
+    {
+        id: '8',
+        title: 'biggus Dickus',
+        text: undefined,
+        tags: []
+    },
+    {
+        id: '9',
+        title: 'biggus Dickus',
+        text: undefined,
         tags: []
     }
 ];

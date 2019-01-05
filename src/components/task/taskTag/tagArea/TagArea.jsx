@@ -9,7 +9,7 @@ import TaskTag from '../TaskTag';
 const TagAreaGrid = styled.div`
     display: grid;
     grid-template-areas: 'TagInput' 'Tags';
-    grid-template-rows: 50px auto;
+    grid-template-rows: 30px auto;
     grid-row-gap: 5px;
     width: 100%;
     height: 100%;
@@ -19,7 +19,7 @@ const TagInput = styled.input`
     grid-area: TagInput;
     height: 30px;
     border: none;
-    padding-left: 5px;
+    padding: 0px 0px 0px 5px;
     width: 100%;
     box-sizing: border-box;
     border-radius: 10px;

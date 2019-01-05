@@ -1,18 +1,37 @@
-// Import React!
 import React from 'react';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
 import styled from 'styled-components';
 
+import EditorButton from './buttons/EditorButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faBold,
+    faItalic,
+    faUnderline,
+    faStrikethrough,
+    faCode,
+    faHeading,
+    faListOl,
+    faListUl
+} from '@fortawesome/free-solid-svg-icons';
+
 const EditorArea = styled.div`
     height: 100%;
     width: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-row-gap: 10px;
+`;
+
+const ButtonArea = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 `;
 
 const EditorScrollPane = styled.div`
-    /* display: flex; */
-    /* flex-direction: column; */
     height: 100%;
     max-height: 100%;
     overflow: auto;
@@ -37,31 +56,6 @@ const isHotkey = event => {
     }
 };
 
-const existingValue = JSON.parse(localStorage.getItem('content'));
-const initialValue = existingValue
-    ? Value.fromJSON(existingValue)
-    : Plain.deserialize('');
-
-const MarkHotkey = options => {
-    const { type, key } = options;
-
-    // Return our "plugin" object, containing the `onKeyDown` handler.
-    return {
-        onKeyDown(event, editor, next) {
-            // If it doesn't match our `key`, let other plugins handle it.
-            if (!event.ctrlKey || event.key !== key) {
-                return next();
-            }
-
-            // Prevent the default characters from being inserted.
-            event.preventDefault();
-
-            // Toggle the mark `type`.
-            editor.toggleMark(type);
-        }
-    };
-};
-
 export default class MyEditor extends React.Component {
     constructor(props) {
         super(props);
@@ -69,8 +63,20 @@ export default class MyEditor extends React.Component {
         this.editor = React.createRef();
 
         this.state = {
-            value: initialValue
+            value: this.getInitValue(props.initialValue)
         };
+    }
+
+    getInitValue = value => {
+        return value ? Value.fromJSON(value) : Plain.deserialize('');
+    };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.initialValue !== prevProps.initialValue) {
+            this.setState({
+                value: this.getInitValue(this.props.initialValue)
+            });
+        }
     }
 
     renderMark = (props, editor, next) => {
@@ -118,7 +124,7 @@ export default class MyEditor extends React.Component {
 
     hasBlock = type => {
         const { value } = this.state;
-        return value.blocks.some(node => node.type == type);
+        return value.blocks.some(node => node.type === type);
     };
 
     onMarkClick = (e, type) => {
@@ -148,7 +154,6 @@ export default class MyEditor extends React.Component {
                 editor.setBlocks(isActive ? DEFAULT_NODE : type);
             }
         } else {
-            // Handle the extra wrapping required for list buttons.
             const isList = this.hasBlock('list-item');
             const isType = value.blocks.some(block => {
                 return !!document.getClosest(
@@ -176,7 +181,11 @@ export default class MyEditor extends React.Component {
         }
     };
 
-    onChange = ({ value }) => {
+    onChange = async ({ value }) => {
+        if (value.document !== this.state.value.document) {
+            this.props.onChange(value.toJSON());
+        }
+
         this.setState({ value });
     };
 
@@ -192,7 +201,13 @@ export default class MyEditor extends React.Component {
     renderMarkButton = (type, icon) => {
         const isActive = this.hasMark(type);
 
-        return <button onClick={e => this.onMarkClick(e, type)}>{icon}</button>;
+        return (
+            <EditorButton
+                isActive={isActive}
+                onClick={e => this.onMarkClick(e, type)}
+                icon={icon}
+            />
+        );
     };
 
     renderBlockButton = (type, icon) => {
@@ -213,28 +228,53 @@ export default class MyEditor extends React.Component {
         }
 
         return (
-            <button onClick={e => this.onBlockClick(e, type)}>{icon}</button>
+            <EditorButton
+                isActive={isActive}
+                onClick={e => this.onBlockClick(e, type)}
+                icon={icon}
+            />
         );
     };
 
     render() {
         let { value } = this.state;
-        let editor = this.editor.current;
         return (
             <EditorArea>
+                <ButtonArea>
+                    {this.renderMarkButton(
+                        'bold',
+                        <FontAwesomeIcon icon={faBold} />
+                    )}
+                    {this.renderMarkButton(
+                        'italic',
+                        <FontAwesomeIcon icon={faItalic} />
+                    )}
+                    {this.renderMarkButton(
+                        'underline',
+                        <FontAwesomeIcon icon={faUnderline} />
+                    )}
+                    {this.renderMarkButton(
+                        'strikethrough',
+                        <FontAwesomeIcon icon={faStrikethrough} />
+                    )}
+                    {this.renderMarkButton(
+                        'code',
+                        <FontAwesomeIcon icon={faCode} />
+                    )}
+                    {this.renderBlockButton(
+                        'heading-one',
+                        <FontAwesomeIcon icon={faHeading} />
+                    )}
+                    {this.renderBlockButton(
+                        'numbered-list',
+                        <FontAwesomeIcon icon={faListOl} />
+                    )}
+                    {this.renderBlockButton(
+                        'bulleted-list',
+                        <FontAwesomeIcon icon={faListUl} />
+                    )}
+                </ButtonArea>
                 <EditorScrollPane>
-                    {/* <button onClick={e => this.onMarkClick(e, 'bold')}>Bold</button> */}
-                    {this.renderMarkButton('bold', 'bold')}
-                    {this.renderMarkButton('italic', 'italic')}
-                    {this.renderMarkButton('underline', 'underline')}
-                    {this.renderMarkButton('strikethrough', 'strikethrough')}
-                    {this.renderMarkButton('code', 'code')}
-                    {this.renderBlockButton('heading-one', 'Heading')}
-                    {this.renderBlockButton('heading-two', 'Heading2')}
-                    {this.renderBlockButton('block-quote', 'Quote')}
-                    {this.renderBlockButton('numbered-list', 'Numbered List')}
-                    {this.renderBlockButton('bulleted-list', 'Bullet List')}
-
                     <Editor
                         spellCheck
                         autoFocus

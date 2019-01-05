@@ -8,6 +8,7 @@ const EmptyText = styled.div`
     background-color: ${({ theme }) => theme.primaryColor};
     padding: 10px;
     border-radius: 10px;
+    font-family: ${({ theme }) => theme.defaultFont};
 `;
 
 const SizeWrapper = styled.div`

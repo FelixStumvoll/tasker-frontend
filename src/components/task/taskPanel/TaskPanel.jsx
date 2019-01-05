@@ -10,7 +10,7 @@ import { updateTask } from '../taskActions';
 import Editor from '../../editor/Editor';
 import TagArea from '../taskTag/tagArea/TagArea';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 const MainGrid = styled.article`
     display: grid;
@@ -19,7 +19,7 @@ const MainGrid = styled.article`
         'EditorArea';
     grid-template-rows: auto 1fr;
     grid-template-columns: 1fr;
-    grid-row-gap: 20px;
+    grid-row-gap: 10px;
     width: 100%;
     height: 100%;
     font-family: ${({ theme }) => theme.defaultFont};
@@ -33,8 +33,16 @@ const DetailGrid = styled.div`
         'Info Tag'
         '.    Tag';
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
+    grid-column-gap: 10px;
     grid-template-rows: 50px 50px 50px;
+
+    @media screen and (max-width: 900px) {
+        display: grid;
+        grid-template-areas: 'Info' 'Tag';
+        grid-template-rows: 100px 150px;
+        grid-template-columns: 1fr;
+        grid-row-gap: 10px;
+    }
 `;
 
 const InfoGrid = styled.div`
@@ -52,7 +60,7 @@ const InfoGrid = styled.div`
 
 const DetailLabel = styled.label`
     grid-area: ${props => props.gridArea};
-    margin: auto auto auto 5px;
+    margin: auto;
     font-size: 16px;
     font-weight: bold;
 `;
@@ -113,17 +121,21 @@ class TaskPanel extends Component {
 
     debouncedSave = debounce(() => {
         this.saveTask();
-    }, 500);
+    }, 250);
 
     changeDateCallback = dueDate => {
         this.updateTaskState(dueDate, 'dueDate');
     };
 
-    updateTaskState = (value, property) => {
+    changeTextCallback = text => {
+        this.updateTaskState(text, 'text');
+    };
+
+    updateTaskState = async (value, property) => {
         let { task } = this.state;
         task[property] = value;
         this.setState({ task });
-        this.debouncedSave();
+        await this.debouncedSave();
     };
     //#endregion
 
@@ -161,7 +173,10 @@ class TaskPanel extends Component {
                     </TagAreaWrapper>
                 </DetailGrid>
                 <EditorArea>
-                    <Editor />
+                    <Editor
+                        initialValue={task.text}
+                        onChange={this.changeTextCallback}
+                    />
                 </EditorArea>
             </MainGrid>
         );

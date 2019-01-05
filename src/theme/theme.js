@@ -5,7 +5,7 @@ export default {
     positiveColor: '#419669',
     negativeColor: '#ED254E',
     transitionDuration: '250ms',
-    sidebarWidth: '20vw',
+    sidebarWidth: '250px',
     defaultFontSize: '16px',
     defaultFont: 'sans-serif'
 };

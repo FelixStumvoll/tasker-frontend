@@ -46,14 +46,10 @@ class TaskListItem extends Component {
         this.props.updateTask(task);
     };
 
-    showDetailView = () => {
-        this.props.history.push(`/tasks/${this.props.task.id}`);
-    };
-
     render() {
         let { task } = this.props;
         return (
-            <TaskArea to={`/tasks/${task.id}`}>
+            <TaskArea to={`/task/${task.id}`}>
                 <TaskTitle>{task.title}</TaskTitle>
                 <TaskText>{task.description}</TaskText>
             </TaskArea>

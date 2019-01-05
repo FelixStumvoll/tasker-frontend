@@ -7,7 +7,7 @@ const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 100px 1fr 400px 2fr 100px;
+    grid-template-columns: 100px 1fr 20vw 2fr 100px;
     overflow: hidden;
     position: fixed;
     top: 0px;
