@@ -12,17 +12,9 @@ import Router from './components/router/Router';
 
 const MainGrid = styled.div`
     height: 100%;
+    width: 100%;
     display: grid;
-    grid-template-areas:
-        'NavArea'
-        'MainArea';
     grid-template-rows: ${({ theme }) => theme.navHeight} 1fr;
-    grid-template-columns: 1fr;
-`;
-
-const GridWrapper = styled.div`
-    height: 100%;
-    grid-area: ${props => props.area};
 `;
 
 class App extends Component {
@@ -32,12 +24,8 @@ class App extends Component {
                 <BrowserRouter>
                     <ThemeProvider theme={theme}>
                         <MainGrid>
-                            <GridWrapper area="NavArea">
-                                <Navbar />
-                            </GridWrapper>
-                            <GridWrapper area="MainArea">
-                                <Router />
-                            </GridWrapper>
+                            <Navbar />
+                            <Router />
                         </MainGrid>
                     </ThemeProvider>
                 </BrowserRouter>

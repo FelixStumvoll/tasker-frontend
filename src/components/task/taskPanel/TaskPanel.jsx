@@ -3,30 +3,31 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import debounce from 'debounce';
-
-import DateInput from '../../dateInput/DateInput';
-
-import { updateTask } from '../taskActions';
-import Editor from '../../editor/Editor';
-import TagArea from '../taskTag/tagArea/TagArea';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
-const MainGrid = styled.article`
+import DateInput from '../../dateInput/DateInput';
+import { updateTask } from '../taskActions';
+import Editor from '../../editor/Editor';
+import TagArea from '../taskTag/tagArea/TagArea';
+
+const TaskGrid = styled.article`
     display: grid;
     grid-template-areas:
-        'DetailArea'
-        'EditorArea';
+        'Detail'
+        'Editor';
     grid-template-rows: auto 1fr;
     grid-template-columns: 1fr;
     grid-row-gap: 10px;
     width: 100%;
     height: 100%;
     font-family: ${({ theme }) => theme.defaultFont};
+    padding: 10px;
+    box-sizing: border-box;
 `;
 
 const DetailGrid = styled.div`
-    grid-area: DetailArea;
+    grid-area: Detail;
     display: grid;
     grid-template-areas:
         'Info Tag'
@@ -66,7 +67,7 @@ const DetailLabel = styled.label`
 `;
 
 const EditorArea = styled.div`
-    grid-area: EditorArea;
+    grid-area: Editor;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: 10px;
     padding: 5px;
@@ -142,10 +143,10 @@ class TaskPanel extends Component {
     render() {
         let { task } = this.state;
         return (
-            <MainGrid>
+            <TaskGrid>
                 <DetailGrid>
                     <InfoGrid>
-                        <DetailLabel gridArea="TitleLabel" for="title">
+                        <DetailLabel gridArea="TitleLabel" htmlFor="title">
                             Title:
                         </DetailLabel>
                         <TitleInput
@@ -157,7 +158,7 @@ class TaskPanel extends Component {
                             id="title"
                             placeholder="Task Title"
                         />
-                        <DetailLabel gridArea="DateLabel" for="duedate">
+                        <DetailLabel gridArea="DateLabel" htmlFor="duedate">
                             <FontAwesomeIcon icon={faCalendarAlt} /> :
                         </DetailLabel>
                         <DateWrapper>
@@ -178,7 +179,7 @@ class TaskPanel extends Component {
                         onChange={this.changeTextCallback}
                     />
                 </EditorArea>
-            </MainGrid>
+            </TaskGrid>
         );
     }
 }

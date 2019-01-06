@@ -1,0 +1,42 @@
+import React, { Component } from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import TaskPanel from '../taskPanel/TaskPanel';
+
+import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
+
+class TaskRouter extends Component {
+    render() {
+        let { tasks, match } = this.props;
+        return (
+            <Switch>
+                <Route
+                    path={`${match.url}/:id`}
+                    render={props => {
+                        let task = tasks.find(
+                            x => x.id === props.match.params.id
+                        );
+
+                        return task ? (
+                            <TaskPanel taskId={task.id} />
+                        ) : (
+                            <TaskEmptyPage />
+                        );
+                    }}
+                />
+                <Route path="" component={TaskEmptyPage} />
+            </Switch>
+        );
+    }
+}
+
+const mapStateToProps = ({ tasks }) => ({
+    tasks
+});
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        null
+    )(TaskRouter)
+);

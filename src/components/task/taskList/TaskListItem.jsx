@@ -40,12 +40,6 @@ const TaskText = styled.div`
 `;
 
 class TaskListItem extends Component {
-    completedClick = () => {
-        let { task } = this.props;
-        task.completed = !task.completed;
-        this.props.updateTask(task);
-    };
-
     render() {
         let { task } = this.props;
         return (

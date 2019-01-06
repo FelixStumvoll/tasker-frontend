@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
-import TaskDashboard from '../task/taskDashboard/TaskDashboard';
-import TaskMainPage from '../task/taskMainPage/TaskMainPage';
-import MobileSidebar from '../sidebar/MobileSidebar';
+import DesktopView from '../responsiveView/DesktopView';
+import MobileView from '../responsiveView/MobileView';
+import TaskRouter from '../task/taskRouter/TaskRouter';
 
-export default class Router extends Component {
+class Router extends Component {
     render() {
-        // let { match } = this.props;
-        // console.log('match :', match);
-
         return (
             <div style={{ height: '100%', width: '100%' }}>
                 <Switch>
@@ -24,18 +21,15 @@ export default class Router extends Component {
                         return matches ? (
                             <Switch>
                                 <Route
-                                    path="/task/:id"
-                                    component={TaskMainPage}
-                                />
-                                <Route
                                     exact
                                     path="/task"
-                                    component={MobileSidebar}
+                                    component={MobileView}
                                 />
+                                <Route path={`/task`} component={TaskRouter} />
                             </Switch>
                         ) : (
                             <Switch>
-                                <Route path="/task" component={TaskDashboard} />
+                                <Route path="/task" component={DesktopView} />
                             </Switch>
                         );
                     }}
@@ -44,3 +38,5 @@ export default class Router extends Component {
         );
     }
 }
+
+export default withRouter(Router);

@@ -11,7 +11,7 @@ const EmptyText = styled.div`
     font-family: ${({ theme }) => theme.defaultFont};
 `;
 
-const SizeWrapper = styled.div`
+const TextFloater = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -19,8 +19,8 @@ const SizeWrapper = styled.div`
 
 export default () => {
     return (
-        <SizeWrapper>
+        <TextFloater>
             <EmptyText>No Task selected</EmptyText>
-        </SizeWrapper>
+        </TextFloater>
     );
 };
