@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
+import { createTask } from '../taskActions';
 
 const AddTaskButton = styled.button`
     cursor: pointer;
@@ -16,12 +20,30 @@ const AddTaskButton = styled.button`
     transition: ${({ theme }) => theme.transitionDuration};
 `;
 
-export default class TaskAddButton extends Component {
+class TaskAddButton extends Component {
+    onTaskCreate = () => {
+        let { createTask } = this.props;
+        createTask();
+    };
+
     render() {
         return (
-            <AddTaskButton>
+            <AddTaskButton onClick={this.onTaskCreate}>
                 <FontAwesomeIcon icon={faPlus} /> Add Task
             </AddTaskButton>
         );
     }
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+    createTask
+};
+
+export default withRouter(
+    connect(
+        mapStateToProps,
+        mapDispatchToProps
+    )(TaskAddButton)
+);

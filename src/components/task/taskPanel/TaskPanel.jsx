@@ -104,10 +104,16 @@ class TaskPanel extends Component {
     constructor(props) {
         super(props);
         this.state = { task: Object.assign({}, props.task) };
+        this.TitleInput = React.createRef();
+    }
+
+    componentDidMount() {
+        console.log('test');
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.task.id !== prevProps.task.id) {
+        if (this.props.task._id !== prevProps.task._id) {
+            this.TitleInput.focus();
             this.setState({
                 task: Object.assign({}, this.props.task)
             });
@@ -150,9 +156,11 @@ class TaskPanel extends Component {
                             Title:
                         </DetailLabel>
                         <TitleInput
+                            innerRef={comp => (this.TitleInput = comp)}
                             onChange={e => {
                                 this.updateTaskState(e.target.value, 'title');
                             }}
+                            type="text"
                             value={task.title}
                             name="Tasktitle"
                             id="title"
@@ -170,7 +178,7 @@ class TaskPanel extends Component {
                         </DateWrapper>
                     </InfoGrid>
                     <TagAreaWrapper>
-                        <TagArea taskId={task.id} />
+                        <TagArea taskId={task._id} tags={task.tags} />
                     </TagAreaWrapper>
                 </DetailGrid>
                 <EditorArea>
@@ -189,7 +197,7 @@ TaskPanel.propTypes = {
 };
 
 const mapStateToProps = ({ tasks }, ownprops) => {
-    let task = tasks.find(x => x.id === ownprops.taskId);
+    let task = tasks.find(task => task._id === ownprops.taskId);
 
     return { task };
 };

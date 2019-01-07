@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import styled from 'styled-components';
 
 import Navbar from './components/navbar/Navbar';
 
-import Store from './redux/store';
+import Store, { history } from './redux/store';
 import theme from './theme/theme';
 import Router from './components/router/Router';
 
@@ -21,14 +21,14 @@ class App extends Component {
     render() {
         return (
             <Provider store={Store}>
-                <BrowserRouter>
+                <ConnectedRouter history={history}>
                     <ThemeProvider theme={theme}>
                         <MainGrid>
                             <Navbar />
                             <Router />
                         </MainGrid>
                     </ThemeProvider>
-                </BrowserRouter>
+                </ConnectedRouter>
             </Provider>
         );
     }

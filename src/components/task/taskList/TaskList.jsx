@@ -29,8 +29,8 @@ class TaskList extends Component {
             <List>
                 {tasks &&
                     tasks.map(task => (
-                        <FlexItem key={task.id}>
-                            <Task id={task.id} />
+                        <FlexItem key={task._id}>
+                            <Task id={task._id} />
                         </FlexItem>
                     ))}
             </List>

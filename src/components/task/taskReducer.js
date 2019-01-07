@@ -8,55 +8,55 @@ import {
 
 const initialState = [
     {
-        id: '1',
+        _id: '1',
         title: 'test',
         text: undefined,
         tags: []
     },
     {
-        id: '2',
+        _id: '2',
         title: 'test554',
         text: undefined,
         tags: []
     },
     {
-        id: '3',
+        _id: '3',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
     },
     {
-        id: '4',
+        _id: '4',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
     },
     {
-        id: '5',
+        _id: '5',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
     },
     {
-        id: '6',
+        _id: '6',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
     },
     {
-        id: '7',
+        _id: '7',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
     },
     {
-        id: '8',
+        _id: '8',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
     },
     {
-        id: '9',
+        _id: '9',
         title: 'biggus Dickus',
         text: undefined,
         tags: []
@@ -65,10 +65,10 @@ const initialState = [
 
 export default (state = initialState, action) => {
     let { type, payload } = action;
-    console.log('action triggered');
+
     switch (type) {
         case TASK_UPDATE:
-            let updateIndex = getTaskById(payload.task.id, state);
+            let updateIndex = getTaskById(payload.task._id, state);
 
             return [
                 ...state.slice(0, updateIndex),
@@ -80,10 +80,10 @@ export default (state = initialState, action) => {
             return [Object.assign({}, payload.task), ...state];
 
         case TASK_REMOVE:
-            return [...state.filter(task => task.id !== payload.task.id)];
+            return [...state.filter(task => task._id !== payload.task._id)];
 
         case TASK_START_EDIT:
-            let startEditIndex = getTaskById(payload.id, state);
+            let startEditIndex = getTaskById(payload._id, state);
 
             return [
                 ...state.slice(0, startEditIndex),
@@ -91,7 +91,7 @@ export default (state = initialState, action) => {
                 ...state.slice(startEditIndex + 1)
             ];
         case TASK_END_EDIT:
-            let endEditIndex = getTaskById(payload.id, state);
+            let endEditIndex = getTaskById(payload._id, state);
 
             return [
                 ...state.slice(0, endEditIndex),
@@ -104,5 +104,5 @@ export default (state = initialState, action) => {
 };
 
 const getTaskById = (id, state) => {
-    return state.findIndex(item => item.id === id);
+    return state.findIndex(item => item._id === id);
 };

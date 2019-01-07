@@ -5,7 +5,7 @@ import MediaQuery from 'react-responsive';
 import DesktopView from '../responsiveView/DesktopView';
 import MobileView from '../responsiveView/MobileView';
 import TaskRouter from '../task/taskRouter/TaskRouter';
-
+import LoginPage from '../loginPage/LoginPage';
 class Router extends Component {
     render() {
         return (
@@ -14,26 +14,41 @@ class Router extends Component {
                     <Route exact path="/">
                         <Redirect to="/task" />
                     </Route>
-                </Switch>
 
-                <MediaQuery maxWidth={600}>
-                    {matches => {
-                        return matches ? (
-                            <Switch>
-                                <Route
-                                    exact
-                                    path="/task"
-                                    component={MobileView}
-                                />
-                                <Route path={`/task`} component={TaskRouter} />
-                            </Switch>
-                        ) : (
-                            <Switch>
-                                <Route path="/task" component={DesktopView} />
-                            </Switch>
-                        );
-                    }}
-                </MediaQuery>
+                    <Route
+                        path="/task"
+                        render={() => {
+                            return (
+                                <MediaQuery maxWidth={600}>
+                                    {matches => {
+                                        return matches ? (
+                                            <Switch>
+                                                <Route
+                                                    exact
+                                                    path="/task"
+                                                    component={MobileView}
+                                                />
+                                                <Route
+                                                    path="/task"
+                                                    component={TaskRouter}
+                                                />
+                                            </Switch>
+                                        ) : (
+                                            <Switch>
+                                                <Route
+                                                    path="/task"
+                                                    component={DesktopView}
+                                                />
+                                            </Switch>
+                                        );
+                                    }}
+                                </MediaQuery>
+                            );
+                        }}
+                    />
+
+                    <Route path="/login" component={LoginPage} />
+                </Switch>
             </div>
         );
     }

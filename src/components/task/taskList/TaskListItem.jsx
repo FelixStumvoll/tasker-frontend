@@ -43,7 +43,7 @@ class TaskListItem extends Component {
     render() {
         let { task } = this.props;
         return (
-            <TaskArea to={`/task/${task.id}`}>
+            <TaskArea to={`/task/${task._id}`}>
                 <TaskTitle>{task.title}</TaskTitle>
                 <TaskText>{task.description}</TaskText>
             </TaskArea>
@@ -61,7 +61,7 @@ const mapStateToProps = ({ tasks }, ownProps) => {
     let task = {};
 
     if (taskId && tasks.length > 0) {
-        task = tasks.find(item => item.id === taskId);
+        task = tasks.find(item => item._id === taskId);
     }
 
     return { task };

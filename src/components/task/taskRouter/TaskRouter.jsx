@@ -14,11 +14,11 @@ class TaskRouter extends Component {
                     path={`${match.url}/:id`}
                     render={props => {
                         let task = tasks.find(
-                            x => x.id === props.match.params.id
+                            task => task._id === props.match.params.id
                         );
 
                         return task ? (
-                            <TaskPanel taskId={task.id} />
+                            <TaskPanel taskId={task._id} />
                         ) : (
                             <TaskEmptyPage />
                         );

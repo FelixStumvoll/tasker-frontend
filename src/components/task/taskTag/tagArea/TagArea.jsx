@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { updateTask } from '../../taskActions';
+import { updateTask, updateTaskTags } from '../../taskActions';
 import TaskTag from '../TaskTag';
 
 const TagAreaGrid = styled.div`
@@ -39,13 +39,13 @@ const TagWrapper = styled.div`
 class TagArea extends Component {
     constructor(props) {
         super(props);
-        this.state = { task: Object.assign({}, props.task), tagValue: '' };
+        this.state = { tags: this.props.tags, tagValue: '' };
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.task.id !== prevProps.task.id) {
+        if (this.props.tags !== prevProps.tags) {
             this.setState({
-                task: Object.assign({}, this.props.task),
+                tags: this.props.tags,
                 tagValue: ''
             });
         }
@@ -62,41 +62,40 @@ class TagArea extends Component {
     };
 
     addTaskTag = () => {
-        let { tagValue, task } = this.state;
+        let { tagValue, tags } = this.state;
         if (!this.taskTagExists(tagValue) && /\S/.test(tagValue)) {
-            task.tags.push(tagValue);
-            this.setState({ task, tagValue: '' });
-            this.props.updateTask(task);
+            tags.push(tagValue);
+            this.setState({ tags, tagValue: '' });
+            this.props.updateTaskTags(this.props.taskId, tags);
         }
     };
 
     taskTagExists = tagName => {
-        return this.state.task.tags.includes(tagName);
+        return this.state.tags.includes(tagName);
     };
 
     removeTag = tagName => {
-        let { task } = this.state;
-        task.tags.splice(task.tags.indexOf(tagName), 1);
-        this.setState({ task });
-        this.props.updateTask(task);
+        let { tags } = this.state;
+        tags.splice(tags.indexOf(tagName), 1);
+        this.setState({ tags });
+        this.props.updateTaskTags(this.props.taskId, tags);
     };
 
     render() {
-        let { task, tagValue } = this.state;
-
-        if (!task || !task.tags) return <div />;
+        let { tags, tagValue } = this.state;
 
         return (
             <TagAreaGrid>
                 <TagInput
                     onKeyDown={this.onTagKeypress}
                     onChange={this.onTagInput}
+                    type="text"
                     placeholder="Enter Tags (Complete with Enter)"
                     value={tagValue}
                     maxLength="30"
                 />
                 <Tags>
-                    {task.tags.map((tagText, index) => {
+                    {tags.map((tagText, index) => {
                         return (
                             <TagWrapper key={index}>
                                 <TaskTag
@@ -113,9 +112,10 @@ class TagArea extends Component {
 }
 
 const mapStateToProps = ({ tasks }, ownprops) => {
-    let task = tasks.find(x => x.id === ownprops.taskId);
+    // let task = tasks.find(x => x.id === ownprops.taskId);
+    let { tags } = tasks.find(task => task._id === ownprops.taskId);
 
-    return { task };
+    return { tags };
 };
 
 TagArea.propTypes = {
@@ -123,7 +123,8 @@ TagArea.propTypes = {
 };
 
 const mapDispatchToProps = {
-    updateTask
+    updateTask,
+    updateTaskTags
 };
 
 export default connect(
