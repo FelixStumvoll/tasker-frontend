@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { updateTask, startEditTask } from '../taskActions';
+import { updateTask } from '../taskActions';
 
 const TaskArea = styled(Link)`
     text-decoration: none;
@@ -67,7 +67,7 @@ const mapStateToProps = ({ tasks }, ownProps) => {
     return { task };
 };
 
-const mapDispatchToProps = { updateTask, startEditTask };
+const mapDispatchToProps = { updateTask };
 
 export default withRouter(
     connect(

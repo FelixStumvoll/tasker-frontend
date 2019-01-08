@@ -10,7 +10,7 @@ import { apiUrl } from '../../config';
 
 export const createTask = () => async dispatch => {
     let response = await axios.post(`${apiUrl}/task`);
-    
+
     if (response.status === 201) {
         dispatch({
             type: TASK_CREATE,
@@ -37,13 +37,3 @@ export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
 
     dispatch(updateTask(task));
 };
-
-export const startEditTask = id => ({
-    type: TASK_START_EDIT,
-    payload: { id }
-});
-
-export const endEditTask = id => ({
-    type: TASK_END_EDIT,
-    payload: { id }
-});

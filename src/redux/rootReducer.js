@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import taskReducer from '../components/task/taskReducer';
-import loginReducer from '../components/loginPage/loginReducer';
+import authReducer from '../components/loginPage/authReducer';
+import fetchReducer from '../components/task/fetchReducer';
 
 export default history =>
     combineReducers({
         router: connectRouter(history),
         tasks: taskReducer,
-        login: loginReducer
+        auth: authReducer,
+        fetch: fetchReducer
     });

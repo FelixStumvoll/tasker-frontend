@@ -89,7 +89,6 @@ class TagArea extends Component {
                 <TagInput
                     onKeyDown={this.onTagKeypress}
                     onChange={this.onTagInput}
-                    type="text"
                     placeholder="Enter Tags (Complete with Enter)"
                     value={tagValue}
                     maxLength="30"

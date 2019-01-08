@@ -1,67 +1,10 @@
 import {
     TASK_CREATE,
     TASK_REMOVE,
-    TASK_UPDATE,
-    TASK_END_EDIT,
-    TASK_START_EDIT
+    TASK_UPDATE
 } from './taskActionTypes';
 
-const initialState = [
-    {
-        _id: '1',
-        title: 'test',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '2',
-        title: 'test554',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '3',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '4',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '5',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '6',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '7',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '8',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    },
-    {
-        _id: '9',
-        title: 'biggus Dickus',
-        text: undefined,
-        tags: []
-    }
-];
+const initialState = [];
 
 export default (state = initialState, action) => {
     let { type, payload } = action;
@@ -81,23 +24,6 @@ export default (state = initialState, action) => {
 
         case TASK_REMOVE:
             return [...state.filter(task => task._id !== payload.task._id)];
-
-        case TASK_START_EDIT:
-            let startEditIndex = getTaskById(payload._id, state);
-
-            return [
-                ...state.slice(0, startEditIndex),
-                Object.assign({}, state[startEditIndex], { editing: true }),
-                ...state.slice(startEditIndex + 1)
-            ];
-        case TASK_END_EDIT:
-            let endEditIndex = getTaskById(payload._id, state);
-
-            return [
-                ...state.slice(0, endEditIndex),
-                Object.assign({}, state[endEditIndex], { editing: false }),
-                ...state.slice(endEditIndex + 1)
-            ];
         default:
             return state;
     }

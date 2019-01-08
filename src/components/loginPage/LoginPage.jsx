@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 
-import { login } from './loginActions';
+import { login } from './authActions';
 
 const Wrapper = styled.div`
-    height: 100%;
-    width: 100%;
     display: flex;
+
+    @media screen and (max-width: 600px) {
+        margin: 10px;
+    }
 `;
 
 const LoginPanel = styled.form`
@@ -29,12 +32,29 @@ const LoginPanel = styled.form`
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     font-family: ${({ theme }) => theme.defaultFont};
+    transition: ${({ theme }) => theme.transitionDuration};
+
+    @media screen and (max-width: 350px) {
+        grid-template-areas:
+            'Label'
+            'Username'
+            'Password'
+            '.'
+            'LoginButton';
+        grid-template-columns: 1fr;
+    }
+
+    @media screen and (max-width: 600px) {
+        width: 100%;
+        margin-top: 100px;
+    }
 `;
 
 const PageLabel = styled.h1`
     grid-area: Label;
     font-family: inherit;
     margin: auto;
+    transition: inherit;
 `;
 
 const LoginLabel = styled.label`
@@ -42,6 +62,11 @@ const LoginLabel = styled.label`
     font-family: inherit;
     font-weight: bold;
     margin: auto;
+    transition: inherit;
+
+    @media screen and (max-width: 350px) {
+        display: none;
+    }
 `;
 
 const LoginInput = styled.input`
@@ -53,6 +78,7 @@ const LoginInput = styled.input`
     border-radius: 10px;
     border: none;
     font-family: inherit;
+    transition: inherit;
 `;
 
 const LoginButton = styled.button`
@@ -65,6 +91,7 @@ const LoginButton = styled.button`
     font-weight: bolder;
     font-family: inherit;
     cursor: pointer;
+    transition: inherit;
 `;
 
 class LoginPage extends Component {
@@ -118,7 +145,15 @@ class LoginPage extends Component {
                     <LoginLabel gridArea={'PasswordLabel'} htmlFor="password">
                         Password:
                     </LoginLabel>
-                    <PageLabel>Login to access your Tasks</PageLabel>
+                    <PageLabel>
+                        <MediaQuery maxWidth={600}>
+                            {matches => {
+                                return matches
+                                    ? 'Login'
+                                    : 'Login to access your Tasks';
+                            }}
+                        </MediaQuery>
+                    </PageLabel>
                     <LoginButton type="submit" onClick={this.onLoginClick}>
                         Login
                     </LoginButton>

@@ -160,7 +160,6 @@ class TaskPanel extends Component {
                             onChange={e => {
                                 this.updateTaskState(e.target.value, 'title');
                             }}
-                            type="text"
                             value={task.title}
                             name="Tasktitle"
                             id="title"

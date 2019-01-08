@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
 import { apiUrl } from '../../config';
-import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from './loginActionTypes';
+import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from './authActionTypes';
 
 export const login = (username, password) => async dispatch => {
     let response = await axios.post(`${apiUrl}/auth/login`, {
@@ -11,9 +11,10 @@ export const login = (username, password) => async dispatch => {
 
     if (response.status === 200) {
         let { data } = response;
+        localStorage.setItem('bearer', data.bearer);
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: { bearer: data.bearer, user: data.username }
+            payload: { bearer: data.bearer, user: data.user }
         });
         dispatch(push('/task'));
     } else {
@@ -21,4 +22,7 @@ export const login = (username, password) => async dispatch => {
     }
 };
 
-export const logout = () => ({ type: LOGOUT });
+export const logout = () => dispatch => {
+    dispatch(push('/login'));
+    dispatch({ type: LOGOUT });
+};
