@@ -2,8 +2,9 @@ import axios from 'axios';
 import { push } from 'connected-react-router';
 import { apiUrl } from '../../config';
 import { LOGIN_SUCCESS, LOGIN_FAILED, LOGOUT } from './authActionTypes';
+import { fetchTasks } from '../task/taskActions';
 
-export const login = (username, password) => async dispatch => {
+export const login = (username, password) => async (dispatch, getState) => {
     let response = await axios.post(`${apiUrl}/auth/login`, {
         username,
         password
@@ -16,7 +17,8 @@ export const login = (username, password) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: { bearer: data.bearer, user: data.user }
         });
-        dispatch(push('/task'));
+
+        dispatch(fetchTasks());
     } else {
         dispatch({ type: LOGIN_FAILED });
     }

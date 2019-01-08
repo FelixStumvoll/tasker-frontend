@@ -1,12 +1,12 @@
-import {
-    TASK_UPDATE,
-    TASK_CREATE,
-    TASK_START_EDIT,
-    TASK_END_EDIT
-} from './taskActionTypes';
+import { TASK_UPDATE, TASK_CREATE, TASKS_FETCHED } from './taskActionTypes';
 import axios from 'axios';
 import { push } from 'connected-react-router';
 import { apiUrl } from '../../config';
+import {
+    FETCH_START,
+    FETCH_FAILED,
+    FETCH_FINISHED
+} from '../task/fetchActionTypes';
 
 export const createTask = () => async dispatch => {
     let response = await axios.post(`${apiUrl}/task`);
@@ -36,4 +36,23 @@ export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
     task.tags = tags;
 
     dispatch(updateTask(task));
+};
+
+export const fetchTasks = () => async (dispatch, getState) => {
+    let { auth } = getState();
+    dispatch({ type: FETCH_START });
+    console.log('start fetch');
+    try {
+        let response = await axios.get(`${apiUrl}/task`, {
+            headers: { Authorization: `bearer ${auth.bearer}` }
+        });
+
+        if (response.status !== 200) throw response.status;
+
+        dispatch({ type: TASKS_FETCHED, payload: { tasks: response.data } });
+        dispatch(push('/task'));
+        dispatch({ type: FETCH_FINISHED });
+    } catch (ex) {
+        dispatch({ type: FETCH_FAILED });
+    }
 };

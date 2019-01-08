@@ -1,7 +1,8 @@
 import {
     TASK_CREATE,
     TASK_REMOVE,
-    TASK_UPDATE
+    TASK_UPDATE,
+    TASKS_FETCHED
 } from './taskActionTypes';
 
 const initialState = [];
@@ -24,6 +25,8 @@ export default (state = initialState, action) => {
 
         case TASK_REMOVE:
             return [...state.filter(task => task._id !== payload.task._id)];
+        case TASKS_FETCHED:
+            return [...payload.tasks];
         default:
             return state;
     }

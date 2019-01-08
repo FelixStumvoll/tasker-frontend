@@ -7,9 +7,13 @@ import { login } from './authActions';
 
 const Wrapper = styled.div`
     display: flex;
+    width: 100%;
+    overflow: hidden;
+
 
     @media screen and (max-width: 600px) {
         margin: 10px;
+        width: calc(100% - 20px);
     }
 `;
 
@@ -19,7 +23,7 @@ const LoginPanel = styled.form`
     padding: 20px;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: 10px;
-    margin: 50px auto auto auto;
+    margin: 150px auto auto auto;
     display: grid;
     grid-template-areas:
         'Label Label'
@@ -34,7 +38,12 @@ const LoginPanel = styled.form`
     font-family: ${({ theme }) => theme.defaultFont};
     transition: ${({ theme }) => theme.transitionDuration};
 
-    @media screen and (max-width: 350px) {
+    @media screen and (max-width: 600px) {
+        width: calc(100% - 20px);
+        margin-top: 100px;
+    }
+
+    @media screen and (max-width: 450px) {
         grid-template-areas:
             'Label'
             'Username'
@@ -42,11 +51,6 @@ const LoginPanel = styled.form`
             '.'
             'LoginButton';
         grid-template-columns: 1fr;
-    }
-
-    @media screen and (max-width: 600px) {
-        width: 100%;
-        margin-top: 100px;
     }
 `;
 
@@ -64,7 +68,7 @@ const LoginLabel = styled.label`
     margin: auto;
     transition: inherit;
 
-    @media screen and (max-width: 350px) {
+    @media screen and (max-width: 450px) {
         display: none;
     }
 `;
@@ -77,6 +81,7 @@ const LoginInput = styled.input`
     margin: auto;
     border-radius: 10px;
     border: none;
+    box-sizing: border-box;
     font-family: inherit;
     transition: inherit;
 `;
