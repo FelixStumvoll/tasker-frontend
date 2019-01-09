@@ -39,12 +39,12 @@ export const removeTask = task => async (dispatch, getState) => {
         let { auth } = getState();
 
         let response = await axios.delete(
-            `${apiUrl}/${task._id}`,
+            `${apiUrl}/task/${task._id}`,
             axiosConfig(auth.bearer)
         );
 
         if (response.status === 200) {
-            dispatch({ type: TASK_REMOVE, payload: task });
+            dispatch({ type: TASK_REMOVE, payload: { task } });
             dispatch(push('/task'));
         }
     } catch (ex) {}
@@ -52,6 +52,7 @@ export const removeTask = task => async (dispatch, getState) => {
 
 export const updateTask = task => async (dispatch, getState) => {
     try {
+        console.log('updating');
         let { auth } = getState();
         let response = await axios.put(
             `${apiUrl}/task/${task._id}`,

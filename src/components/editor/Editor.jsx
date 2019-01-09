@@ -31,7 +31,7 @@ const ButtonArea = styled.div`
     flex-wrap: wrap;
     position: sticky;
     top: ${({ theme }) => theme.navHeight};
-    z-index: 800;
+    z-index: 100;
     background-color: ${({ theme }) => theme.primaryColor};
     width: fit-content;
     border-bottom-right-radius: 10px;

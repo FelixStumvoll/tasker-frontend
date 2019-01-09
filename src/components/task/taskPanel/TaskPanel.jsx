@@ -146,9 +146,14 @@ class TaskPanel extends Component {
         this.props.updateTask(task);
     };
 
-    debouncedSave = debounce(() => {
-        this.saveTask();
-    }, 100);
+    //todo move to action
+    debouncedSave = debounce(
+        () => {
+            this.saveTask();
+        },
+        100,
+        false
+    );
 
     changeDateCallback = dueDate => {
         this.updateTaskState(dueDate, 'dueDate');
@@ -214,7 +219,7 @@ class TaskPanel extends Component {
                         onChange={this.changeTextCallback}
                     />
                 </EditorArea>
-                <DeleteButton>Delete</DeleteButton>
+                <DeleteButton onClick={this.onTaskRemove}>Delete</DeleteButton>
             </TaskGrid>
         );
     }
