@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { changeSearchterm } from '../../redux/reducers/utilityReducer/utilityActions';
 import { logout } from '../../redux/reducers/authReducer/authActions';
 
 const Nav = styled.nav`
@@ -73,8 +73,20 @@ const UserName = styled.span`
 `;
 
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { searchTerm: props.searchTerm };
+    }
+
+    onSearchtermChange = e => {
+        this.setState({ searchTerm: e.target.value });
+        this.props.changeSearchterm(e.target.value);
+    };
+
     render() {
         let { authenticated, username } = this.props;
+        let { searchTerm } = this.state;
         return (
             <Nav>
                 <MediaQuery maxWidth={600}>
@@ -90,7 +102,12 @@ class Navbar extends Component {
                 </MediaQuery>
                 {authenticated && (
                     <>
-                        <Searchbar type="text" placeholder="Search..." />
+                        <Searchbar
+                            onChange={this.onSearchtermChange}
+                            value={searchTerm}
+                            type="text"
+                            placeholder="Search..."
+                        />
                         <UserName>Hello, {username}</UserName>
                         <LogoutButton onClick={this.props.logout}>
                             Logout
@@ -102,13 +119,15 @@ class Navbar extends Component {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({
+const mapStateToProps = ({ auth, utility }) => ({
     authenticated: auth.authenticated,
-    username: auth.username
+    username: auth.username,
+    searchTerm: utility.searchTerm
 });
 
 const mapDispatchToProps = {
-    logout
+    logout,
+    changeSearchterm
 };
 
 export default connect(

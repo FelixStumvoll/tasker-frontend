@@ -1,1 +1,2 @@
 export const TASKS_LOADED = 'TASKS_LOADED';
+export const SEARCHTERM_CHANGE = 'SEARCHTERM_CHANGE';

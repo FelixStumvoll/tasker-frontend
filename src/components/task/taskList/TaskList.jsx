@@ -11,7 +11,8 @@ const List = styled.div`
 
 const FlexItem = styled.div`
     height: 85px;
-    background-color: ${({ theme }) => theme.primaryColor};
+    background-color: ${({ theme, active }) =>
+        active ? theme.primaryColorActive : theme.primaryColor};
     border: 1px solid transparent;
     border-radius: 10px;
     padding: 2px;
@@ -24,12 +25,15 @@ const FlexItem = styled.div`
 
 class TaskList extends Component {
     render() {
-        let { tasks } = this.props;
+        let { tasks, location } = this.props;
         return (
             <List>
                 {tasks &&
                     tasks.map(task => (
-                        <FlexItem key={task._id}>
+                        <FlexItem
+                            active={location.pathname.includes(task._id)}
+                            key={task._id}
+                        >
                             <Task id={task._id} />
                         </FlexItem>
                     ))}
@@ -38,7 +42,9 @@ class TaskList extends Component {
     }
 }
 
-const mapStateToProps = ({ tasks }, ownProps) => {
+const mapStateToProps = ({ tasks, router, utility }) => {
+    let { searchTerm } = utility;
+
     let taskList = tasks.filter(task => !task.parentTask);
 
     taskList.sort((lhs, rhs) => {
@@ -53,7 +59,17 @@ const mapStateToProps = ({ tasks }, ownProps) => {
         return new Date(lhs.dueDate) - new Date(rhs.dueDate);
     });
 
-    return { tasks: taskList };
+    if (searchTerm && searchTerm !== '') {
+        taskList = taskList.filter(task => {
+            if (task.title && task.title.includes(searchTerm)) return true;
+
+            if (task.text && JSON.stringify(task.text).includes(searchTerm))
+                return true;
+            return false;
+        });
+    }
+
+    return { tasks: taskList, location: router.location };
 };
 
 export default connect(mapStateToProps)(TaskList);

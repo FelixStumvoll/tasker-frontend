@@ -10,8 +10,6 @@ const initialState = {
 };
 
 export default (state = initialState, { type, payload }) => {
-    console.log('type', type);
-
     switch (type) {
         case LOGIN_SUCCESS:
             return Object.assign({}, state, {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { updateTask } from '../../../redux/reducers/taskReducer/taskActions';
@@ -69,9 +69,7 @@ const mapStateToProps = ({ tasks }, ownProps) => {
 
 const mapDispatchToProps = { updateTask };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(TaskListItem)
-);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TaskListItem);

@@ -52,7 +52,6 @@ export const removeTask = task => async (dispatch, getState) => {
 
 export const updateTask = task => async (dispatch, getState) => {
     try {
-        console.log('updating');
         let { auth } = getState();
         let response = await axios.put(
             `${apiUrl}/task/${task._id}`,
@@ -77,7 +76,6 @@ export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
 };
 
 export const fetchTasks = () => async (dispatch, getState) => {
-    console.log('loading :');
     let { auth } = getState();
     dispatch({ type: FETCH_START });
 

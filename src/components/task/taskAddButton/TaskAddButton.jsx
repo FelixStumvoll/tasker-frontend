@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import { createTask } from '../../../redux/reducers/taskReducer/taskActions';
 
@@ -36,15 +35,11 @@ class TaskAddButton extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
-
 const mapDispatchToProps = {
     createTask
 };
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(TaskAddButton)
-);
+export default connect(
+    null,
+    mapDispatchToProps
+)(TaskAddButton);
