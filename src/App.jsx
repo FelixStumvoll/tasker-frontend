@@ -14,7 +14,12 @@ const MainGrid = styled.div`
     height: 100%;
     width: 100%;
     display: grid;
+    grid-template-areas: '.' 'Content';
     grid-template-rows: ${({ theme }) => theme.navHeight} 1fr;
+`;
+
+const RouterWrapper = styled.div`
+    grid-area: Content;
 `;
 
 class App extends Component {
@@ -25,7 +30,9 @@ class App extends Component {
                     <ThemeProvider theme={theme}>
                         <MainGrid>
                             <Navbar />
-                            <Router />
+                            <RouterWrapper>
+                                <Router />
+                            </RouterWrapper>
                         </MainGrid>
                     </ThemeProvider>
                 </ConnectedRouter>

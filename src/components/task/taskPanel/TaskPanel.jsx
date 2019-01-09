@@ -7,7 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 import DateInput from '../../dateInput/DateInput';
-import { updateTask } from '../taskActions';
+import {
+    updateTask,
+    removeTask
+} from '../../../redux/reducers/taskReducer/taskActions';
 import Editor from '../../editor/Editor';
 import TagArea from '../taskTag/tagArea/TagArea';
 
@@ -15,8 +18,9 @@ const TaskGrid = styled.article`
     display: grid;
     grid-template-areas:
         'Detail'
-        'Editor';
-    grid-template-rows: auto 1fr;
+        'Editor'
+        'Delete';
+    grid-template-rows: auto 1fr 50px;
     grid-template-columns: 1fr;
     grid-row-gap: 10px;
     width: 100%;
@@ -24,6 +28,10 @@ const TaskGrid = styled.article`
     font-family: ${({ theme }) => theme.defaultFont};
     padding: 10px;
     box-sizing: border-box;
+
+    /* @media screen and (max-width: 900px){
+        grid-template-rows: 
+    } */
 `;
 
 const DetailGrid = styled.div`
@@ -70,10 +78,9 @@ const EditorArea = styled.div`
     grid-area: Editor;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: 10px;
-    padding: 5px;
-    overflow: auto;
-    display: flex;
     height: fit-content;
+    display: flex;
+    padding: 5px;
 `;
 
 const TitleInput = styled.input`
@@ -100,6 +107,23 @@ const DateWrapper = styled.div`
     margin: auto 0px auto 0px;
 `;
 
+const DeleteButton = styled.button`
+    grid-area: Delete;
+    border: none;
+    border-radius: 10px;
+    background-color: ${({ theme }) => theme.negativeColor};
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    font-family: inherit;
+    font-weight: bolder;
+    font-size: 20px;
+    width: 25%;
+    margin-left: 75%;
+    cursor: pointer;
+`;
+
 class TaskPanel extends Component {
     constructor(props) {
         super(props);
@@ -107,16 +131,12 @@ class TaskPanel extends Component {
         this.TitleInput = React.createRef();
     }
 
-    componentDidMount() {
-        console.log('test');
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.task._id !== prevProps.task._id) {
-            this.TitleInput.focus();
             this.setState({
                 task: Object.assign({}, this.props.task)
             });
+            this.TitleInput.focus();
         }
     }
     //#region Methods
@@ -128,7 +148,7 @@ class TaskPanel extends Component {
 
     debouncedSave = debounce(() => {
         this.saveTask();
-    }, 250);
+    }, 100);
 
     changeDateCallback = dueDate => {
         this.updateTaskState(dueDate, 'dueDate');
@@ -143,6 +163,10 @@ class TaskPanel extends Component {
         task[property] = value;
         this.setState({ task });
         await this.debouncedSave();
+    };
+
+    onTaskRemove = () => {
+        this.props.removeTask(this.props.task);
     };
     //#endregion
 
@@ -160,7 +184,7 @@ class TaskPanel extends Component {
                             onChange={e => {
                                 this.updateTaskState(e.target.value, 'title');
                             }}
-                            value={task.title}
+                            value={task.title ? task.title : ''}
                             name="Tasktitle"
                             id="title"
                             placeholder="Task Title"
@@ -170,7 +194,11 @@ class TaskPanel extends Component {
                         </DetailLabel>
                         <DateWrapper>
                             <DateInput
-                                selectedDate={task.dueDate}
+                                selectedDate={
+                                    task.dueDate
+                                        ? new Date(task.dueDate)
+                                        : undefined
+                                }
                                 callback={this.changeDateCallback}
                                 id="duedate"
                             />
@@ -186,6 +214,7 @@ class TaskPanel extends Component {
                         onChange={this.changeTextCallback}
                     />
                 </EditorArea>
+                <DeleteButton>Delete</DeleteButton>
             </TaskGrid>
         );
     }
@@ -201,7 +230,8 @@ const mapStateToProps = ({ tasks }, ownprops) => {
     return { task };
 };
 const mapDispatchToProps = {
-    updateTask
+    updateTask,
+    removeTask
 };
 
 export default connect(

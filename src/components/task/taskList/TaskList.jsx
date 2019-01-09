@@ -39,19 +39,19 @@ class TaskList extends Component {
 }
 
 const mapStateToProps = ({ tasks }, ownProps) => {
-    let taskList;
+    let taskList = tasks.filter(task => !task.parentTask);
 
-    if (ownProps.taskId) {
-        if (tasks.length > 0) {
-            taskList = tasks.filter(
-                task => task.parentTask === ownProps.taskId
-            );
-        } else {
-            taskList = [];
+    taskList.sort((lhs, rhs) => {
+        if (!lhs.dueDate) {
+            return 1;
         }
-    } else {
-        taskList = tasks.filter(task => !task.parentTask);
-    }
+
+        if (!rhs.dueDate) {
+            return -1;
+        }
+
+        return new Date(lhs.dueDate) - new Date(rhs.dueDate);
+    });
 
     return { tasks: taskList };
 };

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { updateTask } from '../taskActions';
+import { updateTask } from '../../../redux/reducers/taskReducer/taskActions';
 
 const TaskArea = styled(Link)`
     text-decoration: none;

@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { createTask } from '../taskActions';
+import { createTask } from '../../../redux/reducers/taskReducer/taskActions';
 
 const AddTaskButton = styled.button`
     cursor: pointer;
@@ -18,6 +18,7 @@ const AddTaskButton = styled.button`
     color: white;
     border-radius: 10px;
     transition: ${({ theme }) => theme.transitionDuration};
+    font-family: ${({ theme }) => theme.defaultFont};
 `;
 
 class TaskAddButton extends Component {

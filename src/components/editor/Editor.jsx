@@ -29,6 +29,12 @@ const ButtonArea = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    position: sticky;
+    top: ${({ theme }) => theme.navHeight};
+    z-index: 800;
+    background-color: ${({ theme }) => theme.primaryColor};
+    width: fit-content;
+    border-bottom-right-radius: 10px;
 `;
 
 const EditorScrollPane = styled.div`
@@ -140,7 +146,6 @@ export default class MyEditor extends React.Component {
         const { value } = editor;
         const { document } = value;
 
-        // Handle everything but list buttons.
         if (type !== 'bulleted-list' && type !== 'numbered-list') {
             const isActive = this.hasBlock(type);
             const isList = this.hasBlock('list-item');

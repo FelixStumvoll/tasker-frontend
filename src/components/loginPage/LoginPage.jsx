@@ -3,13 +3,12 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 
-import { login } from './authActions';
+import { login } from '../../redux/reducers/authReducer/authActions';
 
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
     overflow: hidden;
-
 
     @media screen and (max-width: 600px) {
         margin: 10px;
@@ -29,7 +28,7 @@ const LoginPanel = styled.form`
         'Label Label'
         'UsernameLabel Username'
         'PasswordLabel Password'
-        '. .'
+        'ErrorMessage ErrorMessage'
         'LoginButton LoginButton';
     grid-template-columns: 100px 1fr;
     grid-template-rows: 70px 50px 50px 50px 50px;
@@ -48,7 +47,7 @@ const LoginPanel = styled.form`
             'Label'
             'Username'
             'Password'
-            '.'
+            'ErrorMessage'
             'LoginButton';
         grid-template-columns: 1fr;
     }
@@ -84,6 +83,21 @@ const LoginInput = styled.input`
     box-sizing: border-box;
     font-family: inherit;
     transition: inherit;
+`;
+
+const ErrorMessage = styled.div`
+    grid-area: ErrorMessage;
+    width: 70%;
+    height: 30px;
+    box-sizing: border-box;
+    background-color: ${({ theme }) => theme.negativeColor};
+    color: white;
+    border-radius: 10px;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    font-family: inherit;
+    padding: 5px;
 `;
 
 const LoginButton = styled.button`
@@ -124,6 +138,7 @@ class LoginPage extends Component {
 
     render() {
         let { username, password } = this.state;
+        let { loginFailed } = this.props;
 
         return (
             <Wrapper>
@@ -159,6 +174,7 @@ class LoginPage extends Component {
                             }}
                         </MediaQuery>
                     </PageLabel>
+                    {loginFailed && <ErrorMessage>Login Failed</ErrorMessage>}
                     <LoginButton type="submit" onClick={this.onLoginClick}>
                         Login
                     </LoginButton>
@@ -168,7 +184,7 @@ class LoginPage extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = ({ auth }) => ({ loginFailed: auth.loginFailed });
 
 const mapDispatchToProps = {
     login

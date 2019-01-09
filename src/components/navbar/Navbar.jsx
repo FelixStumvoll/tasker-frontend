@@ -6,7 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { logout } from '../loginPage/authActions';
+import { logout } from '../../redux/reducers/authReducer/authActions';
 
 const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
@@ -15,6 +15,11 @@ const Nav = styled.nav`
     grid-template-columns: 100px 1fr 40vw 2fr 150px 100px;
     font-family: ${({ theme }) => theme.defaultFont};
     grid-template-areas: 'HomeArea . SearchArea . Name Logout';
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 9999;
 
     @media screen and (max-width: 600px) {
         grid-template-columns: 50px 1fr 40vw 2fr 100px 100px;
@@ -57,7 +62,6 @@ const LogoutButton = styled.button`
     height: 30px;
     border-radius: 10px;
     margin: auto;
-    font-weight: bolder;
     cursor: pointer;
 `;
 
@@ -70,7 +74,7 @@ const UserName = styled.span`
 
 class Navbar extends Component {
     render() {
-        let { authenticated, user } = this.props;
+        let { authenticated, username } = this.props;
         return (
             <Nav>
                 <MediaQuery maxWidth={600}>
@@ -87,7 +91,7 @@ class Navbar extends Component {
                 {authenticated && (
                     <>
                         <Searchbar type="text" placeholder="Search..." />
-                        <UserName>Hello, {user}</UserName>
+                        <UserName>Hello, {username}</UserName>
                         <LogoutButton onClick={this.props.logout}>
                             Logout
                         </LogoutButton>
@@ -100,7 +104,7 @@ class Navbar extends Component {
 
 const mapStateToProps = ({ auth }) => ({
     authenticated: auth.authenticated,
-    user: auth.user
+    username: auth.username
 });
 
 const mapDispatchToProps = {

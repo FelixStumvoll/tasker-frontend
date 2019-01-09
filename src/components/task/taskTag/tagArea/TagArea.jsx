@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { updateTask, updateTaskTags } from '../../taskActions';
+import {
+    updateTask,
+    updateTaskTags
+} from '../../../../redux/reducers/taskReducer/taskActions';
 import TaskTag from '../TaskTag';
 
 const TagAreaGrid = styled.div`

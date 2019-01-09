@@ -7,10 +7,19 @@ import DesktopView from '../responsiveView/DesktopView';
 import MobileView from '../responsiveView/MobileView';
 import TaskRouter from '../task/taskRouter/TaskRouter';
 import LoginPage from '../loginPage/LoginPage';
+import { fetchTasks } from '../../redux/reducers/taskReducer/taskActions';
+import store from '../../redux/store';
 class Router extends Component {
-    render() {
-        let { authenticated } = this.props;
+    componentDidMount() {
+        let { authenticated, tasksLoaded } = this.props;
 
+        if (authenticated && !tasksLoaded) {
+            store.dispatch(fetchTasks());
+        }
+    }
+
+    render() {
+        let { authenticated, fetchState } = this.props;
         return (
             <>
                 <Switch>
@@ -66,11 +75,15 @@ class Router extends Component {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({
-    authenticated: auth.authenticated
+const mapStateToProps = ({ auth, utility, fetch }) => ({
+    authenticated: auth.authenticated,
+    tasksLoaded: utility.tasksLoaded,
+    fetchState: fetch
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    fetchTasks
+};
 
 export default withRouter(
     connect(
