@@ -283,7 +283,7 @@ export default class MyEditor extends React.Component {
                     <Editor
                         spellCheck
                         autoFocus
-                        placeholder="Taskdescription"
+                        placeholder="Tasktext"
                         value={value}
                         onChange={this.onChange}
                         renderMark={this.renderMark}

@@ -11,7 +11,7 @@ const EditorButton = styled.button`
 
 export default ({ isActive, icon, onClick }) => {
     return (
-        <EditorButton isActive={isActive} onClick={onClick}>
+        <EditorButton isActive={isActive} onMouseDown={onClick}>
             {icon}
         </EditorButton>
     );
