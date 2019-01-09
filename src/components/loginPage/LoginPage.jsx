@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 
 import { login } from '../../redux/reducers/authReducer/authActions';
+import { GridLoader } from 'react-spinners';
 
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
     overflow: hidden;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
         margin: 10px;
         width: calc(100% - 20px);
     }
@@ -37,12 +38,12 @@ const LoginPanel = styled.form`
     font-family: ${({ theme }) => theme.defaultFont};
     transition: ${({ theme }) => theme.transitionDuration};
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
         width: calc(100% - 20px);
         margin-top: 100px;
     }
 
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: ${({ theme }) => theme.stage2responsive}) {
         grid-template-areas:
             'Label'
             'Username'
@@ -67,7 +68,7 @@ const LoginLabel = styled.label`
     margin: auto;
     transition: inherit;
 
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: ${({ theme }) => theme.stage2responsive}) {
         display: none;
     }
 `;
@@ -138,7 +139,7 @@ class LoginPage extends Component {
 
     render() {
         let { username, password } = this.state;
-        let { loginFailed } = this.props;
+        let { fetchState } = this.props;
 
         return (
             <Wrapper>
@@ -174,9 +175,20 @@ class LoginPage extends Component {
                             }}
                         </MediaQuery>
                     </PageLabel>
-                    {loginFailed && <ErrorMessage>Login Failed</ErrorMessage>}
+                    {!fetchState.loading && !fetchState.success && (
+                        <ErrorMessage>Login Failed</ErrorMessage>
+                    )}
                     <LoginButton type="submit" onClick={this.onLoginClick}>
-                        Login
+                        {fetchState.loading ? (
+                            <GridLoader
+                                size={10}
+                                sizeUnit={'px'}
+                                css={'margin: auto;'}
+                                color={'white'}
+                            />
+                        ) : (
+                            'Login'
+                        )}
                     </LoginButton>
                 </LoginPanel>
             </Wrapper>
@@ -184,7 +196,10 @@ class LoginPage extends Component {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({ loginFailed: auth.loginFailed });
+const mapStateToProps = ({ auth, fetch }) => ({
+    loginFailed: auth.loginFailed,
+    fetchState: fetch
+});
 
 const mapDispatchToProps = {
     login

@@ -28,10 +28,6 @@ const TaskGrid = styled.article`
     font-family: ${({ theme }) => theme.defaultFont};
     padding: 10px;
     box-sizing: border-box;
-
-    /* @media screen and (max-width: 900px){
-        grid-template-rows: 
-    } */
 `;
 
 const DetailGrid = styled.div`

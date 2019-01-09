@@ -65,6 +65,8 @@ const mapStateToProps = ({ tasks, router, utility }) => {
 
             if (task.text && JSON.stringify(task.text).includes(searchTerm))
                 return true;
+
+            if (task.tags && task.tags.includes(searchTerm)) return true;
             return false;
         });
     }

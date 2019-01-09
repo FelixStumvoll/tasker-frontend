@@ -9,6 +9,7 @@ import TaskRouter from '../task/taskRouter/TaskRouter';
 import LoginPage from '../loginPage/LoginPage';
 import { fetchTasks } from '../../redux/reducers/taskReducer/taskActions';
 import store from '../../redux/store';
+import LoadingScreen from '../loadingScreen/LoadingScreen';
 class Router extends Component {
     componentDidMount() {
         let { authenticated, tasksLoaded } = this.props;
@@ -20,6 +21,7 @@ class Router extends Component {
 
     render() {
         let { authenticated, fetchState } = this.props;
+
         return (
             <>
                 <Switch>
@@ -31,7 +33,8 @@ class Router extends Component {
                         path="/task"
                         render={() => {
                             if (!authenticated) return <Redirect to="/login" />;
-
+                            if (fetchState.loading && !fetchState.success)
+                                return <LoadingScreen />;
                             return (
                                 <MediaQuery maxWidth={600}>
                                     {matches => {

@@ -21,8 +21,9 @@ const Nav = styled.nav`
     width: 100%;
     z-index: 9999;
 
-    @media screen and (max-width: 600px) {
-        grid-template-columns: 50px 1fr 40vw 2fr 100px 100px;
+    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
+        grid-template-columns: 50px 1fr 40vw 2fr 100px;
+        grid-template-areas: 'HomeArea . SearchArea . Logout';
     }
 `;
 
@@ -70,6 +71,10 @@ const UserName = styled.span`
     font-weight: bolder;
     margin: auto;
     text-overflow: ellipsis;
+
+    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
+        display: none;
+    }
 `;
 
 class Navbar extends Component {

@@ -8,5 +8,7 @@ export default {
     transitionDuration: '250ms',
     sidebarWidth: '250px',
     defaultFontSize: '16px',
-    defaultFont: 'sans-serif'
+    defaultFont: 'sans-serif',
+    stage1responsive: '600px',
+    stage2responsive: '450px'
 };
