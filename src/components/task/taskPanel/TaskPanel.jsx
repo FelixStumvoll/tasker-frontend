@@ -44,6 +44,7 @@ const DetailGrid = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10px;
     grid-template-rows: 50px 50px 50px;
+    width: 100%;
 
     @media screen and (max-width: 900px) {
         display: grid;
@@ -120,7 +121,7 @@ const DeleteButton = styled.button`
     font-weight: bolder;
     font-size: 20px;
     width: 25%;
-    margin-left: 75%;
+    margin-left: auto;
     cursor: pointer;
 `;
 
