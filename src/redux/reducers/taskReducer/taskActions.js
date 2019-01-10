@@ -14,6 +14,7 @@ import {
 } from '../fetchReducer/fetchActionTypes';
 import axiosConfig from '../../../utils/axiosConfig';
 import { TASKS_LOADED } from '../utilityReducer/utilityActionTypes';
+import debounce from 'debounce-promise';
 
 export const createTask = () => async (dispatch, getState) => {
     try {
@@ -50,7 +51,7 @@ export const removeTask = task => async (dispatch, getState) => {
     } catch (ex) {}
 };
 
-export const updateTask = task => async (dispatch, getState) => {
+const updateTaskFunction = async (task, dispatch, getState) => {
     try {
         let { auth } = getState();
         let response = await axios.put(
@@ -65,6 +66,31 @@ export const updateTask = task => async (dispatch, getState) => {
     } catch (ex) {}
 };
 
+const debouncedUpdateTask = debounce(async (task, dispatch, getState) => {
+    await updateTaskFunction(task, dispatch, getState);
+}, 500);
+
+export const updateTask = (task, immediate = true) => async (
+    dispatch,
+    getState
+) => {
+    if (immediate) {
+        await updateTaskFunction(task, dispatch, getState);
+    } else {
+        await debouncedUpdateTask(task, dispatch, getState);
+    }
+};
+
+export const updateTaskText = (taskId, text) => (dispatch, getState) => {
+    try {
+        let task = getState().tasks.find(task => task._id === taskId);
+        if (!task) return;
+        task.text = text;
+
+        dispatch(updateTask(task, false));
+    } catch (ex) {}
+};
+
 export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
     try {
         let task = getState().tasks.find(task => task._id === taskId);
@@ -76,10 +102,10 @@ export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
 };
 
 export const fetchTasks = () => async (dispatch, getState) => {
-    let { auth } = getState();
-    dispatch({ type: FETCH_START });
-
     try {
+        let { auth } = getState();
+        dispatch({ type: FETCH_START });
+
         let response = await axios.get(
             `${apiUrl}/task`,
             axiosConfig(auth.bearer)

@@ -16,6 +16,9 @@ import {
     faListOl,
     faListUl
 } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux';
+
+import { updateTaskText } from '../../redux/reducers/taskReducer/taskActions';
 
 const EditorArea = styled.div`
     height: 100%;
@@ -62,7 +65,7 @@ const isHotkey = event => {
     }
 };
 
-export default class MyEditor extends React.Component {
+class MyEditor extends React.Component {
     constructor(props) {
         super(props);
 
@@ -188,7 +191,8 @@ export default class MyEditor extends React.Component {
 
     onChange = async ({ value }) => {
         if (value.document !== this.state.value.document) {
-            this.props.onChange(value.toJSON());
+            let { updateTaskText, taskId } = this.props;
+            updateTaskText(taskId, value.toJSON());
         }
 
         this.setState({ value });
@@ -296,3 +300,14 @@ export default class MyEditor extends React.Component {
         );
     }
 }
+
+// const mapStateToProps = ({ tasks }, ownProps) => {};
+
+const mapDispatchToProps = {
+    updateTaskText
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(MyEditor);

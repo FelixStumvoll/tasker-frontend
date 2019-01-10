@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import debounce from 'debounce';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -138,20 +137,6 @@ class TaskPanel extends Component {
     }
     //#region Methods
 
-    saveTask = () => {
-        let { task } = this.state;
-        this.props.updateTask(task);
-    };
-
-    //todo move to action
-    debouncedSave = debounce(
-        () => {
-            this.saveTask();
-        },
-        100,
-        false
-    );
-
     changeDateCallback = dueDate => {
         this.updateTaskState(dueDate, 'dueDate');
     };
@@ -164,7 +149,7 @@ class TaskPanel extends Component {
         let { task } = this.state;
         task[property] = value;
         this.setState({ task });
-        await this.debouncedSave();
+        this.props.updateTask(task, false);
     };
 
     onTaskRemove = () => {
@@ -211,10 +196,7 @@ class TaskPanel extends Component {
                     </TagAreaWrapper>
                 </DetailGrid>
                 <EditorArea>
-                    <Editor
-                        initialValue={task.text}
-                        onChange={this.changeTextCallback}
-                    />
+                    <Editor initialValue={task.text} taskId={task._id} />
                 </EditorArea>
                 <DeleteButton onClick={this.onTaskRemove}>Delete</DeleteButton>
             </TaskGrid>
