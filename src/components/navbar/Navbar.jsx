@@ -1,59 +1,132 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog } from '@fortawesome/free-solid-svg-icons/faCog';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changeSearchterm } from '../../redux/reducers/utilityReducer/utilityActions';
+import { logout } from '../../redux/reducers/authReducer/authActions';
 
-const Nav = styled.div`
-    height: ${props => props.theme.navheight};
-    background-color: ${props => props.theme.mainColor};
+const Nav = styled.nav`
+    height: ${props => props.theme.navHeight};
+    background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 100px 1fr 400px 2fr 100px
-    grid-template-areas: 'Home . Search . Controls';
+    grid-template-columns: 1fr 40vw 2fr 150px 100px;
+    font-family: ${({ theme }) => theme.defaultFont};
+    grid-template-areas: '. SearchArea . Name Logout';
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 9999;
+
+    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
+        grid-template-columns: 50px 1fr 40vw 2fr 100px;
+        grid-template-areas: 'BackButton . SearchArea . Logout';
+    }
 `;
 
-const HomeButton = styled.div`
-    grid-area: Home;
-    font-weight: bold;
-`;
-
-const VerticalCenter = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-area: ${props => props.area};
-`;
-
-const SearchBar = styled.input`
+const Searchbar = styled.input`
+    grid-area: SearchArea;
     height: 30px;
     width: 100%;
     border: none;
     outline: none;
     border-radius: 5px;
     padding-left: 5px;
+    margin: auto;
+    font-family: inherit;
 `;
 
-// const Controls = styled.button`
-//     grid-area: Controls;
-// `;
+const BackButton = styled(Link)`
+    grid-area: BackButton;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    background-color: inherit;
+`;
+
+const LogoutButton = styled.button`
+    grid-area: Logout;
+    background-color: ${({ theme }) => theme.negativeColor};
+    border: none;
+    color: white;
+    height: 30px;
+    border-radius: 10px;
+    margin: auto;
+    cursor: pointer;
+`;
+
+const UserName = styled.span`
+    grid-area: Name;
+    font-weight: bolder;
+    margin: auto;
+    text-overflow: ellipsis;
+
+    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
+        display: none;
+    }
+`;
 
 class Navbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { searchTerm: props.searchTerm };
+    }
+
+    onSearchtermChange = e => {
+        this.setState({ searchTerm: e.target.value });
+        this.props.changeSearchterm(e.target.value);
+    };
+
     render() {
+        let { authenticated, username } = this.props;
+        let { searchTerm } = this.state;
         return (
             <Nav>
-                <VerticalCenter area="Home">
-                    <HomeButton>Home</HomeButton>
-                </VerticalCenter>
-
-                <VerticalCenter area="Search">
-                    <SearchBar color="red" type="text" placeholder="Search" />
-                </VerticalCenter>
-
-                <VerticalCenter area="Controls">
-                    <FontAwesomeIcon icon={faCog} />
-                </VerticalCenter>
+                {authenticated && (
+                    <>
+                        <MediaQuery maxWidth={600}>
+                            <BackButton to={'/task'}>
+                                <FontAwesomeIcon icon={faBars}>
+                                    List
+                                </FontAwesomeIcon>
+                            </BackButton>
+                        </MediaQuery>
+                        <Searchbar
+                            tabIndex="1"
+                            onChange={this.onSearchtermChange}
+                            value={searchTerm}
+                            type="text"
+                            placeholder="Search..."
+                        />
+                        <UserName>Hello, {username}</UserName>
+                        <LogoutButton onClick={this.props.logout}>
+                            Logout
+                        </LogoutButton>
+                    </>
+                )}
             </Nav>
         );
     }
 }
 
-export default Navbar;
+const mapStateToProps = ({ auth, utility }) => ({
+    authenticated: auth.authenticated,
+    username: auth.username,
+    searchTerm: utility.searchTerm
+});
+
+const mapDispatchToProps = {
+    logout,
+    changeSearchterm
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navbar);

@@ -1,53 +1,41 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import styled from 'styled-components';
 
 import Navbar from './components/navbar/Navbar';
-import TaskDashboard from './components/task/TaskDashboard';
-import Store from './data/Store';
-// import TaskDetailPage from './components/task/taskDetailPage/TaskDetailPage';
 
-const theme = {
-    navheight: '50px',
-    mainColor: '#00BD9D'
-};
+import Store, { history } from './redux/store';
+import theme from './theme/theme';
+import Router from './components/router/Router';
+
+const MainGrid = styled.div`
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-areas: '.' 'Content';
+    grid-template-rows: ${({ theme }) => theme.navHeight} 1fr;
+`;
+
+const RouterWrapper = styled.div`
+    grid-area: Content;
+`;
 
 class App extends Component {
     render() {
         return (
             <Provider store={Store}>
-                <BrowserRouter>
+                <ConnectedRouter history={history}>
                     <ThemeProvider theme={theme}>
-                        <div>
+                        <MainGrid>
                             <Navbar />
-
-                            <Switch>
-                                <Route exact path="/">
-                                    <Redirect to="/tasks" />
-                                </Route>
-                            </Switch>
-
-                            <Route
-                                path="/(.+)"
-                                render={() => (
-                                    <div>
-                                        <Switch>
-                                            {/* <Route
-                                                path="/task/:id"
-                                                component={TaskDetailPage}
-                                            /> */}
-                                            <Route
-                                                path="/tasks"
-                                                component={TaskDashboard}
-                                            />
-                                        </Switch>
-                                    </div>
-                                )}
-                            />
-                        </div>
+                            <RouterWrapper>
+                                <Router />
+                            </RouterWrapper>
+                        </MainGrid>
                     </ThemeProvider>
-                </BrowserRouter>
+                </ConnectedRouter>
             </Provider>
         );
     }
