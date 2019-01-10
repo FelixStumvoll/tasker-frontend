@@ -115,7 +115,7 @@ const DeleteButton = styled.button`
     font-family: inherit;
     font-weight: bolder;
     font-size: 20px;
-    width: 25%;
+    width: 120px;
     margin-left: auto;
     cursor: pointer;
 `;

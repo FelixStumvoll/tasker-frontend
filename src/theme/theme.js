@@ -4,7 +4,7 @@ export default {
     primaryColor: '#d6e3f8',
     primaryColorActive: '#94b1df',
     positiveColor: '#419669',
-    negativeColor: '#ED254E',
+    negativeColor: '#A9353E',
     transitionDuration: '250ms',
     sidebarWidth: '250px',
     defaultFontSize: '16px',

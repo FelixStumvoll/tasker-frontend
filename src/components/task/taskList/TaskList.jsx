@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import Task from './TaskListItem';
+import { dateSortFunction, searchFilterFunction } from '../../../utils/common';
 
 const List = styled.div`
     display: flex;
@@ -10,12 +11,12 @@ const List = styled.div`
 `;
 
 const FlexItem = styled.div`
-    height: 85px;
+    height: 50px;
     background-color: ${({ theme, active }) =>
         active ? theme.primaryColorActive : theme.primaryColor};
-    border: 1px solid transparent;
+    border: none;
     border-radius: 10px;
-    padding: 2px;
+    padding: 5px;
     margin: 5px;
 
     :last-child {
@@ -43,32 +44,16 @@ class TaskList extends Component {
 }
 
 const mapStateToProps = ({ tasks, router, utility }) => {
-    let { searchTerm } = utility;
-
     let taskList = tasks.filter(task => !task.parentTask);
 
-    taskList.sort((lhs, rhs) => {
-        if (!lhs.dueDate) {
-            return 1;
-        }
+    taskList.sort(dateSortFunction);
 
-        if (!rhs.dueDate) {
-            return -1;
-        }
-
-        return new Date(lhs.dueDate) - new Date(rhs.dueDate);
-    });
+    let { searchTerm } = utility;
 
     if (searchTerm && searchTerm !== '') {
-        taskList = taskList.filter(task => {
-            if (task.title && task.title.includes(searchTerm)) return true;
-
-            if (task.text && JSON.stringify(task.text).includes(searchTerm))
-                return true;
-
-            if (task.tags && task.tags.includes(searchTerm)) return true;
-            return false;
-        });
+        taskList = taskList.filter(task =>
+            searchFilterFunction(task, searchTerm)
+        );
     }
 
     return { tasks: taskList, location: router.location };

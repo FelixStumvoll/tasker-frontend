@@ -99,6 +99,10 @@ const ErrorMessage = styled.div`
     vertical-align: middle;
     font-family: inherit;
     padding: 5px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 const LoginButton = styled.button`
@@ -144,28 +148,32 @@ class LoginPage extends Component {
         return (
             <Wrapper>
                 <LoginPanel>
-                    <LoginLabel gridArea={'UsernameLabel'} htmlFor="username">
+                    <LoginLabel
+                        gridArea={'UsernameLabel'}
+                        htmlFor="user"
+                    >
                         Username:
                     </LoginLabel>
                     <LoginInput
                         type="text"
-                        id="username"
+                        id="user"
                         gridArea="Username"
                         placeholder="Username"
                         value={username}
                         onChange={this.onUsernameInput}
                     />
+                    <LoginLabel gridArea={'PasswordLabel'} htmlFor="pass">
+                        Password:
+                    </LoginLabel>
                     <LoginInput
                         type="password"
-                        id="password"
+                        id="pass"
                         gridArea="Password"
                         placeholder="Password"
                         value={password}
                         onChange={this.onPasswordInput}
                     />
-                    <LoginLabel gridArea={'PasswordLabel'} htmlFor="password">
-                        Password:
-                    </LoginLabel>
+
                     <PageLabel>
                         <MediaQuery maxWidth={600}>
                             {matches => {

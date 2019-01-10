@@ -14,7 +14,7 @@ const TaskSidebar = styled.aside`
 
 const AddArea = styled.div`
     width: ${({ theme }) => theme.sidebarWidth};
-    height: 85px;
+    height: 72px;
     box-sizing: border-box;
     border-bottom: 2px solid black;
     padding: 5px;

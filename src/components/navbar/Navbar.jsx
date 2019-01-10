@@ -88,14 +88,17 @@ class Navbar extends Component {
         let { searchTerm } = this.state;
         return (
             <Nav>
-                <MediaQuery maxWidth={600}>
-                    <BackButton to={'/task'}>
-                        <FontAwesomeIcon icon={faBars} />
-                    </BackButton>
-                </MediaQuery>
                 {authenticated && (
                     <>
+                        <MediaQuery maxWidth={600}>
+                            <BackButton to={'/task'}>
+                                <FontAwesomeIcon icon={faBars}>
+                                    List
+                                </FontAwesomeIcon>
+                            </BackButton>
+                        </MediaQuery>
                         <Searchbar
+                            tabIndex="1"
                             onChange={this.onSearchtermChange}
                             value={searchTerm}
                             type="text"

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { format } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { updateTask } from '../../../redux/reducers/taskReducer/taskActions';
 
@@ -11,31 +14,44 @@ const TaskArea = styled(Link)`
     background-color: inherit;
     cursor: pointer;
     height: 100%;
-    display: grid;
-    grid-template-areas:
-        'TitleArea'
-        'DueDate';
-    grid-template-rows: 30px 1fr;
+    display: flex;
+    flex-direction: column;
     font-family: ${({ theme }) => theme.defaultFont};
+    box-sizing: border-box;
 `;
 
 const TaskTitle = styled.h1`
     margin: auto;
     max-width: 100%;
-    padding-top: 5px;
     grid-area: TitleArea;
     font-size: ${({ theme }) => theme.defaultFontSize};
     text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
+`;
+
+const TaskDate = styled.span`
+    margin: auto;
+    max-width: 100%;
+    grid-area: DueDate;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: ${({ theme }) => theme.defaultFontSize};
 `;
 
 class TaskListItem extends Component {
     render() {
         let { task } = this.props;
+
         return (
-            <TaskArea to={`/task/${task._id}`}>
-                <TaskTitle>{task.title}</TaskTitle>
-                {/* {task.dueDate && } */}
+            <TaskArea alt={task.title} to={`/task/${task._id}`}>
+                {task.title && <TaskTitle>{task.title}</TaskTitle>}
+                {task.dueDate && (
+                    <TaskDate gridArea="DueDate">
+                        <FontAwesomeIcon icon={faCalendarAlt} />{' '}
+                        {format(task.dueDate, 'dd.MM.yyyy')}
+                    </TaskDate>
+                )}
             </TaskArea>
         );
     }

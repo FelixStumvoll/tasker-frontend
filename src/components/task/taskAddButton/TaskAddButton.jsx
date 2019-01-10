@@ -18,6 +18,7 @@ const AddTaskButton = styled.button`
     border-radius: 10px;
     transition: ${({ theme }) => theme.transitionDuration};
     font-family: ${({ theme }) => theme.defaultFont};
+    padding: 5px;
 `;
 
 class TaskAddButton extends Component {
