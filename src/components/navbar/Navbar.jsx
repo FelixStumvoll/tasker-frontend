@@ -12,9 +12,9 @@ const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 100px 1fr 40vw 2fr 150px 100px;
+    grid-template-columns: 1fr 40vw 2fr 150px 100px;
     font-family: ${({ theme }) => theme.defaultFont};
-    grid-template-areas: 'HomeArea . SearchArea . Name Logout';
+    grid-template-areas: '. SearchArea . Name Logout';
     position: fixed;
     top: 0px;
     left: 0px;
@@ -23,14 +23,8 @@ const Nav = styled.nav`
 
     @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
         grid-template-columns: 50px 1fr 40vw 2fr 100px;
-        grid-template-areas: 'HomeArea . SearchArea . Logout';
+        grid-template-areas: 'BackButton . SearchArea . Logout';
     }
-`;
-
-const Home = styled.a`
-    grid-area: HomeArea;
-    font-weight: bold;
-    margin: auto;
 `;
 
 const Searchbar = styled.input`
@@ -46,7 +40,7 @@ const Searchbar = styled.input`
 `;
 
 const BackButton = styled(Link)`
-    grid-area: HomeArea;
+    grid-area: BackButton;
     margin: auto;
     font-size: 20px;
     cursor: pointer;
@@ -95,15 +89,9 @@ class Navbar extends Component {
         return (
             <Nav>
                 <MediaQuery maxWidth={600}>
-                    {matches => {
-                        return matches ? (
-                            <BackButton to={'/task'}>
-                                <FontAwesomeIcon icon={faBars} />
-                            </BackButton>
-                        ) : (
-                            <Home>Home</Home>
-                        );
-                    }}
+                    <BackButton to={'/task'}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </BackButton>
                 </MediaQuery>
                 {authenticated && (
                     <>

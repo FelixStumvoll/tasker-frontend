@@ -113,9 +113,9 @@ class TagArea extends Component {
     }
 }
 
-const mapStateToProps = ({ tasks }, ownprops) => {
-    // let task = tasks.find(x => x.id === ownprops.taskId);
-    let { tags } = tasks.find(task => task._id === ownprops.taskId);
+const mapStateToProps = ({ tasks }, ownProps) => {
+    // let task = tasks.find(x => x.id === ownProps.taskId);
+    let { tags } = tasks.find(task => task._id === ownProps.taskId);
 
     return { tags };
 };

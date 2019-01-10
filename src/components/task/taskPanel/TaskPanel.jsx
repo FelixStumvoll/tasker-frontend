@@ -208,8 +208,8 @@ TaskPanel.propTypes = {
     taskId: PropTypes.string.isRequired
 };
 
-const mapStateToProps = ({ tasks }, ownprops) => {
-    let task = tasks.find(task => task._id === ownprops.taskId);
+const mapStateToProps = ({ tasks }, ownProps) => {
+    let task = tasks.find(task => task._id === ownProps.taskId);
 
     return { task };
 };

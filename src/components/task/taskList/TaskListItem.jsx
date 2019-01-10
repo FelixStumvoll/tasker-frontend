@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { updateTask } from '../../../redux/reducers/taskReducer/taskActions';
 
@@ -15,7 +14,7 @@ const TaskArea = styled(Link)`
     display: grid;
     grid-template-areas:
         'TitleArea'
-        'DescriptionArea';
+        'DueDate';
     grid-template-rows: 30px 1fr;
     font-family: ${({ theme }) => theme.defaultFont};
 `;
@@ -30,40 +29,20 @@ const TaskTitle = styled.h1`
     overflow: hidden;
 `;
 
-const TaskText = styled.div`
-    max-width: 100%;
-    grid-area: DescriptionArea;
-    padding: 5px;
-    white-space: pre;
-    text-overflow: ellipsis;
-    overflow: hidden;
-`;
-
 class TaskListItem extends Component {
     render() {
         let { task } = this.props;
         return (
             <TaskArea to={`/task/${task._id}`}>
                 <TaskTitle>{task.title}</TaskTitle>
-                <TaskText>{task.description}</TaskText>
+                {/* {task.dueDate && } */}
             </TaskArea>
         );
     }
 }
 
-TaskListItem.propTypes = {
-    id: PropTypes.string.isRequired,
-    task: PropTypes.object
-};
-
 const mapStateToProps = ({ tasks }, ownProps) => {
-    let taskId = ownProps.id;
-    let task = {};
-
-    if (taskId && tasks.length > 0) {
-        task = tasks.find(item => item._id === taskId);
-    }
-
+    let task = tasks.find(item => item._id === ownProps.taskId);
     return { task };
 };
 

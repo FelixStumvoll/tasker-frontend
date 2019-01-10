@@ -34,7 +34,7 @@ class TaskList extends Component {
                             active={location.pathname.includes(task._id)}
                             key={task._id}
                         >
-                            <Task id={task._id} />
+                            <Task taskId={task._id} />
                         </FlexItem>
                     ))}
             </List>
