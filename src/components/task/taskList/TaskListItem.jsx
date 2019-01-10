@@ -44,7 +44,7 @@ class TaskListItem extends Component {
         let { task } = this.props;
 
         return (
-            <TaskArea alt={task.title} to={`/task/${task._id}`}>
+            <TaskArea to={`/task/${task._id}`}>
                 {task.title && <TaskTitle>{task.title}</TaskTitle>}
                 {task.dueDate && (
                     <TaskDate gridArea="DueDate">

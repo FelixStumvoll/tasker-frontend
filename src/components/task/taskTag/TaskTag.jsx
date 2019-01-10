@@ -5,7 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Tag = styled.div`
     border-radius: 15px;
-    background-color: green;
+    background-color: ${({ theme }) => theme.positiveColor};
     color: white;
     line-height: 12px;
     font-size: 12px;

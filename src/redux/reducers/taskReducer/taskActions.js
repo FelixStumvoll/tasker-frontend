@@ -53,16 +53,15 @@ export const removeTask = task => async (dispatch, getState) => {
 
 const updateTaskFunction = async (task, dispatch, getState) => {
     try {
+        dispatch({ type: TASK_UPDATE, payload: { task } });
         let { auth } = getState();
-        let response = await axios.put(
+        /*let response =*/ await axios.put(
             `${apiUrl}/task/${task._id}`,
             { task },
             axiosConfig(auth.bearer)
         );
 
-        if (response.status === 200) {
-            dispatch({ type: TASK_UPDATE, payload: { task } });
-        }
+        // if (response.status === 200) {
     } catch (ex) {}
 };
 

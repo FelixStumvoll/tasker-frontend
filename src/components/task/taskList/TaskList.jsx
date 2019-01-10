@@ -13,7 +13,7 @@ const List = styled.div`
 const FlexItem = styled.div`
     height: 50px;
     background-color: ${({ theme, active }) =>
-        active ? theme.primaryColorActive : theme.primaryColor};
+        active ? theme.primaryColor : theme.listItemColor};
     border: none;
     border-radius: 10px;
     padding: 5px;

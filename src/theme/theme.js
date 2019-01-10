@@ -1,10 +1,11 @@
 export default {
     navHeight: '50px',
     navColor: '#00BD9D',
-    primaryColor: '#d6e3f8',
-    primaryColorActive: '#94b1df',
+    primaryColor: '#9BC4F8',
+    listItemColor: '#d6e3f8',
     positiveColor: '#419669',
     negativeColor: '#A9353E',
+    styleButtonColor: '#666666',
     transitionDuration: '250ms',
     sidebarWidth: '250px',
     defaultFontSize: '16px',

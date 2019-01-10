@@ -33,10 +33,13 @@ const Tags = styled.div`
     display: flex;
     overflow: auto;
     flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
 `;
 
 const TagWrapper = styled.div`
     margin: 2.5px;
+    height: 30px;
 `;
 
 class TagArea extends Component {
@@ -67,7 +70,7 @@ class TagArea extends Component {
     addTaskTag = () => {
         let { tagValue, tags } = this.state;
         if (!this.taskTagExists(tagValue) && /\S/.test(tagValue)) {
-            tags.push(tagValue);
+            tags.unshift(tagValue);
             this.setState({ tags, tagValue: '' });
             this.props.updateTaskTags(this.props.taskId, tags);
         }
