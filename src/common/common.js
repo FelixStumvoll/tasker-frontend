@@ -18,6 +18,19 @@ const searchString = (regex, string, searchTerm) => {
         : string.includes(searchTerm);
 };
 
+const searchTaskText = (regex, taskText, searchTerm) => {
+    let textReg = new RegExp('"text":(".*?")(?=,|})', 'g');
+
+    let match = textReg.exec(taskText);
+
+    while (match != null) {
+        if (searchString(regex, match[1], searchTerm)) return true;
+        match = textReg.exec(taskText);
+    }
+
+    return false;
+};
+
 export const searchFilterFunction = (task, searchTerm) => {
     let taskEx;
     try {
@@ -25,13 +38,6 @@ export const searchFilterFunction = (task, searchTerm) => {
     } catch (ex) {}
 
     if (task.title && searchString(taskEx, task.title, searchTerm)) return true;
-
-    //text:\s*(".*")\s*([,]|[}])
-    if (
-        task.text &&
-        searchString(taskEx, JSON.stringify(task.text), searchTerm)
-    )
-        return true;
 
     if (
         task.tags.find(tag => {
@@ -44,6 +50,12 @@ export const searchFilterFunction = (task, searchTerm) => {
     if (
         task.dueDate &&
         searchString(taskEx, format(task.dueDate, 'dd.MM.yyyy'), searchTerm)
+    )
+        return true;
+
+    if (
+        task.text &&
+        searchTaskText(taskEx, JSON.stringify(task.text), searchTerm)
     )
         return true;
 

@@ -12,7 +12,7 @@ import {
     FETCH_FAILED,
     FETCH_FINISHED
 } from '../fetchReducer/fetchActionTypes';
-import axiosConfig from '../../../utils/axiosConfig';
+import axiosConfig from '../../../common/axiosConfig';
 import { TASKS_LOADED } from '../utilityReducer/utilityActionTypes';
 import debounce from 'debounce-promise';
 
@@ -32,8 +32,7 @@ export const createTask = () => async (dispatch, getState) => {
             });
             dispatch(push(`/task/${response.data.task._id}`));
         }
-    } catch (ex) {
-    }
+    } catch (ex) {}
 };
 
 export const removeTask = task => async (dispatch, getState) => {
