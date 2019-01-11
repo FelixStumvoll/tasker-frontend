@@ -138,18 +138,14 @@ class TaskPanel extends Component {
     //#region Methods
 
     changeDateCallback = dueDate => {
-        this.updateTaskState(dueDate, 'dueDate');
+        this.updateTaskState(dueDate, 'dueDate', true);
     };
 
-    changeTextCallback = text => {
-        this.updateTaskState(text, 'text');
-    };
-
-    updateTaskState = async (value, property) => {
+    updateTaskState = async (value, property, immediate = false) => {
         let { task } = this.state;
         task[property] = value;
         this.setState({ task });
-        this.props.updateTask(task, false);
+        this.props.updateTask(task, immediate);
     };
 
     onTaskRemove = () => {
