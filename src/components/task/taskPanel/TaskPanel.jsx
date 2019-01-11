@@ -173,7 +173,7 @@ class TaskPanel extends Component {
                             placeholder="Task Title"
                         />
                         <DetailLabel gridArea="DateLabel" htmlFor="duedate">
-                            <FontAwesomeIcon icon={faCalendarAlt} /> :
+                            <FontAwesomeIcon icon={faCalendarAlt} />
                         </DetailLabel>
                         <DateWrapper>
                             <DateInput
