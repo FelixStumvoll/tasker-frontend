@@ -4,7 +4,7 @@ export default {
     primaryColor: '#9BC4F8',
     listItemColor: '#d6e3f8',
     positiveColor: '#419669',
-    negativeColor: '#A9353E',
+    negativeColor: '#D9312F',
     styleButtonColor: '#666666',
     transitionDuration: '250ms',
     sidebarWidth: '250px',

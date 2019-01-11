@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import TaskPanel from '../taskPanel/TaskPanel';
 
 import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
+// import LoadingScreen from '../../loadingScreen/LoadingScreen';
 
 class TaskRouter extends Component {
     render() {
         let { tasks, match } = this.props;
+
         return (
             <Switch>
                 <Route

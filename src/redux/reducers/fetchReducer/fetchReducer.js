@@ -2,7 +2,7 @@ import { FETCH_START, FETCH_FINISHED, FETCH_FAILED } from './fetchActionTypes';
 
 const initialState = {
     loading: false,
-    success: false
+    success: true
 };
 
 export default (state = initialState, { type, payload }) => {

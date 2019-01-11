@@ -5,12 +5,8 @@ export const tasksFetched = () => ({
 });
 
 export const changeSearchterm = searchTerm => dispatch => {
-    let correctedSearchTerm;
-    if (!new RegExp('\\S.*').test(searchTerm)) {
-        correctedSearchTerm = '';
-    } else {
-        correctedSearchTerm = searchTerm;
-    }
+    let correctedSearchTerm = searchTerm.trim();
+
     dispatch({
         type: SEARCHTERM_CHANGE,
         payload: { searchTerm: correctedSearchTerm }

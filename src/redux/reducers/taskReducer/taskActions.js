@@ -32,22 +32,24 @@ export const createTask = () => async (dispatch, getState) => {
             });
             dispatch(push(`/task/${response.data.task._id}`));
         }
-    } catch (ex) {}
+    } catch (ex) {
+    }
 };
 
 export const removeTask = task => async (dispatch, getState) => {
     try {
+        dispatch({ type: TASK_REMOVE, payload: { task } });
+        dispatch(push('/task'));
+
         let { auth } = getState();
 
-        let response = await axios.delete(
+        /*let response = */ await axios.delete(
             `${apiUrl}/task/${task._id}`,
             axiosConfig(auth.bearer)
         );
 
-        if (response.status === 200) {
-            dispatch({ type: TASK_REMOVE, payload: { task } });
-            dispatch(push('/task'));
-        }
+        // if (response.status === 200) {
+        // }
     } catch (ex) {}
 };
 
