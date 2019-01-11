@@ -13,6 +13,6 @@ const debouncedChangeSearchterm = debounce((searchTerm, dispatch) => {
     });
 }, 250);
 
-export const changeSearchterm = searchTerm => dispatch => {
-    debouncedChangeSearchterm(searchTerm, dispatch);
+export const changeSearchterm = searchTerm => async dispatch => {
+    await debouncedChangeSearchterm(searchTerm, dispatch);
 };
