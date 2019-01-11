@@ -72,6 +72,10 @@ class Router extends Component {
                             return <LoginPage />;
                         }}
                     />
+
+                    <Route path="/(.*)">
+                        <Redirect to={`/${authenticated ? 'task' : 'login'}`} />
+                    </Route>
                 </Switch>
             </>
         );
