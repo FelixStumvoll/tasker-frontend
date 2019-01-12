@@ -97,13 +97,15 @@ class Navbar extends Component {
                                 </FontAwesomeIcon>
                             </BackButton>
                         </MediaQuery>
-                        <Searchbar
-                            tabIndex="1"
-                            onChange={this.onSearchtermChange}
-                            value={searchTerm}
-                            type="text"
-                            placeholder="Search..."
-                        />
+                        <MediaQuery minWidth={600}>
+                            <Searchbar
+                                tabIndex="1"
+                                onChange={this.onSearchtermChange}
+                                value={searchTerm}
+                                type="text"
+                                placeholder="Search..."
+                            />
+                        </MediaQuery>
                         <UserName>Hello, {username}</UserName>
                         <LogoutButton onClick={this.props.logout}>
                             Logout
