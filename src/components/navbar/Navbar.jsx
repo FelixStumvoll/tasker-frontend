@@ -8,14 +8,15 @@ import { connect } from 'react-redux';
 import { changeSearchterm } from '../../redux/reducers/searchtermReducer/searchtermActions';
 import { logout } from '../../redux/reducers/authReducer/authActions';
 import routes from '../../common/routes';
+import icon from './notepad.svg';
 
 const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 1fr 50vw 2fr 150px 100px;
+    grid-template-columns: 50px 1fr 50vw 2fr 150px 100px;
     font-family: ${({ theme }) => theme.defaultFont};
-    grid-template-areas: '. SearchArea . Name Logout';
+    grid-template-areas: 'BackButton . SearchArea . Name Logout';
     position: fixed;
     top: 0px;
     left: 0px;
@@ -44,7 +45,7 @@ const Searchbar = styled.input`
 const BackButton = styled(Link)`
     grid-area: BackButton;
     margin: auto;
-    font-size: 20px;
+    font-size: 30px;
     cursor: pointer;
     text-decoration: none;
     color: black;
@@ -73,6 +74,12 @@ const UserName = styled.span`
     }
 `;
 
+const Icon = styled.img`
+    height: 30px;
+    width: 30px;
+    margin: auto;
+`;
+
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -97,15 +104,19 @@ class Navbar extends Component {
 
         return (
             <Nav>
+                <BackButton to={routes.task}>
+                    <MediaQuery maxWidth={600}>
+                        {matches =>
+                            matches && authenticated ? (
+                                <FontAwesomeIcon icon={faBars} />
+                            ) : (
+                                <Icon src={icon} alt="Home" />
+                            )
+                        }
+                    </MediaQuery>
+                </BackButton>
                 {authenticated && (
                     <>
-                        <MediaQuery maxWidth={600}>
-                            <BackButton to={routes.task}>
-                                <FontAwesomeIcon icon={faBars}>
-                                    List
-                                </FontAwesomeIcon>
-                            </BackButton>
-                        </MediaQuery>
                         <MediaQuery maxWidth={600}>
                             {matches => {
                                 return (
