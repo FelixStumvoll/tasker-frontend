@@ -90,13 +90,24 @@ class NotificationModal extends Component {
         }, 1000);
     };
 
-    componentDidMount() {
+    componentDidUpdate(prevProps) {
+        if (this.props.notification.id !== prevProps.notification.id) {
+            clearTimeout(this.state.timeoutId);
+            this.setAutoClose();
+        }
+    }
+
+    setAutoClose = () => {
         let { notification } = this.props;
         let timeoutId = setTimeout(() => {
             this.hideMessageDelay();
         }, notification.delay);
 
         this.setState({ timeoutId });
+    };
+
+    componentDidMount() {
+        this.setAutoClose();
     }
 
     onMessageClick = () => {

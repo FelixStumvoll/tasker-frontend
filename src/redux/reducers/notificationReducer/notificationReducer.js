@@ -19,7 +19,8 @@ const initialState = {
     notificationType: undefined,
     message: '',
     style: undefined,
-    delay: 0
+    delay: 0,
+    id: undefined
 };
 
 export default (state = initialState, { type, payload }) => {
