@@ -4,7 +4,7 @@ import { connectRouter } from 'connected-react-router';
 import taskReducer from './reducers/taskReducer/taskReducer';
 import authReducer from './reducers/authReducer/authReducer';
 import fetchReducer from './reducers/fetchReducer/fetchReducer';
-import utilityReducer from './reducers/utilityReducer/utilityReducer';
+import searchtermReducer from './reducers/searchtermReducer/searchtermReducer';
 import notificationReducer from './reducers/notificationReducer/notificationReducer';
 
 export default history =>
@@ -13,6 +13,6 @@ export default history =>
         tasks: taskReducer,
         auth: authReducer,
         fetch: fetchReducer,
-        utility: utilityReducer,
+        searchterm: searchtermReducer,
         notification: notificationReducer
     });

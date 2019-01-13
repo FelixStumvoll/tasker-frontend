@@ -4,7 +4,6 @@ import { push } from 'connected-react-router';
 import axiosConfig from '../../../common/axiosConfig';
 import apiUrl from '../../../common/apiUrl';
 import { showMessage } from '../notificationReducer/notificationActions';
-import { TASKS_LOADED } from '../utilityReducer/utilityActionTypes';
 import notificationType from '../../../common/notificationType';
 import {
     TASK_UPDATE,
@@ -131,7 +130,6 @@ export const fetchTasks = () => async (dispatch, getState) => {
             type: TASK_FETCH_FINISHED,
             payload: { tasks: response.data }
         });
-        dispatch({ type: TASKS_LOADED });
         dispatch(push(`${routes.task}`));
         dispatch({ type: FETCH_FINISHED });
     } catch (ex) {

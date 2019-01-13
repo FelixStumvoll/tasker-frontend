@@ -301,8 +301,6 @@ class MyEditor extends React.Component {
     }
 }
 
-// const mapStateToProps = ({ tasks }, ownProps) => {};
-
 const mapDispatchToProps = {
     updateTaskText
 };

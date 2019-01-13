@@ -59,7 +59,7 @@ class TaskListItem extends Component {
 }
 
 const mapStateToProps = ({ tasks }, ownProps) => {
-    let task = tasks.find(item => item._id === ownProps.taskId);
+    let task = tasks.taskList.find(item => item._id === ownProps.taskId);
     return { task };
 };
 

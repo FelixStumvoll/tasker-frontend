@@ -87,9 +87,9 @@ class Router extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, utility, fetch }) => ({
+const mapStateToProps = ({ auth, tasks, fetch }) => ({
     authenticated: auth.authenticated,
-    tasksLoaded: utility.tasksLoaded,
+    tasksLoaded: tasks.tasksLoaded,
     fetchState: fetch
 });
 

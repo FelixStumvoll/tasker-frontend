@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changeSearchterm } from '../../redux/reducers/utilityReducer/utilityActions';
+import { changeSearchterm } from '../../redux/reducers/searchtermReducer/searchtermActions';
 import { logout } from '../../redux/reducers/authReducer/authActions';
 import routes from '../../common/routes';
 
@@ -77,11 +77,11 @@ class Navbar extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { searchTerm: props.searchTerm };
+        this.state = { searchterm: props.searchterm };
     }
 
     onSearchtermChange = e => {
-        this.setState({ searchTerm: e.target.value });
+        this.setState({ searchterm: e.target.value });
         this.props.changeSearchterm(e.target.value);
     };
 
@@ -93,7 +93,7 @@ class Navbar extends Component {
                 location: { pathname }
             }
         } = this.props;
-        let { searchTerm } = this.state;
+        let { searchterm } = this.state;
 
         return (
             <Nav>
@@ -115,7 +115,7 @@ class Navbar extends Component {
                                         <Searchbar
                                             tabIndex="1"
                                             onChange={this.onSearchtermChange}
-                                            value={searchTerm}
+                                            value={searchterm}
                                             type="text"
                                             placeholder="Search..."
                                         />
@@ -134,10 +134,10 @@ class Navbar extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, utility, router }) => ({
+const mapStateToProps = ({ auth, searchterm, router }) => ({
     authenticated: auth.authenticated,
     username: auth.username,
-    searchTerm: utility.searchTerm,
+    searchterm: searchterm.searchValue,
     router
 });
 

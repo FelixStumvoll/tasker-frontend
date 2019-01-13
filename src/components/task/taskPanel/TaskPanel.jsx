@@ -205,7 +205,7 @@ TaskPanel.propTypes = {
 };
 
 const mapStateToProps = ({ tasks }, ownProps) => {
-    let task = tasks.find(task => task._id === ownProps.taskId);
+    let task = tasks.taskList.find(task => task._id === ownProps.taskId);
 
     return { task };
 };

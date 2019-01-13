@@ -45,16 +45,16 @@ class TaskList extends Component {
     }
 }
 
-const mapStateToProps = ({ tasks, router, utility }) => {
-    let taskList = tasks.filter(task => !task.parentTask);
+const mapStateToProps = ({ tasks, router, searchterm }) => {
+    let taskList = tasks.taskList.filter(task => !task.parentTask);
 
     taskList.sort(dateSortFunction);
 
-    let { searchTerm } = utility;
+    let { searchValue } = searchterm;
 
-    if (searchTerm && searchTerm !== '') {
+    if (searchValue && searchValue !== '') {
         taskList = taskList.filter(task =>
-            searchFilterFunction(task, searchTerm)
+            searchFilterFunction(task, searchValue)
         );
     }
 

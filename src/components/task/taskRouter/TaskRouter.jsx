@@ -33,7 +33,7 @@ class TaskRouter extends Component {
 }
 
 const mapStateToProps = ({ tasks }) => ({
-    tasks
+    tasks: tasks.taskList
 });
 
 export default withRouter(
