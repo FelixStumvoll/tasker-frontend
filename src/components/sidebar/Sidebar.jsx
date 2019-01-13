@@ -17,7 +17,7 @@ const AddArea = styled.div`
     height: 72px;
     box-sizing: border-box;
     border-bottom: 2px solid black;
-    padding: 5px;
+    padding: 10px;
 `;
 
 const ListWrapper = styled.div`

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 import { updateTask } from '../../../redux/reducers/taskReducer/taskActions';
+import routes from '../../../common/routes';
 
 const TaskArea = styled(Link)`
     text-decoration: none;
@@ -44,7 +45,7 @@ class TaskListItem extends Component {
         let { task } = this.props;
 
         return (
-            <TaskArea to={`/task/${task._id}`}>
+            <TaskArea to={`${routes.task}/${task._id}`}>
                 {task.title && <TaskTitle>{task.title}</TaskTitle>}
                 {task.dueDate && (
                     <TaskDate gridArea="DueDate">

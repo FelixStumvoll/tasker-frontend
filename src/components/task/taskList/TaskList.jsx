@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import Task from './TaskListItem';
-import { dateSortFunction, searchFilterFunction } from '../../../common/common';
+import dateSortFunction from './dateSortFunction';
+import searchFilterFunction from './searchFilterFunction';
 
 const List = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 5px;
 `;
 
 const FlexItem = styled.div`

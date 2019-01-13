@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeSearchterm } from '../../redux/reducers/utilityReducer/utilityActions';
 import { logout } from '../../redux/reducers/authReducer/authActions';
+import routes from '../../common/routes';
 
 const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 1fr 40vw 2fr 150px 100px;
+    grid-template-columns: 1fr 50vw 2fr 150px 100px;
     font-family: ${({ theme }) => theme.defaultFont};
     grid-template-areas: '. SearchArea . Name Logout';
     position: fixed;
@@ -22,8 +23,8 @@ const Nav = styled.nav`
     z-index: 9999;
 
     @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
-        grid-template-columns: 50px 1fr 40vw 2fr 100px;
-        grid-template-areas: 'BackButton . SearchArea . Logout';
+        grid-template-columns: 50px 1fr 50vw 1fr 50px 10px;
+        grid-template-areas: 'BackButton . SearchArea . Logout .';
     }
 `;
 
@@ -37,6 +38,7 @@ const Searchbar = styled.input`
     padding-left: 5px;
     margin: auto;
     font-family: inherit;
+    box-sizing: border-box;
 `;
 
 const BackButton = styled(Link)`
@@ -84,27 +86,42 @@ class Navbar extends Component {
     };
 
     render() {
-        let { authenticated, username } = this.props;
+        let {
+            authenticated,
+            username,
+            router: {
+                location: { pathname }
+            }
+        } = this.props;
         let { searchTerm } = this.state;
+
         return (
             <Nav>
                 {authenticated && (
                     <>
                         <MediaQuery maxWidth={600}>
-                            <BackButton to={'/task'}>
+                            <BackButton to={routes.task}>
                                 <FontAwesomeIcon icon={faBars}>
                                     List
                                 </FontAwesomeIcon>
                             </BackButton>
                         </MediaQuery>
-                        <MediaQuery minWidth={600}>
-                            <Searchbar
-                                tabIndex="1"
-                                onChange={this.onSearchtermChange}
-                                value={searchTerm}
-                                type="text"
-                                placeholder="Search..."
-                            />
+                        <MediaQuery maxWidth={600}>
+                            {matches => {
+                                return (
+                                    (!matches ||
+                                        (matches &&
+                                            pathname === routes.task)) && (
+                                        <Searchbar
+                                            tabIndex="1"
+                                            onChange={this.onSearchtermChange}
+                                            value={searchTerm}
+                                            type="text"
+                                            placeholder="Search..."
+                                        />
+                                    )
+                                );
+                            }}
                         </MediaQuery>
                         <UserName>Hello, {username}</UserName>
                         <LogoutButton onClick={this.props.logout}>
@@ -117,10 +134,11 @@ class Navbar extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, utility }) => ({
+const mapStateToProps = ({ auth, utility, router }) => ({
     authenticated: auth.authenticated,
     username: auth.username,
-    searchTerm: utility.searchTerm
+    searchTerm: utility.searchTerm,
+    router
 });
 
 const mapDispatchToProps = {

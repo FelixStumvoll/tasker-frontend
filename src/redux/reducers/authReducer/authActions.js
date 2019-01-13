@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { push } from 'connected-react-router';
-import { apiUrl } from '../../../config';
+import apiUrl from '../../../common/apiUrl';
 import { LOGIN, LOGOUT } from './authActionTypes';
 import { fetchTasks } from '../taskReducer/taskActions';
 import {
@@ -8,8 +8,12 @@ import {
     FETCH_FINISHED,
     FETCH_FAILED
 } from '../fetchReducer/fetchActionTypes';
+import routes from '../../../common/routes';
+import { showMessage } from '../notificationReducer/notificationActions';
+import notificationType from '../../../common/notificationType';
+import errorMessages from '../../../common/errorMessages';
 
-export const login = (username, password) => async (dispatch, getState) => {
+export const login = (username, password) => async dispatch => {
     try {
         dispatch({ type: FETCH_START });
         let response = await axios.post(`${apiUrl}/auth/login`, {
@@ -17,32 +21,33 @@ export const login = (username, password) => async (dispatch, getState) => {
             password
         });
 
-        if (response.status === 200) {
-            let { data } = response;
-            localStorage.setItem(
-                'sessionData',
-                JSON.stringify({
-                    bearer: data.bearer,
-                    username: data.user
-                })
-            );
-            dispatch({ type: FETCH_FINISHED });
-            dispatch({
-                type: LOGIN,
-                payload: { bearer: data.bearer, username: data.user }
-            });
+        let { data } = response;
+        localStorage.setItem(
+            'sessionData',
+            JSON.stringify({
+                bearer: data.bearer,
+                username: data.user
+            })
+        );
+        dispatch({ type: FETCH_FINISHED });
+        dispatch({
+            type: LOGIN,
+            payload: { bearer: data.bearer, username: data.user }
+        });
 
-            dispatch(fetchTasks());
-        } else {
-            throw response.status;
-        }
+        dispatch(fetchTasks());
     } catch (ex) {
+        let errMsg = ex.response
+            ? errorMessages.loginFailed
+            : errorMessages.loginFailedNoConnection;
+
+        dispatch(showMessage(notificationType.negative, errMsg));
         dispatch({ type: FETCH_FAILED });
     }
 };
 
 export const logout = () => dispatch => {
     localStorage.removeItem('sessionData');
-    dispatch(push('/login'));
+    dispatch(push(routes.login));
     dispatch({ type: LOGOUT });
 };

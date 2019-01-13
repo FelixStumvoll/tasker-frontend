@@ -1,17 +1,5 @@
 import { format } from 'date-fns';
 
-export const dateSortFunction = (lhs, rhs) => {
-    if (!lhs.dueDate) {
-        return 1;
-    }
-
-    if (!rhs.dueDate) {
-        return -1;
-    }
-
-    return new Date(lhs.dueDate) - new Date(rhs.dueDate);
-};
-
 const searchString = (regex, string, searchTerm) => {
     return regex
         ? regex.test(string) || string.includes(searchTerm)
@@ -31,7 +19,7 @@ const searchTaskText = (regex, taskText, searchTerm) => {
     return false;
 };
 
-export const searchFilterFunction = (task, searchTerm) => {
+export default (task, searchTerm) => {
     let taskEx;
     try {
         taskEx = new RegExp(`.*${searchTerm}.*`);

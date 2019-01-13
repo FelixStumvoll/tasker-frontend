@@ -1,20 +1,24 @@
+import axios from 'axios';
+import debounce from 'debounce-promise';
+import { push } from 'connected-react-router';
+import axiosConfig from '../../../common/axiosConfig';
+import apiUrl from '../../../common/apiUrl';
+import { showMessage } from '../notificationReducer/notificationActions';
+import { TASKS_LOADED } from '../utilityReducer/utilityActionTypes';
+import notificationType from '../../../common/notificationType';
 import {
     TASK_UPDATE,
     TASK_CREATE,
     TASK_FETCH_FINISHED,
     TASK_REMOVE
 } from './taskActionTypes';
-import axios from 'axios';
-import { push } from 'connected-react-router';
-import { apiUrl } from '../../../config';
 import {
     FETCH_START,
     FETCH_FAILED,
     FETCH_FINISHED
 } from '../fetchReducer/fetchActionTypes';
-import axiosConfig from '../../../common/axiosConfig';
-import { TASKS_LOADED } from '../utilityReducer/utilityActionTypes';
-import debounce from 'debounce-promise';
+import errorMessages from '../../../common/errorMessages';
+import routes from '../../../common/routes';
 
 export const createTask = () => async (dispatch, getState) => {
     try {
@@ -30,40 +34,56 @@ export const createTask = () => async (dispatch, getState) => {
                 type: TASK_CREATE,
                 payload: { task: response.data.task }
             });
-            dispatch(push(`/task/${response.data.task._id}`));
+            dispatch(push(`${routes.task}/${response.data.task._id}`));
         }
-    } catch (ex) {}
+    } catch (ex) {
+        dispatch(
+            showMessage(
+                notificationType.negative,
+                errorMessages.taskCreationFailed
+            )
+        );
+    }
 };
 
 export const removeTask = task => async (dispatch, getState) => {
     try {
-        dispatch({ type: TASK_REMOVE, payload: { task } });
-        dispatch(push('/task'));
-
         let { auth } = getState();
 
-        /*let response = */ await axios.delete(
+        await axios.delete(
             `${apiUrl}/task/${task._id}`,
             axiosConfig(auth.bearer)
         );
 
-        // if (response.status === 200) {
-        // }
-    } catch (ex) {}
+        dispatch({ type: TASK_REMOVE, payload: { task } });
+        dispatch(push(`${routes.task}`));
+    } catch (ex) {
+        dispatch(
+            showMessage(
+                notificationType.negative,
+                errorMessages.taskDeleteFailed
+            )
+        );
+    }
 };
 
 const updateTaskFunction = async (task, dispatch, getState) => {
     try {
         dispatch({ type: TASK_UPDATE, payload: { task } });
         let { auth } = getState();
-        /*let response =*/ await axios.put(
+        await axios.put(
             `${apiUrl}/task/${task._id}`,
             { task },
             axiosConfig(auth.bearer)
         );
-
-        // if (response.status === 200) {
-    } catch (ex) {}
+    } catch (ex) {
+        dispatch(
+            showMessage(
+                notificationType.negative,
+                errorMessages.taskUpdateFailed
+            )
+        );
+    }
 };
 
 const debouncedUpdateTask = debounce(async (task, dispatch, getState) => {
@@ -82,23 +102,19 @@ export const updateTask = (task, immediate = true) => async (
 };
 
 export const updateTaskText = (taskId, text) => (dispatch, getState) => {
-    try {
-        let task = getState().tasks.find(task => task._id === taskId);
-        if (!task) return;
-        task.text = text;
+    let task = getState().tasks.find(task => task._id === taskId);
+    if (!task) return;
+    task.text = text;
 
-        dispatch(updateTask(task, false));
-    } catch (ex) {}
+    dispatch(updateTask(task, false));
 };
 
 export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
-    try {
-        let task = getState().tasks.find(task => task._id === taskId);
-        if (!task) return;
-        task.tags = tags;
+    let task = getState().tasks.find(task => task._id === taskId);
+    if (!task) return;
+    task.tags = tags;
 
-        dispatch(updateTask(task));
-    } catch (ex) {}
+    dispatch(updateTask(task));
 };
 
 export const fetchTasks = () => async (dispatch, getState) => {
@@ -111,16 +127,20 @@ export const fetchTasks = () => async (dispatch, getState) => {
             axiosConfig(auth.bearer)
         );
 
-        if (response.status !== 200) throw response.status;
-
         dispatch({
             type: TASK_FETCH_FINISHED,
             payload: { tasks: response.data }
         });
         dispatch({ type: TASKS_LOADED });
-        dispatch(push('/task'));
+        dispatch(push(`${routes.task}`));
         dispatch({ type: FETCH_FINISHED });
     } catch (ex) {
+        dispatch(
+            showMessage(
+                notificationType.negative,
+                errorMessages.taskFetchFailed
+            )
+        );
         dispatch({ type: FETCH_FAILED });
     }
 };
