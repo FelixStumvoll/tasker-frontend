@@ -12,13 +12,15 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case TASK_UPDATE:
-            let updateIndex = getTaskById(payload.task._id, state);
+            let updateIndex = state.taskList.findIndex(
+                task => task._id === payload.task._id
+            );
 
             return Object.assign({}, state, {
                 taskList: [
-                    ...state.slice(0, updateIndex),
+                    ...state.taskList.slice(0, updateIndex),
                     Object.assign({}, payload.task),
-                    ...state.slice(updateIndex + 1)
+                    ...state.taskList.slice(updateIndex + 1)
                 ]
             });
 
@@ -44,8 +46,4 @@ export default (state = initialState, action) => {
         default:
             return state;
     }
-};
-
-const getTaskById = (id, state) => {
-    return state.findIndex(item => item._id === id);
 };
