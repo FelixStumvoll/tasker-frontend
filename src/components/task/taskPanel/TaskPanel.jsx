@@ -138,18 +138,14 @@ class TaskPanel extends Component {
     //#region Methods
 
     changeDateCallback = dueDate => {
-        this.updateTaskState(dueDate, 'dueDate');
+        this.updateTaskState(dueDate, 'dueDate', true);
     };
 
-    changeTextCallback = text => {
-        this.updateTaskState(text, 'text');
-    };
-
-    updateTaskState = async (value, property) => {
+    updateTaskState = async (value, property, immediate = false) => {
         let { task } = this.state;
         task[property] = value;
         this.setState({ task });
-        this.props.updateTask(task, false);
+        this.props.updateTask(task, immediate);
     };
 
     onTaskRemove = () => {
@@ -177,7 +173,7 @@ class TaskPanel extends Component {
                             placeholder="Task Title"
                         />
                         <DetailLabel gridArea="DateLabel" htmlFor="duedate">
-                            <FontAwesomeIcon icon={faCalendarAlt} /> :
+                            <FontAwesomeIcon icon={faCalendarAlt} />
                         </DetailLabel>
                         <DateWrapper>
                             <DateInput
@@ -209,7 +205,7 @@ TaskPanel.propTypes = {
 };
 
 const mapStateToProps = ({ tasks }, ownProps) => {
-    let task = tasks.find(task => task._id === ownProps.taskId);
+    let task = tasks.taskList.find(task => task._id === ownProps.taskId);
 
     return { task };
 };

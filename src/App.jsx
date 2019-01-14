@@ -9,6 +9,7 @@ import Navbar from './components/navbar/Navbar';
 import Store, { history } from './redux/store';
 import theme from './theme/theme';
 import Router from './components/router/Router';
+import NotificationManager from './components/notification/NotificationManager';
 
 const MainGrid = styled.div`
     height: 100%;
@@ -29,6 +30,7 @@ class App extends Component {
                 <ConnectedRouter history={history}>
                     <ThemeProvider theme={theme}>
                         <MainGrid>
+                            <NotificationManager />
                             <Navbar />
                             <RouterWrapper>
                                 <Router />
