@@ -302,7 +302,7 @@ class MyEditor extends React.Component {
     }
 }
 
-Editor.propTypes = {
+MyEditor.propTypes = {
     taskId: PropTypes.string.isRequired,
     initialValue: PropTypes.object.isRequired,
     updateTaskText: PropTypes.func.isRequired
