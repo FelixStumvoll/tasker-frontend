@@ -101,7 +101,7 @@ export const updateTask = (task, immediate = true) => async (
 };
 
 export const updateTaskText = (taskId, text) => (dispatch, getState) => {
-    let task = getState().tasks.find(task => task._id === taskId);
+    let task = getState().tasks.taskList.find(task => task._id === taskId);
     if (!task) return;
     task.text = text;
 
@@ -109,7 +109,7 @@ export const updateTaskText = (taskId, text) => (dispatch, getState) => {
 };
 
 export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
-    let task = getState().tasks.find(task => task._id === taskId);
+    let task = getState().tasks.taskList.find(task => task._id === taskId);
     if (!task) return;
     task.tags = tags;
 
@@ -119,6 +119,7 @@ export const updateTaskTags = (taskId, tags) => (dispatch, getState) => {
 export const fetchTasks = () => async (dispatch, getState) => {
     try {
         let { auth } = getState();
+
         dispatch({ type: FETCH_START });
 
         let response = await axios.get(
@@ -126,12 +127,17 @@ export const fetchTasks = () => async (dispatch, getState) => {
             axiosConfig(auth.bearer)
         );
 
-        dispatch({
-            type: TASK_FETCH_FINISHED,
-            payload: { tasks: response.data }
-        });
-        dispatch(push(`${routes.task}`));
-        dispatch({ type: FETCH_FINISHED });
+        //fixes issue when refreshing and immediatly logout
+        if (auth.authenticated) {
+            dispatch({
+                type: TASK_FETCH_FINISHED,
+                payload: { tasks: response.data }
+            });
+            dispatch(push(`${routes.task}`));
+            dispatch({ type: FETCH_FINISHED });
+        } else {
+            dispatch({ type: FETCH_FAILED });
+        }
     } catch (ex) {
         dispatch(
             showMessage(
