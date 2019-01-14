@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
+import { GridLoader } from 'react-spinners';
+import PropTypes from 'prop-types';
 
 import { login } from '../../redux/reducers/authReducer/authActions';
-import { GridLoader } from 'react-spinners';
 
 const Wrapper = styled.div`
     display: flex;
@@ -175,6 +176,11 @@ class LoginPage extends Component {
         );
     }
 }
+
+LoginPage.propTypes = {
+    fetchState: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ fetch }) => ({
     fetchState: fetch

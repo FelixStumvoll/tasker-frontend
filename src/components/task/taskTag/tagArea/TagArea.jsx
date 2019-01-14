@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import {
-    updateTask,
-    updateTaskTags
-} from '../../../../redux/reducers/taskReducer/taskActions';
+import { updateTaskTags } from '../../../../redux/reducers/taskReducer/taskActions';
 import TaskTag from '../TaskTag';
 
 const TagAreaGrid = styled.div`
@@ -122,6 +119,12 @@ class TagArea extends Component {
     }
 }
 
+TagArea.propTypes = {
+    taskId: PropTypes.string.isRequired,
+    tags: PropTypes.array.isRequired,
+    updateTaskTags: PropTypes.func.isRequired
+};
+
 const mapStateToProps = ({ tasks }, ownProps) => {
     let { tags } = tasks.taskList.find(task => task._id === ownProps.taskId);
 
@@ -133,7 +136,6 @@ TagArea.propTypes = {
 };
 
 const mapDispatchToProps = {
-    updateTask,
     updateTaskTags
 };
 

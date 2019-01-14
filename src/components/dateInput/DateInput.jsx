@@ -3,6 +3,8 @@ import dateFnsFormat from 'date-fns/format';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import enGB from 'date-fns/locale/en-GB';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
+
 import './datepicker.css';
 
 export default class DateInput extends Component {
@@ -32,12 +34,7 @@ export default class DateInput extends Component {
     };
 
     handleDayChange = selectedDay => {
-        let { callback } = this.props;
-        if (!callback) {
-            return;
-        }
-
-        callback(selectedDay);
+        this.props.callback(selectedDay);
     };
 
     handleChange = date => {
@@ -75,3 +72,8 @@ export default class DateInput extends Component {
         );
     }
 }
+
+DateInput.propTypes = {
+    selectedDate: PropTypes.string.isRequired,
+    callback: PropTypes.func.isRequired
+};

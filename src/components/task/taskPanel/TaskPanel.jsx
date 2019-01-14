@@ -188,7 +188,7 @@ class TaskPanel extends Component {
                         </DateWrapper>
                     </InfoGrid>
                     <TagAreaWrapper>
-                        <TagArea taskId={task._id} tags={task.tags} />
+                        <TagArea taskId={task._id}/>
                     </TagAreaWrapper>
                 </DetailGrid>
                 <EditorArea>
@@ -201,7 +201,10 @@ class TaskPanel extends Component {
 }
 
 TaskPanel.propTypes = {
-    taskId: PropTypes.string.isRequired
+    taskId: PropTypes.string.isRequired,
+    task: PropTypes.object.isRequired,
+    updateTask: PropTypes.func.isRequired,
+    removeTask: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ tasks }, ownProps) => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import DesktopView from '../responsiveView/DesktopView';
 import MobileView from '../responsiveView/MobileView';
@@ -86,6 +87,13 @@ class Router extends Component {
         );
     }
 }
+
+Router.propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    tasksLoaded: PropTypes.bool.isRequired,
+    fetchState: PropTypes.object.isRequired,
+    fetchTasks: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ auth, tasks, fetch }) => ({
     authenticated: auth.authenticated,

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Task from './TaskListItem';
 import dateSortFunction from './dateSortFunction';
 import searchFilterFunction from './searchFilterFunction';
+import PropTypes from 'prop-types';
 
 const List = styled.div`
     display: flex;
@@ -44,6 +45,11 @@ class TaskList extends Component {
         );
     }
 }
+
+TaskList.propTypes = {
+    tasks: PropTypes.array.isRequired,
+    location: PropTypes.object.isRequired
+};
 
 const mapStateToProps = ({ tasks, router, searchterm }) => {
     let taskList = tasks.taskList.filter(task => !task.parentTask);

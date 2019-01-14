@@ -11,14 +11,10 @@ const LoadingArea = styled.div`
 
 const LoaderCss = 'margin: auto;';
 
-export default function LoadingScreen() {
+export default () => {
     return (
         <LoadingArea>
-            <GridLoader
-                css={LoaderCss}
-                sizeUnit={'px'}
-                size={25}
-            />
+            <GridLoader css={LoaderCss} sizeUnit={'px'} size={25} />
         </LoadingArea>
     );
-}
+};
