@@ -10,6 +10,7 @@ import LoginPage from '../loginPage/LoginPage';
 import { fetchTasks } from '../../redux/reducers/taskReducer/taskActions';
 import store from '../../redux/store';
 import LoadingScreen from '../loadingScreen/LoadingScreen';
+import routes from '../../common/routes';
 class Router extends Component {
     componentDidMount() {
         let { authenticated, tasksLoaded } = this.props;
@@ -26,13 +27,14 @@ class Router extends Component {
             <>
                 <Switch>
                     <Route exact path="/">
-                        <Redirect to="/task" />
+                        <Redirect to={routes.task} />
                     </Route>
 
                     <Route
-                        path="/task"
+                        path={routes.task}
                         render={() => {
-                            if (!authenticated) return <Redirect to="/login" />;
+                            if (!authenticated)
+                                return <Redirect to={routes.login} />;
                             if (fetchState.loading && !fetchState.success)
                                 return <LoadingScreen />;
                             return (
@@ -42,18 +44,18 @@ class Router extends Component {
                                             <Switch>
                                                 <Route
                                                     exact
-                                                    path="/task"
+                                                    path={routes.task}
                                                     component={MobileView}
                                                 />
                                                 <Route
-                                                    path="/task"
+                                                    path={routes.task}
                                                     component={TaskRouter}
                                                 />
                                             </Switch>
                                         ) : (
                                             <Switch>
                                                 <Route
-                                                    path="/task"
+                                                    path={routes.task}
                                                     component={DesktopView}
                                                 />
                                             </Switch>
@@ -65,16 +67,19 @@ class Router extends Component {
                     />
 
                     <Route
-                        path="/login"
+                        path={routes.login}
                         render={() => {
-                            if (authenticated) return <Redirect to="/task" />;
+                            if (authenticated)
+                                return <Redirect to={routes.task} />;
 
                             return <LoginPage />;
                         }}
                     />
 
                     <Route path="/(.*)">
-                        <Redirect to={`/${authenticated ? 'task' : 'login'}`} />
+                        <Redirect
+                            to={authenticated ? routes.task : routes.login}
+                        />
                     </Route>
                 </Switch>
             </>
@@ -82,9 +87,9 @@ class Router extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, utility, fetch }) => ({
+const mapStateToProps = ({ auth, tasks, fetch }) => ({
     authenticated: auth.authenticated,
-    tasksLoaded: utility.tasksLoaded,
+    tasksLoaded: tasks.tasksLoaded,
     fetchState: fetch
 });
 

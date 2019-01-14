@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 import Task from './TaskListItem';
-import { dateSortFunction, searchFilterFunction } from '../../../common/common';
+import dateSortFunction from './dateSortFunction';
+import searchFilterFunction from './searchFilterFunction';
 
 const List = styled.div`
     display: flex;
     flex-direction: column;
+    padding: 5px;
 `;
 
 const FlexItem = styled.div`
@@ -43,16 +45,16 @@ class TaskList extends Component {
     }
 }
 
-const mapStateToProps = ({ tasks, router, utility }) => {
-    let taskList = tasks.filter(task => !task.parentTask);
+const mapStateToProps = ({ tasks, router, searchterm }) => {
+    let taskList = tasks.taskList.filter(task => !task.parentTask);
 
     taskList.sort(dateSortFunction);
 
-    let { searchTerm } = utility;
+    let { searchValue } = searchterm;
 
-    if (searchTerm && searchTerm !== '') {
+    if (searchValue && searchValue !== '') {
         taskList = taskList.filter(task =>
-            searchFilterFunction(task, searchTerm)
+            searchFilterFunction(task, searchValue)
         );
     }
 

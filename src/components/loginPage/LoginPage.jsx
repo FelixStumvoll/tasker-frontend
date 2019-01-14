@@ -19,7 +19,6 @@ const Wrapper = styled.div`
 
 const LoginPanel = styled.form`
     width: 500px;
-    height: 300px;
     padding: 20px;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: 10px;
@@ -29,10 +28,9 @@ const LoginPanel = styled.form`
         'Label Label'
         'UsernameLabel Username'
         'PasswordLabel Password'
-        'ErrorMessage ErrorMessage'
         'LoginButton LoginButton';
     grid-template-columns: 100px 1fr;
-    grid-template-rows: 70px 50px 50px 50px 50px;
+    grid-template-rows: 70px 50px 50px 50px;
     grid-row-gap: 10px;
     grid-column-gap: 10px;
     font-family: ${({ theme }) => theme.defaultFont};
@@ -48,7 +46,6 @@ const LoginPanel = styled.form`
             'Label'
             'Username'
             'Password'
-            'ErrorMessage'
             'LoginButton';
         grid-template-columns: 1fr;
     }
@@ -84,25 +81,6 @@ const LoginInput = styled.input`
     box-sizing: border-box;
     font-family: inherit;
     transition: inherit;
-`;
-
-const ErrorMessage = styled.div`
-    grid-area: ErrorMessage;
-    width: 70%;
-    height: 30px;
-    box-sizing: border-box;
-    background-color: ${({ theme }) => theme.negativeColor};
-    color: white;
-    border-radius: 10px;
-    margin: auto;
-    text-align: center;
-    vertical-align: middle;
-    font-family: inherit;
-    padding: 5px;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 `;
 
 const LoginButton = styled.button`
@@ -148,10 +126,7 @@ class LoginPage extends Component {
         return (
             <Wrapper>
                 <LoginPanel>
-                    <LoginLabel
-                        gridArea={'UsernameLabel'}
-                        htmlFor="user"
-                    >
+                    <LoginLabel gridArea={'UsernameLabel'} htmlFor="user">
                         Username:
                     </LoginLabel>
                     <LoginInput
@@ -183,9 +158,6 @@ class LoginPage extends Component {
                             }}
                         </MediaQuery>
                     </PageLabel>
-                    {!fetchState.loading && !fetchState.success && (
-                        <ErrorMessage>Login Failed</ErrorMessage>
-                    )}
                     <LoginButton type="submit" onClick={this.onLoginClick}>
                         {fetchState.loading ? (
                             <GridLoader
@@ -204,8 +176,7 @@ class LoginPage extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, fetch }) => ({
-    loginFailed: auth.loginFailed,
+const mapStateToProps = ({ fetch }) => ({
     fetchState: fetch
 });
 
