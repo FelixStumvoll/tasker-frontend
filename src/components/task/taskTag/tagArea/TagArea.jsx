@@ -18,6 +18,10 @@ const TagAreaGrid = styled.div`
     height: 100%;
 `;
 
+const TagLabel = styled.label`
+    display: none;
+`;
+
 const TagInput = styled.input`
     grid-area: TagInput;
     height: 30px;
@@ -92,11 +96,13 @@ class TagArea extends Component {
 
         return (
             <TagAreaGrid>
+                <TagLabel htmlFor="TagInput">Tag Input</TagLabel>
                 <TagInput
                     onKeyDown={this.onTagKeypress}
                     onChange={this.onTagInput}
                     placeholder="Enter Tags (Confirm with Enter)"
                     value={tagValue}
+                    id="TagInput"
                     maxLength="30"
                 />
                 <Tags>
