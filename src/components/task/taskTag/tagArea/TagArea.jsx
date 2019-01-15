@@ -93,13 +93,16 @@ class TagArea extends Component {
 
         return (
             <TagAreaGrid>
-                <TagLabel htmlFor="TagInput">Tag Input</TagLabel>
+                <TagLabel htmlFor="TagInput" id="tagLabel">
+                    Tag Input
+                </TagLabel>
                 <TagInput
                     onKeyDown={this.onTagKeypress}
                     onChange={this.onTagInput}
                     placeholder="Enter Tags (Confirm with Enter)"
                     value={tagValue}
                     id="TagInput"
+                    aria-describedby="tagLabel"
                     maxLength="30"
                 />
                 <Tags>
