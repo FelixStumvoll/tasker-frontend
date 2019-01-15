@@ -32,7 +32,13 @@ export default (state = initialState, { type, payload }) => {
             });
 
         case HIDE_MESSAGE:
-            return Object.assign({}, state, { show: false });
+            return Object.assign({}, state, {
+                show: false,
+                notificationType: undefined,
+                message: '',
+                style: undefined,
+                id: undefined
+            });
         default:
             return state;
     }

@@ -127,23 +127,33 @@ class LoginPage extends Component {
         return (
             <Wrapper>
                 <LoginPanel>
-                    <LoginLabel gridArea={'UsernameLabel'} htmlFor="user">
+                    <LoginLabel
+                        gridArea={'UsernameLabel'}
+                        htmlFor="user"
+                        id="usernameLabel"
+                    >
                         Username:
                     </LoginLabel>
                     <LoginInput
                         type="text"
                         id="user"
+                        aria-labelledby="usernameLabel"
                         gridArea="Username"
                         placeholder="Username"
                         value={username}
                         onChange={this.onUsernameInput}
                     />
-                    <LoginLabel gridArea={'PasswordLabel'} htmlFor="pass">
+                    <LoginLabel
+                        gridArea={'PasswordLabel'}
+                        htmlFor="pass"
+                        id="passLabel"
+                    >
                         Password:
                     </LoginLabel>
                     <LoginInput
                         type="password"
                         id="pass"
+                        aria-labelledby="passLabel"
                         gridArea="Password"
                         placeholder="Password"
                         value={password}

@@ -3,7 +3,7 @@ export default {
     navColor: '#00BD9D',
     primaryColor: '#9BC4F8',
     listItemColor: '#d6e3f8',
-    positiveColor: '#1a9612',
+    positiveColor: '#208827',
     negativeColor: '#D9312F',
     negativeColorLight: '#ebb7b7',
     styleButtonColor: '#666666',

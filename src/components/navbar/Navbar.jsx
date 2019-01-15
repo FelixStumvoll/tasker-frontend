@@ -31,6 +31,10 @@ const Nav = styled.nav`
     }
 `;
 
+const SearchLabel = styled.label`
+    display: none;
+`;
+
 const Searchbar = styled.input`
     grid-area: SearchArea;
     height: 30px;
@@ -125,13 +129,22 @@ class Navbar extends Component {
                                     (!matches ||
                                         (matches &&
                                             pathname === routes.task)) && (
-                                        <Searchbar
-                                            tabIndex="1"
-                                            onChange={this.onSearchtermChange}
-                                            value={searchterm}
-                                            type="text"
-                                            placeholder="Search..."
-                                        />
+                                        <>
+                                            <SearchLabel id="searchLabel">
+                                                Enter Text to Search for Tasks
+                                            </SearchLabel>
+                                            <Searchbar
+                                                tabIndex="1"
+                                                onChange={
+                                                    this.onSearchtermChange
+                                                }
+                                                value={searchterm}
+                                                type="text"
+                                                placeholder="Search"
+                                                id="searchbar"
+                                                aria-describedby="searchLabel"
+                                            />
+                                        </>
                                     )
                                 );
                             }}
@@ -149,7 +162,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     authenticated: PropTypes.bool.isRequired,
-    username: PropTypes.string.isRequired,
+    username: PropTypes.string,
     searchterm: PropTypes.string.isRequired,
     router: PropTypes.object.isRequired
 };

@@ -11,23 +11,25 @@ class TaskRouter extends Component {
         let { tasks, match } = this.props;
 
         return (
-            <Switch>
-                <Route
-                    path={`${match.url}/:id`}
-                    render={props => {
-                        let task = tasks.find(
-                            task => task._id === props.match.params.id
-                        );
+            <main style={{ height: '100%', width: '100%' }}>
+                <Switch>
+                    <Route
+                        path={`${match.url}/:id`}
+                        render={props => {
+                            let task = tasks.find(
+                                task => task._id === props.match.params.id
+                            );
 
-                        return task ? (
-                            <TaskPanel taskId={task._id} />
-                        ) : (
-                            <TaskEmptyPage />
-                        );
-                    }}
-                />
-                <Route path="" component={TaskEmptyPage} />
-            </Switch>
+                            return task ? (
+                                <TaskPanel taskId={task._id} />
+                            ) : (
+                                <TaskEmptyPage />
+                            );
+                        }}
+                    />
+                    <Route path="" component={TaskEmptyPage} />
+                </Switch>
+            </main>
         );
     }
 }
