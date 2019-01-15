@@ -74,6 +74,6 @@ export default class DateInput extends Component {
 }
 
 DateInput.propTypes = {
-    selectedDate: PropTypes.object.isRequired,
+    selectedDate: PropTypes.object,
     callback: PropTypes.func.isRequired
 };

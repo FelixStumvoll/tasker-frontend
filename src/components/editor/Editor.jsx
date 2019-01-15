@@ -304,7 +304,7 @@ class MyEditor extends React.Component {
 
 MyEditor.propTypes = {
     taskId: PropTypes.string.isRequired,
-    initialValue: PropTypes.object.isRequired,
+    initialValue: PropTypes.object,
     updateTaskText: PropTypes.func.isRequired
 };
 
