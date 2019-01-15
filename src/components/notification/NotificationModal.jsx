@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { hideMessage } from '../../redux/reducers/notificationReducer/notificationActions';
 
 const slidein = keyframes`
@@ -135,6 +137,11 @@ class NotificationModal extends Component {
         );
     }
 }
+
+NotificationModal.propTypes = {
+    notification: PropTypes.object.isRequired,
+    hideMessage: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ notification }) => ({ notification });
 

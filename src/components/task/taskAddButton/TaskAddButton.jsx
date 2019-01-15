@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { createTask } from '../../../redux/reducers/taskReducer/taskActions';
 
@@ -35,6 +36,10 @@ class TaskAddButton extends Component {
         );
     }
 }
+
+TaskAddButton.propTypes = {
+    createTask: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = {
     createTask

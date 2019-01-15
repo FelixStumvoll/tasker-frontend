@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TaskPanel from '../taskPanel/TaskPanel';
 
 import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
-// import LoadingScreen from '../../loadingScreen/LoadingScreen';
+import PropTypes from 'prop-types';
 
 class TaskRouter extends Component {
     render() {
@@ -32,13 +32,12 @@ class TaskRouter extends Component {
     }
 }
 
+TaskRouter.propTypes = {
+    tasks: PropTypes.array.isRequired
+};
+
 const mapStateToProps = ({ tasks }) => ({
     tasks: tasks.taskList
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        null
-    )(TaskRouter)
-);
+export default withRouter(connect(mapStateToProps)(TaskRouter));

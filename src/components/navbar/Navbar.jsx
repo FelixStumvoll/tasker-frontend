@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { changeSearchterm } from '../../redux/reducers/searchtermReducer/searchtermActions';
 import { logout } from '../../redux/reducers/authReducer/authActions';
 import routes from '../../common/routes';
@@ -144,6 +146,13 @@ class Navbar extends Component {
         );
     }
 }
+
+Navbar.propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    username: PropTypes.string.isRequired,
+    searchterm: PropTypes.string.isRequired,
+    router: PropTypes.object.isRequired
+};
 
 const mapStateToProps = ({ auth, searchterm, router }) => ({
     authenticated: auth.authenticated,

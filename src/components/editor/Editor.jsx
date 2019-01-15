@@ -3,6 +3,7 @@ import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import Plain from 'slate-plain-serializer';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import EditorButton from './buttons/EditorButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -300,6 +301,12 @@ class MyEditor extends React.Component {
         );
     }
 }
+
+MyEditor.propTypes = {
+    taskId: PropTypes.string.isRequired,
+    initialValue: PropTypes.object.isRequired,
+    updateTaskText: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = {
     updateTaskText
