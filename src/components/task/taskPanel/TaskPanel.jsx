@@ -159,7 +159,11 @@ class TaskPanel extends Component {
             <TaskGrid>
                 <DetailGrid>
                     <InfoGrid>
-                        <DetailLabel gridArea="TitleLabel" htmlFor="title">
+                        <DetailLabel
+                            gridArea="TitleLabel"
+                            htmlFor="title"
+                            id="titleLabel"
+                        >
                             Title:
                         </DetailLabel>
                         <TitleInput
@@ -171,8 +175,13 @@ class TaskPanel extends Component {
                             name="Tasktitle"
                             id="title"
                             placeholder="Task Title"
+                            aria-describedby="titleLabel"
                         />
-                        <DetailLabel gridArea="DateLabel" htmlFor="duedate">
+                        <DetailLabel
+                            gridArea="DateLabel"
+                            htmlFor="duedate"
+                            id="dateLabel"
+                        >
                             <FontAwesomeIcon icon={faCalendarAlt} />
                         </DetailLabel>
                         <DateWrapper>
@@ -184,11 +193,12 @@ class TaskPanel extends Component {
                                 }
                                 callback={this.changeDateCallback}
                                 id="duedate"
+                                aria-describedby="dateLabel"
                             />
                         </DateWrapper>
                     </InfoGrid>
                     <TagAreaWrapper>
-                        <TagArea taskId={task._id} tags={task.tags} />
+                        <TagArea taskId={task._id} />
                     </TagAreaWrapper>
                 </DetailGrid>
                 <EditorArea>
@@ -201,7 +211,10 @@ class TaskPanel extends Component {
 }
 
 TaskPanel.propTypes = {
-    taskId: PropTypes.string.isRequired
+    taskId: PropTypes.string.isRequired,
+    task: PropTypes.object.isRequired,
+    updateTask: PropTypes.func.isRequired,
+    removeTask: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ tasks }, ownProps) => {

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { format } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 import { updateTask } from '../../../redux/reducers/taskReducer/taskActions';
 import routes from '../../../common/routes';
@@ -57,6 +58,12 @@ class TaskListItem extends Component {
         );
     }
 }
+
+TaskListItem.propTypes = {
+    taskId: PropTypes.string.isRequired,
+    task: PropTypes.object.isRequired,
+    updateTask: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ tasks }, ownProps) => {
     let task = tasks.taskList.find(item => item._id === ownProps.taskId);

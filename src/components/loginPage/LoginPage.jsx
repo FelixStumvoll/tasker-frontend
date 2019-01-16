@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
+import { GridLoader } from 'react-spinners';
+import PropTypes from 'prop-types';
 
 import { login } from '../../redux/reducers/authReducer/authActions';
-import { GridLoader } from 'react-spinners';
 
 const Wrapper = styled.div`
     display: flex;
@@ -126,23 +127,33 @@ class LoginPage extends Component {
         return (
             <Wrapper>
                 <LoginPanel>
-                    <LoginLabel gridArea={'UsernameLabel'} htmlFor="user">
+                    <LoginLabel
+                        gridArea={'UsernameLabel'}
+                        htmlFor="user"
+                        id="usernameLabel"
+                    >
                         Username:
                     </LoginLabel>
                     <LoginInput
                         type="text"
                         id="user"
+                        aria-labelledby="usernameLabel"
                         gridArea="Username"
                         placeholder="Username"
                         value={username}
                         onChange={this.onUsernameInput}
                     />
-                    <LoginLabel gridArea={'PasswordLabel'} htmlFor="pass">
+                    <LoginLabel
+                        gridArea={'PasswordLabel'}
+                        htmlFor="pass"
+                        id="passLabel"
+                    >
                         Password:
                     </LoginLabel>
                     <LoginInput
                         type="password"
                         id="pass"
+                        aria-labelledby="passLabel"
                         gridArea="Password"
                         placeholder="Password"
                         value={password}
@@ -175,6 +186,11 @@ class LoginPage extends Component {
         );
     }
 }
+
+LoginPage.propTypes = {
+    fetchState: PropTypes.object.isRequired,
+    login: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ fetch }) => ({
     fetchState: fetch

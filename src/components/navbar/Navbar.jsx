@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { changeSearchterm } from '../../redux/reducers/searchtermReducer/searchtermActions';
 import { logout } from '../../redux/reducers/authReducer/authActions';
 import routes from '../../common/routes';
@@ -27,6 +29,10 @@ const Nav = styled.nav`
         grid-template-columns: 50px 1fr 50vw 1fr 50px 10px;
         grid-template-areas: 'BackButton . SearchArea . Logout .';
     }
+`;
+
+const SearchLabel = styled.label`
+    display: none;
 `;
 
 const Searchbar = styled.input`
@@ -123,13 +129,22 @@ class Navbar extends Component {
                                     (!matches ||
                                         (matches &&
                                             pathname === routes.task)) && (
-                                        <Searchbar
-                                            tabIndex="1"
-                                            onChange={this.onSearchtermChange}
-                                            value={searchterm}
-                                            type="text"
-                                            placeholder="Search..."
-                                        />
+                                        <>
+                                            <SearchLabel id="searchLabel">
+                                                Enter Text to Search for Tasks
+                                            </SearchLabel>
+                                            <Searchbar
+                                                tabIndex="1"
+                                                onChange={
+                                                    this.onSearchtermChange
+                                                }
+                                                value={searchterm}
+                                                type="text"
+                                                placeholder="Search"
+                                                id="searchbar"
+                                                aria-describedby="searchLabel"
+                                            />
+                                        </>
                                     )
                                 );
                             }}
@@ -144,6 +159,13 @@ class Navbar extends Component {
         );
     }
 }
+
+Navbar.propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    username: PropTypes.string,
+    searchterm: PropTypes.string.isRequired,
+    router: PropTypes.object.isRequired
+};
 
 const mapStateToProps = ({ auth, searchterm, router }) => ({
     authenticated: auth.authenticated,

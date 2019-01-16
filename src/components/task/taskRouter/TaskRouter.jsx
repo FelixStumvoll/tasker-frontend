@@ -4,41 +4,42 @@ import { connect } from 'react-redux';
 import TaskPanel from '../taskPanel/TaskPanel';
 
 import TaskEmptyPage from '../taskEmptyPage/TaskEmptyPage';
-// import LoadingScreen from '../../loadingScreen/LoadingScreen';
+import PropTypes from 'prop-types';
 
 class TaskRouter extends Component {
     render() {
         let { tasks, match } = this.props;
 
         return (
-            <Switch>
-                <Route
-                    path={`${match.url}/:id`}
-                    render={props => {
-                        let task = tasks.find(
-                            task => task._id === props.match.params.id
-                        );
+            <main style={{ height: '100%', width: '100%' }}>
+                <Switch>
+                    <Route
+                        path={`${match.url}/:id`}
+                        render={props => {
+                            let task = tasks.find(
+                                task => task._id === props.match.params.id
+                            );
 
-                        return task ? (
-                            <TaskPanel taskId={task._id} />
-                        ) : (
-                            <TaskEmptyPage />
-                        );
-                    }}
-                />
-                <Route path="" component={TaskEmptyPage} />
-            </Switch>
+                            return task ? (
+                                <TaskPanel taskId={task._id} />
+                            ) : (
+                                <TaskEmptyPage />
+                            );
+                        }}
+                    />
+                    <Route path="" component={TaskEmptyPage} />
+                </Switch>
+            </main>
         );
     }
 }
+
+TaskRouter.propTypes = {
+    tasks: PropTypes.array.isRequired
+};
 
 const mapStateToProps = ({ tasks }) => ({
     tasks: tasks.taskList
 });
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        null
-    )(TaskRouter)
-);
+export default withRouter(connect(mapStateToProps)(TaskRouter));

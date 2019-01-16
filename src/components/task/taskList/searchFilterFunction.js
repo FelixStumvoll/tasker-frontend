@@ -7,12 +7,12 @@ const searchString = (regex, string, searchterm) => {
 };
 
 const searchTaskText = (regex, taskText, searchterm) => {
-    let textReg = new RegExp('"text":(".*?")(?=,|})', 'g');
+    let textReg = new RegExp('(?<="text":)(".*?")(?=,|})', 'g');
 
     let match = textReg.exec(taskText);
 
     while (match != null) {
-        if (searchString(regex, match[1], searchterm)) return true;
+        if (searchString(regex, match[0], searchterm)) return true;
         match = textReg.exec(taskText);
     }
 
