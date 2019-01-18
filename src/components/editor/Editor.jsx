@@ -41,12 +41,6 @@ const ButtonArea = styled.div`
     border-bottom-right-radius: 10px;
 `;
 
-const EditorScrollPane = styled.div`
-    height: 100%;
-    max-height: 100%;
-    overflow: auto;
-`;
-
 const DEFAULT_NODE = 'paragraph';
 
 const hotkeys = [
@@ -284,19 +278,17 @@ class MyEditor extends React.Component {
                         <FontAwesomeIcon icon={faListUl} />
                     )}
                 </ButtonArea>
-                <EditorScrollPane>
-                    <Editor
-                        spellCheck
-                        autoFocus
-                        placeholder="Tasktext"
-                        value={value}
-                        onChange={this.onChange}
-                        renderMark={this.renderMark}
-                        renderNode={this.renderBlock}
-                        onKeyDown={this.onKeyDown}
-                        ref={this.editor}
-                    />
-                </EditorScrollPane>
+                <Editor
+                    spellCheck
+                    autoFocus
+                    placeholder="Tasktext"
+                    value={value}
+                    onChange={this.onChange}
+                    renderMark={this.renderMark}
+                    renderNode={this.renderBlock}
+                    onKeyDown={this.onKeyDown}
+                    ref={this.editor}
+                />
             </EditorArea>
         );
     }

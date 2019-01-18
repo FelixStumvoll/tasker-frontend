@@ -19,7 +19,7 @@ const TaskGrid = styled.article`
         'Detail'
         'Editor'
         'Delete';
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: min-content min-content 1fr;
     grid-template-columns: 1fr;
     grid-row-gap: 10px;
     width: 100%;
