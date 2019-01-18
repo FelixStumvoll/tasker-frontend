@@ -1,26 +1,44 @@
 import React, { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import styled from 'styled-components';
 
 import Navbar from './components/navbar/Navbar';
-import TaskDashboard from './components/task/TaskDashboard';
-import Store from './data/Store';
 
-const theme = {
-    navheight: '50px',
-    mainColor: '#00BD9D'
-};
+import Store, { history } from './redux/store';
+import theme from './theme/theme';
+import Router from './components/router/Router';
+import NotificationManager from './components/notification/NotificationManager';
+
+const MainGrid = styled.div`
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-areas: '.' 'Content';
+    grid-template-rows: ${({ theme }) => theme.navHeight} 1fr;
+`;
+
+const RouterWrapper = styled.div`
+    grid-area: Content;
+    background-color: ${({ theme }) => theme.backgroundColor};
+`;
 
 class App extends Component {
     render() {
         return (
             <Provider store={Store}>
-                <ThemeProvider theme={theme}>
-                    <div>
-                        <Navbar />
-                        <TaskDashboard />
-                    </div>
-                </ThemeProvider>
+                <ConnectedRouter history={history}>
+                    <ThemeProvider theme={theme}>
+                        <MainGrid>
+                            <NotificationManager />
+                            <Navbar />
+                            <RouterWrapper>
+                                <Router />
+                            </RouterWrapper>
+                        </MainGrid>
+                    </ThemeProvider>
+                </ConnectedRouter>
             </Provider>
         );
     }
