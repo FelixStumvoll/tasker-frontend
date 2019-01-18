@@ -71,7 +71,7 @@ class TagArea extends Component {
     addTaskTag = () => {
         let { tagValue, tags } = this.state;
         if (!this.taskTagExists(tagValue) && /\S/.test(tagValue)) {
-            tags.unshift(tagValue);
+            tags.push(tagValue);
             this.setState({ tags, tagValue: '' });
             this.props.updateTaskTags(this.props.taskId, tags);
         }
