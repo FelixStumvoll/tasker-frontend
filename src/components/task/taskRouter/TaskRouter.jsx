@@ -10,12 +10,12 @@ import PropTypes from 'prop-types';
 const Main = styled.main`
     height: 100%;
     width: 100%;
+    
     @media screen and (min-width: ${({ theme }) => theme.maxWidth}) {
         width: calc(
             ${({ theme }) => theme.maxWidth} -
                 ${({ theme }) => theme.sidebarWidth}
         );
-        /* height: calc(100% - 20%); */
         margin: 0px auto 0px auto;
     }
 `;

@@ -29,6 +29,9 @@ const EditorArea = styled.div`
     grid-row-gap: 10px;
 `;
 
+const EditorPanel = styled.div`
+    padding: 5px;
+`;
 const ButtonArea = styled.div`
     display: flex;
     flex-direction: row;
@@ -278,17 +281,19 @@ class MyEditor extends React.Component {
                         <FontAwesomeIcon icon={faListUl} />
                     )}
                 </ButtonArea>
-                <Editor
-                    spellCheck
-                    autoFocus
-                    placeholder="Tasktext"
-                    value={value}
-                    onChange={this.onChange}
-                    renderMark={this.renderMark}
-                    renderNode={this.renderBlock}
-                    onKeyDown={this.onKeyDown}
-                    ref={this.editor}
-                />
+                <EditorPanel>
+                    <Editor
+                        spellCheck
+                        autoFocus
+                        placeholder="Tasktext"
+                        value={value}
+                        onChange={this.onChange}
+                        renderMark={this.renderMark}
+                        renderNode={this.renderBlock}
+                        onKeyDown={this.onKeyDown}
+                        ref={this.editor}
+                    />
+                </EditorPanel>
             </EditorArea>
         );
     }
