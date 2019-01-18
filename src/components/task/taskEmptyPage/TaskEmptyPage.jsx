@@ -5,10 +5,11 @@ const EmptyText = styled.div`
     margin: auto;
     font-weight: bolder;
     font-size: 35px;
-    background-color: ${({ theme }) => theme.primaryColor};
     padding: 10px;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     font-family: ${({ theme }) => theme.defaultFont};
+    background-color: ${({ theme }) => theme.primaryColor};
+    color: ${({ theme }) => theme.textColor};
 `;
 
 const TextFloater = styled.div`

@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Tag = styled.div`
-    border-radius: 15px;
-    background-color: ${({ theme }) => theme.positiveColor};
-    color: white;
+    border-radius: ${({ theme }) => theme.borderRadius};
+    background-color: ${({ theme }) => theme.tagColor};
+    color: black;
     line-height: 12px;
     font-size: 12px;
     width: auto;
@@ -28,7 +28,7 @@ const RemoveArea = styled.div`
 
 const RemoveIcon = styled(FontAwesomeIcon)`
     height: 12px;
-    color: white;
+    color: inherit;
     margin: auto;
 `;
 

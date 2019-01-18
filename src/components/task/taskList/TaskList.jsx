@@ -15,10 +15,10 @@ const List = styled.div`
 
 const FlexItem = styled.div`
     height: 50px;
-    background-color: ${({ theme, active }) =>
-        active ? theme.primaryColor : theme.listItemColor};
-    border: none;
-    border-radius: 10px;
+    background-color: ${({ theme }) => theme.primaryColor};
+    border: 1px solid
+        ${({ theme, active }) => (active ? 'white' : theme.primaryColor)};
+    border-radius: ${({ theme }) => theme.borderRadius};
     padding: 5px;
     margin: 5px;
 

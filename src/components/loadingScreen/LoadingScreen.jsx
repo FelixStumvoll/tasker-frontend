@@ -14,7 +14,12 @@ const LoaderCss = 'margin: auto;';
 export default () => {
     return (
         <LoadingArea>
-            <GridLoader css={LoaderCss} sizeUnit={'px'} size={25} />
+            <GridLoader
+                color="white"
+                css={LoaderCss}
+                sizeUnit={'px'}
+                size={25}
+            />
         </LoadingArea>
     );
 };

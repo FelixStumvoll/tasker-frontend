@@ -7,16 +7,16 @@ import TaskAddButton from '../task/taskAddButton/TaskAddButton';
 const TaskSidebar = styled.aside`
     position: fixed;
     grid-area: TaskSidebarArea;
-    border-right: 2px solid black;
+    border-right: 2px solid white;
     height: 100%;
     width: ${({ theme }) => theme.sidebarWidth};
 `;
 
 const AddArea = styled.div`
     width: ${({ theme }) => theme.sidebarWidth};
-    height: 72px;
+    height: 84px;
     box-sizing: border-box;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid white;
     padding: 10px;
 `;
 

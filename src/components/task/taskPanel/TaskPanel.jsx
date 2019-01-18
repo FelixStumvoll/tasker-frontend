@@ -25,6 +25,7 @@ const TaskGrid = styled.article`
     width: 100%;
     height: 100%;
     font-family: ${({ theme }) => theme.defaultFont};
+    color: ${({ theme }) => theme.textColor};
     padding: 10px;
     box-sizing: border-box;
 `;
@@ -59,7 +60,7 @@ const InfoGrid = styled.div`
     grid-template-columns: 70px 1fr;
     grid-auto-rows: 1fr 1fr;
     background-color: ${({ theme }) => theme.primaryColor};
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     padding: 5px;
 `;
 
@@ -73,7 +74,7 @@ const DetailLabel = styled.label`
 const EditorArea = styled.div`
     grid-area: Editor;
     background-color: ${({ theme }) => theme.primaryColor};
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     height: fit-content;
     display: flex;
     padding: 5px;
@@ -85,7 +86,7 @@ const TitleInput = styled.input`
     margin: auto 0px auto 0px;
     box-sizing: border-box;
     border: none;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     padding-left: 5px;
     font-family: inherit;
 `;
@@ -93,7 +94,7 @@ const TitleInput = styled.input`
 const TagAreaWrapper = styled.div`
     grid-area: Tag;
     background-color: ${({ theme }) => theme.primaryColor};
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     padding: 5px;
     max-height: 100%;
 `;
@@ -106,7 +107,7 @@ const DateWrapper = styled.div`
 const DeleteButton = styled.button`
     grid-area: Delete;
     border: none;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     background-color: ${({ theme }) => theme.negativeColor};
     color: white;
     text-align: center;

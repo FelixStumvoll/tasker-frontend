@@ -1,17 +1,19 @@
 export default {
     navHeight: '50px',
-    navColor: '#00BD9D',
-    primaryColor: '#9BC4F8',
-    listItemColor: '#d6e3f8',
+    navColor: '#1D5D90',
+    primaryColor: '#454545',
+    backgroundColor: '#000000',
+    textColor: '#ffffff',
+    tagColor: '#FFDD24',
     positiveColor: '#208827',
     negativeColor: '#D9312F',
-    negativeColorLight: '#ebb7b7',
-    styleButtonColor: '#666666',
+    styleButtonColor: '#777777',
     transitionDuration: '250ms',
+    borderRadius: '10px',
     sidebarWidth: '250px',
     defaultFontSize: '16px',
     defaultFont: 'sans-serif',
     stage1responsive: '600px',
     stage2responsive: '450px',
     maxWidth: '1400px'
-}
+};

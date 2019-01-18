@@ -54,7 +54,7 @@ const BackButton = styled(Link)`
     font-size: 30px;
     cursor: pointer;
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.textColor};
     background-color: inherit;
 `;
 
@@ -64,7 +64,7 @@ const LogoutButton = styled.button`
     border: none;
     color: white;
     height: 30px;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     margin: auto;
     cursor: pointer;
 `;
@@ -74,7 +74,7 @@ const UserName = styled.span`
     font-weight: bolder;
     margin: auto;
     text-overflow: ellipsis;
-
+    color: ${({ theme }) => theme.textColor};
     @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
         display: none;
     }

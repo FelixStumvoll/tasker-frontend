@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import { hideMessage } from '../../redux/reducers/notificationReducer/notificationActions';
 
 const slidein = keyframes`
-    from {
-            right: -1000px;
+    0% {
+            right: -500px;
         }
 
-        to {
-            right: 0px;
+    100% {
+            right: 10px;
         }
     }
 `;
@@ -32,7 +32,7 @@ const Modal = styled.div`
     top: calc(${({ theme }) => theme.navHeight} + 10px);
     right: 10px;
     z-index: 9999;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     border: 1px solid ${props => props.border};
     box-shadow: 0px 0px 10px 0px ${props => props.shadow};
     border-top: 10px solid ${props => props.border};

@@ -21,6 +21,7 @@ const MainGrid = styled.div`
 
 const RouterWrapper = styled.div`
     grid-area: Content;
+    background-color: ${({ theme }) => theme.backgroundColor};
 `;
 
 class App extends Component {

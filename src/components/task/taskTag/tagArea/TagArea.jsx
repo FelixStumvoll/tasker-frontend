@@ -26,7 +26,7 @@ const TagInput = styled.input`
     padding: 0px 0px 0px 5px;
     width: 100%;
     box-sizing: border-box;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     font-family: ${({ theme }) => theme.defaultFont};
 `;
 

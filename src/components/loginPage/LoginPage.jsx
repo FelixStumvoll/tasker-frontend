@@ -22,7 +22,8 @@ const LoginPanel = styled.form`
     width: 500px;
     padding: 20px;
     background-color: ${({ theme }) => theme.primaryColor};
-    border-radius: 10px;
+    color: ${({ theme }) => theme.textColor};
+    border-radius: ${({ theme }) => theme.borderRadius};
     margin: 150px auto auto auto;
     display: grid;
     grid-template-areas:
@@ -77,7 +78,7 @@ const LoginInput = styled.input`
     width: 100%;
     height: 30px;
     margin: auto;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     border: none;
     box-sizing: border-box;
     font-family: inherit;
@@ -87,7 +88,7 @@ const LoginInput = styled.input`
 const LoginButton = styled.button`
     grid-area: LoginButton;
     background-color: ${({ theme }) => theme.positiveColor};
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     border: none;
     color: white;
     font-size: 20px;

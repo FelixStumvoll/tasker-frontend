@@ -16,7 +16,7 @@ const AddTaskButton = styled.button`
     font-weight: bold;
     background-color: ${({ theme }) => theme.positiveColor};
     color: white;
-    border-radius: 10px;
+    border-radius: ${({ theme }) => theme.borderRadius};
     transition: ${({ theme }) => theme.transitionDuration};
     font-family: ${({ theme }) => theme.defaultFont};
     padding: 5px;

@@ -12,7 +12,7 @@ import routes from '../../../common/routes';
 
 const TaskArea = styled(Link)`
     text-decoration: none;
-    color: black;
+    color: ${({ theme }) => theme.textColor};
     background-color: inherit;
     cursor: pointer;
     height: 100%;
