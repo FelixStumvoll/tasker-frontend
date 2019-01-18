@@ -19,7 +19,7 @@ const TaskGrid = styled.article`
         'Detail'
         'Editor'
         'Delete';
-    grid-template-rows: auto 1fr 50px;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: 1fr;
     grid-row-gap: 10px;
     width: 100%;
@@ -117,6 +117,7 @@ const DeleteButton = styled.button`
     font-size: 20px;
     width: 120px;
     margin-left: auto;
+    height: 50px;
     cursor: pointer;
 `;
 

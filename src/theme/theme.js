@@ -12,5 +12,6 @@ export default {
     defaultFontSize: '16px',
     defaultFont: 'sans-serif',
     stage1responsive: '600px',
-    stage2responsive: '450px'
-};
+    stage2responsive: '450px',
+    maxWidth: '1400px'
+}
