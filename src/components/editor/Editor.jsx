@@ -56,7 +56,7 @@ const hotkeys = [
 ];
 
 const isHotkey = event => {
-    let hotkey = hotkeys.find(x => event.ctrlKey && event.key === x.key);
+    let hotkey = hotkeys.find(x => event.altKey && event.key === x.key);
     if (hotkey) {
         return hotkey.type;
     } else {
@@ -284,7 +284,8 @@ class MyEditor extends React.Component {
                 </ButtonArea>
                 <EditorPanel>
                     <Editor
-                        spellCheck
+                        spellCheck={false}
+                        autoCorrect={false}
                         autoFocus
                         placeholder="Tasktext"
                         value={value}
