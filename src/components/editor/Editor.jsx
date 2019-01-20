@@ -30,7 +30,6 @@ const EditorArea = styled.div`
 `;
 
 const EditorPanel = styled.div`
-    padding: 5px;
     overflow: auto;
 `;
 const ButtonArea = styled.div`
