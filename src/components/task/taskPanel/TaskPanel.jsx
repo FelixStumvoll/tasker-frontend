@@ -58,10 +58,12 @@ const InfoGrid = styled.div`
         'TitleLabel TitleInput'
         'DateLabel DateInput';
     grid-template-columns: 70px 1fr;
-    grid-auto-rows: 1fr 1fr;
+    grid-template-rows: repeat(2, 30px);
+    grid-row-gap: 20px;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: ${({ theme }) => theme.borderRadius};
-    padding: 5px;
+    padding: 10px;
+    height: fit-content;
 `;
 
 const DetailLabel = styled.label`
@@ -77,7 +79,7 @@ const EditorArea = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius};
     height: fit-content;
     display: flex;
-    padding: 5px;
+    padding: 10px;
 `;
 
 const TitleInput = styled.input`
@@ -95,7 +97,7 @@ const TagAreaWrapper = styled.div`
     grid-area: Tag;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: ${({ theme }) => theme.borderRadius};
-    padding: 5px;
+    padding: 10px;
     max-height: 100%;
 `;
 

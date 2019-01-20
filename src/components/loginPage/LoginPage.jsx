@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 
 const LoginPanel = styled.form`
     width: 500px;
-    padding: 20px;
+    padding: 10px;
     background-color: ${({ theme }) => theme.primaryColor};
     color: ${({ theme }) => theme.textColor};
     border-radius: ${({ theme }) => theme.borderRadius};
@@ -32,8 +32,8 @@ const LoginPanel = styled.form`
         'PasswordLabel Password'
         'LoginButton LoginButton';
     grid-template-columns: 100px 1fr;
-    grid-template-rows: 70px 50px 50px 50px;
-    grid-row-gap: 10px;
+    grid-template-rows: 70px repeat(2, 30px) 50px;
+    grid-row-gap: 20px;
     grid-column-gap: 10px;
     font-family: ${({ theme }) => theme.defaultFont};
     transition: ${({ theme }) => theme.transitionDuration};
