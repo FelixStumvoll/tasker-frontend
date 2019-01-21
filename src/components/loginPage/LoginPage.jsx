@@ -33,7 +33,7 @@ const LoginPanel = styled.form`
         'LoginButton LoginButton';
     grid-template-columns: 100px 1fr;
     grid-template-rows: 70px repeat(2, 30px) 50px;
-    grid-row-gap: 20px;
+    grid-row-gap: 15px;
     grid-column-gap: 10px;
     font-family: ${({ theme }) => theme.defaultFont};
     transition: ${({ theme }) => theme.transitionDuration};
