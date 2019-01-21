@@ -59,7 +59,7 @@ const InfoGrid = styled.div`
         'DateLabel DateInput';
     grid-template-columns: 70px 1fr;
     grid-template-rows: repeat(2, 30px);
-    grid-row-gap: 20px;
+    grid-row-gap: 15px;
     background-color: ${({ theme }) => theme.primaryColor};
     border-radius: ${({ theme }) => theme.borderRadius};
     padding: 10px;

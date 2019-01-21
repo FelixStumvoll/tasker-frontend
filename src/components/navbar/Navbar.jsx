@@ -16,7 +16,7 @@ const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 50px 100px minmax(200px, 20vw) 2fr 150px 100px;
+    grid-template-columns: 50px 100px minmax(200px, 20vw) 2fr 150px 60px;
     font-family: ${({ theme }) => theme.defaultFont};
     grid-template-areas: 'BackButton . SearchArea . Name Logout';
     position: fixed;
@@ -26,8 +26,8 @@ const Nav = styled.nav`
     z-index: 9999;
 
     @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
-        grid-template-columns: 50px 1fr 50vw 1fr 50px 10px;
-        grid-template-areas: 'BackButton . SearchArea . Logout .';
+        grid-template-columns: 50px 1fr 50vw 1fr 60px;
+        grid-template-areas: 'BackButton . SearchArea . Logout';
     }
 `;
 
@@ -65,8 +65,10 @@ const LogoutButton = styled.button`
     color: white;
     height: 30px;
     border-radius: ${({ theme }) => theme.borderRadius};
-    margin: auto;
+    margin: auto 10px auto 0px;
     cursor: pointer;
+    padding: 0px;
+    box-sizing: border-box;
 `;
 
 const UserName = styled.span`

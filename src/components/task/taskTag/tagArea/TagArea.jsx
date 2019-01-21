@@ -10,7 +10,7 @@ const TagAreaGrid = styled.div`
     display: grid;
     grid-template-areas: 'TagInput' 'Tags';
     grid-template-rows: 30px auto;
-    grid-row-gap: 5px;
+    grid-row-gap: 10px;
     width: 100%;
     height: 100%;
 `;
@@ -40,7 +40,7 @@ const Tags = styled.div`
 
 const TagWrapper = styled.div`
     margin: 2.5px;
-    height: 30px;
+    height: fit-content;
 `;
 
 class TagArea extends Component {
