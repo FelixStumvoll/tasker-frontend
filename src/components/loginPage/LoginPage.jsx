@@ -161,15 +161,7 @@ class LoginPage extends Component {
                         onChange={this.onPasswordInput}
                     />
 
-                    <PageLabel>
-                        <MediaQuery maxWidth={600}>
-                            {matches => {
-                                return matches
-                                    ? 'Login'
-                                    : 'Login to access your Tasks';
-                            }}
-                        </MediaQuery>
-                    </PageLabel>
+                    <PageLabel>Sign In</PageLabel>
                     <LoginButton type="submit" onClick={this.onLoginClick}>
                         {fetchState.loading ? (
                             <GridLoader
