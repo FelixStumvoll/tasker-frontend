@@ -19,9 +19,17 @@ const RegisterPanel = styled.form`
     transition: ${({ theme }) => theme.transitionDuration};
 `;
 
+const RegisterLabel = styled.h1`
+    grid-area: Label;
+`;
+
 export class RegisterPage extends Component {
     render() {
-        return <div />;
+        return (
+            <RegisterPanel>
+                <RegisterLabel>Register</RegisterLabel>
+            </RegisterPanel>
+        );
     }
 }
 
