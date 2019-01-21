@@ -51,3 +51,5 @@ export const logout = () => dispatch => {
     dispatch(push(routes.login));
     dispatch({ type: LOGOUT });
 };
+
+export const register = (username, password) => dispatch => {};

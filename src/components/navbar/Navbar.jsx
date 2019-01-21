@@ -16,9 +16,9 @@ const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 50px 100px minmax(200px, 20vw) 2fr 150px 60px;
+    grid-template-columns: 50px 100px minmax(200px, 20vw) 2fr 150px 70px;
     font-family: ${({ theme }) => theme.defaultFont};
-    grid-template-areas: 'BackButton . SearchArea . Name Logout';
+    grid-template-areas: 'BackButton . SearchArea . Name AuthButton';
     position: fixed;
     top: 0px;
     left: 0px;
@@ -26,8 +26,8 @@ const Nav = styled.nav`
     z-index: 9999;
 
     @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
-        grid-template-columns: 50px 1fr 50vw 1fr 60px;
-        grid-template-areas: 'BackButton . SearchArea . Logout';
+        grid-template-columns: 50px 1fr 50vw 1fr 70px;
+        grid-template-areas: 'BackButton . SearchArea . AuthButton';
     }
 `;
 
@@ -59,16 +59,16 @@ const BackButton = styled(Link)`
 `;
 
 const LogoutButton = styled.button`
-    grid-area: Logout;
     background-color: ${({ theme }) => theme.negativeColor};
+    grid-area: AuthButton;
     border: none;
     color: white;
     height: 30px;
-    border-radius: ${({ theme }) => theme.borderRadius};
     margin: auto 10px auto 0px;
     cursor: pointer;
     padding: 0px;
     box-sizing: border-box;
+    border-radius: ${({ theme }) => theme.borderRadius};
 `;
 
 const UserName = styled.span`

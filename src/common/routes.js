@@ -1,1 +1,5 @@
-export default Object.freeze({ task: '/task', login: '/login' });
+export default Object.freeze({
+    task: '/task',
+    login: '/login',
+    register: '/register'
+});

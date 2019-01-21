@@ -12,6 +12,7 @@ import { fetchTasks } from '../../redux/reducers/taskReducer/taskActions';
 import store from '../../redux/store';
 import LoadingScreen from '../loadingScreen/LoadingScreen';
 import routes from '../../common/routes';
+import RegisterPage from '../registerPage/RegisterPage';
 class Router extends Component {
     componentDidMount() {
         let { authenticated, tasksLoaded } = this.props;
@@ -76,6 +77,8 @@ class Router extends Component {
                             return <LoginPage />;
                         }}
                     />
+
+                    <Route path={routes.register} component={RegisterPage} />
 
                     <Route path="/(.*)">
                         <Redirect
