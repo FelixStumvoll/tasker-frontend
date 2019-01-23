@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import { reducer as formReducer } from 'redux-form';
 
 import taskReducer from './reducers/taskReducer/taskReducer';
 import authReducer from './reducers/authReducer/authReducer';
@@ -10,6 +11,7 @@ import notificationReducer from './reducers/notificationReducer/notificationRedu
 export default history =>
     combineReducers({
         router: connectRouter(history),
+        form: formReducer,
         tasks: taskReducer,
         auth: authReducer,
         fetch: fetchReducer,

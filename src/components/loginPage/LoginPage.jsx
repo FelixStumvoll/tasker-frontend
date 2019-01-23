@@ -1,32 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import MediaQuery from 'react-responsive';
 import { GridLoader } from 'react-spinners';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { login } from '../../redux/reducers/authReducer/authActions';
 import routes from '../../common/routes';
-
-const Wrapper = styled.div`
-    display: flex;
-    width: 100%;
-    overflow: hidden;
-
-    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
-        margin: 10px;
-        width: calc(100% - 20px);
-    }
-`;
+import AuthWrapper from '../authPages/AuthWrapper';
 
 const LoginPanel = styled.form`
-    width: 500px;
     padding: 10px;
     background-color: ${({ theme }) => theme.primaryColor};
     color: ${({ theme }) => theme.textColor};
     border-radius: ${({ theme }) => theme.borderRadius};
-    margin: 150px auto auto auto;
     display: grid;
     grid-template-areas:
         'Label Label'
@@ -40,11 +27,6 @@ const LoginPanel = styled.form`
     grid-column-gap: 10px;
     font-family: ${({ theme }) => theme.defaultFont};
     transition: ${({ theme }) => theme.transitionDuration};
-
-    @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
-        width: calc(100% - 20px);
-        margin-top: 100px;
-    }
 
     @media screen and (max-width: ${({ theme }) => theme.stage2responsive}) {
         grid-template-areas:
@@ -68,7 +50,7 @@ const LoginLabel = styled.label`
     grid-area: ${props => props.gridArea};
     font-family: inherit;
     font-weight: bold;
-    margin: auto;
+    margin: auto 0px auto auto;
     transition: inherit;
 
     @media screen and (max-width: ${({ theme }) => theme.stage2responsive}) {
@@ -96,7 +78,7 @@ const LoginButton = styled.button`
     border: none;
     color: white;
     font-size: 20px;
-    font-weight: bolder;
+    font-weight: bold;
     font-family: inherit;
     cursor: pointer;
     transition: inherit;
@@ -142,7 +124,7 @@ class LoginPage extends Component {
         let { fetchState } = this.props;
 
         return (
-            <Wrapper>
+            <AuthWrapper>
                 <LoginPanel>
                     <LoginLabel
                         gridArea={'UsernameLabel'}
@@ -201,7 +183,7 @@ class LoginPage extends Component {
                     </OrArea>
                     <RegisterButton>Register</RegisterButton> */}
                 </LoginPanel>
-            </Wrapper>
+            </AuthWrapper>
         );
     }
 }

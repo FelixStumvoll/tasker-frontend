@@ -11,11 +11,14 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
     switch (type) {
         case LOGIN:
-            return Object.assign({}, state, {
-                authenticated: true,
-                bearer: payload.bearer,
-                username: payload.username
-            });
+            return Object.assign(
+                {},
+                state,
+                {
+                    authenticated: true
+                },
+                payload
+            );
 
         case LOGOUT: {
             return Object.assign({}, state, {
