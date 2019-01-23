@@ -106,7 +106,7 @@ const RegisterButton = styled.button`
     }
 `;
 
-export class RegisterPage extends Component {
+class RegisterPage extends Component {
     renderInputField = ({
         input,
         label,
@@ -164,6 +164,10 @@ export class RegisterPage extends Component {
         );
     }
 }
+
+RegisterPage.propTypes = {
+    register: PropTypes.func.isRequired
+};
 
 const mapDispatchToProps = {
     register

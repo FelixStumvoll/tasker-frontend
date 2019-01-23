@@ -1,7 +1,17 @@
 import passwordRules from './passwordRules';
 import React from 'react';
+import styled from 'styled-components';
 
 const requiredText = 'Required';
+
+const List = styled.ul`
+    margin: auto;
+`;
+
+const ListItem = styled.li`
+    margin: 0px;
+    width: fit-content;
+`;
 
 export default values => {
     const errors = {};
@@ -17,12 +27,12 @@ export default values => {
                 errors.password = (
                     <div>
                         Password needs to contain atleast a
-                        <ul>
-                            <li>number</li>
-                            <li>uppercase character</li>
-                            <li>lowercase character</li>
-                            <li>special character</li>
-                        </ul>
+                        <List>
+                            <ListItem>number</ListItem>
+                            <ListItem>uppercase character</ListItem>
+                            <ListItem>lowercase character</ListItem>
+                            <ListItem>special character</ListItem>
+                        </List>
                     </div>
                 );
                 break;

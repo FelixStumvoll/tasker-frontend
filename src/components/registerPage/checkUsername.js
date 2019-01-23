@@ -15,11 +15,12 @@ export default debounce(async values => {
             .catch(err => {
                 showMessage(
                     notificationTypes.negative,
-                    `Could not reach Server\nCan\'t check if username is valid`
+                    `Could not reach Server\nCan't check if username is valid`
                 );
             });
 
         if (!response.data) {
+            // eslint-disable-next-line
             throw { username: 'username is already taken' };
         }
     }
