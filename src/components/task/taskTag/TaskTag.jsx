@@ -11,11 +11,14 @@ const Tag = styled.div`
     font-size: 12px;
     width: auto;
     display: flex;
-    padding: 7px;
+    padding: 5px;
+    height: 15px;
 `;
 
 const TagText = styled.div`
     display: inline;
+    height: 12px;
+    margin: auto;
 `;
 
 const RemoveArea = styled.div`
@@ -23,11 +26,10 @@ const RemoveArea = styled.div`
     cursor: pointer;
     border: none;
     padding: 0;
-    outline: blue;
 `;
 
 const RemoveIcon = styled(FontAwesomeIcon)`
-    height: 12px;
+    height: 15px;
     color: inherit;
     margin: auto;
 `;
