@@ -16,7 +16,7 @@ const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 50px 100px minmax(200px, 20vw) 2fr 150px 60px;
+    grid-template-columns: 50px 100px minmax(250px, 400px) 2fr 150px 60px;
     font-family: ${({ theme }) => theme.defaultFont};
     grid-template-areas: 'BackButton . SearchArea . Name Logout';
     position: fixed;
