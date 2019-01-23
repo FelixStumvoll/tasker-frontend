@@ -16,7 +16,7 @@ const Nav = styled.nav`
     height: ${props => props.theme.navHeight};
     background-color: ${props => props.theme.navColor};
     display: grid;
-    grid-template-columns: 50px 100px minmax(250px, 400px) 2fr 150px 60px;
+    grid-template-columns: 50px 100px minmax(250px, 400px) 2fr auto 60px;
     font-family: ${({ theme }) => theme.defaultFont};
     grid-template-areas: 'BackButton . SearchArea . Name Logout';
     position: fixed;
@@ -74,7 +74,7 @@ const LogoutButton = styled.button`
 const UserName = styled.span`
     grid-area: Name;
     font-weight: bolder;
-    margin: auto;
+    margin: auto 20px auto 20px;
     text-overflow: ellipsis;
     color: ${({ theme }) => theme.textColor};
     @media screen and (max-width: ${({ theme }) => theme.stage1responsive}) {
