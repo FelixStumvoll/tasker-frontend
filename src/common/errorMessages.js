@@ -4,6 +4,8 @@ export default Object.freeze({
     taskDeleteFailed: `${preamble}\nTask deletion failed`,
     taskUpdateFailed: `${preamble}\nYour changes will be saved once you reconnect`,
     taskFetchFailed: `Could not Fetch Tasks from Server`,
+    loginFailed: `Login Failed`,
     loginFailedNoConnection: `${preamble}\nLogin Failed`,
-    loginFailed: `Login Failed`
+    registerFailed: 'Registration Failed\nRequirements were not met',
+    registerFailedNoConnection: `${preamble}\nRegistration Failed`
 });

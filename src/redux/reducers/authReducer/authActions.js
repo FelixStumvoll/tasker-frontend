@@ -52,4 +52,16 @@ export const logout = () => dispatch => {
     dispatch({ type: LOGOUT });
 };
 
-export const register = (username, password) => dispatch => {};
+export const register = (username, password) => async dispatch => {
+    try {
+        await axios.post(`${apiUrl}/auth/register`, { username, password });
+
+        dispatch(login(username, password));
+    } catch (ex) {
+        let errMsg = ex.response
+            ? errorMessages.registerFailed
+            : errorMessages.registerFailedNoConnection;
+
+        dispatch(showMessage(notificationType.negative, errMsg));
+    }
+};

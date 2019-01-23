@@ -7,6 +7,7 @@ import MediaQuery from 'react-responsive';
 import AuthWrapper from '../authPages/AuthWrapper';
 import checkUsername from './checkUsername';
 import validate from './validateInput';
+import { register } from '../../redux/reducers/authReducer/authActions';
 
 const RegisterForm = styled.form`
     display: grid;
@@ -123,7 +124,7 @@ export class RegisterPage extends Component {
     );
 
     submitRegister = values => {
-        
+        this.props.register(values.username, values.password);
     };
 
     render() {
@@ -164,12 +165,12 @@ export class RegisterPage extends Component {
     }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    register
+};
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(
     reduxForm({
