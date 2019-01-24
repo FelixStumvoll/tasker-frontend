@@ -1,8 +1,8 @@
 import axios from 'axios';
 import debounce from 'debounce-promise';
-import apiUrl from '../../common/apiUrl';
-import { showMessage } from '../../redux/reducers/notificationReducer/notificationActions';
-import notificationTypes from '../../common/notificationType';
+import apiUrl from '../../../common/apiUrl';
+import { showMessage } from '../../../redux/reducers/notificationReducer/notificationActions';
+import notificationTypes from '../../../common/notificationType';
 
 export default debounce(async values => {
     let { username } = values;

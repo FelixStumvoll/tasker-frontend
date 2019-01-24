@@ -3,19 +3,19 @@ import { push } from 'connected-react-router';
 import apiUrl from '../../../common/apiUrl';
 import { LOGIN, LOGOUT } from './authActionTypes';
 import { fetchTasks } from '../taskReducer/taskActions';
-import {
-    FETCH_START,
-    FETCH_FINISHED,
-    FETCH_FAILED
-} from '../fetchReducer/fetchActionTypes';
+import { FETCH_START, FETCH_FINISHED } from '../fetchReducer/fetchActionTypes';
 import routes from '../../../common/routes';
 import { showMessage } from '../notificationReducer/notificationActions';
 import notificationType from '../../../common/notificationType';
 import errorMessages from '../../../common/errorMessages';
+import fetchTypes from '../../../common/fetchTypes';
 
 export const login = (username, password) => async dispatch => {
     try {
-        dispatch({ type: FETCH_START });
+        dispatch({
+            type: FETCH_START,
+            payload: { fetchType: fetchTypes.login }
+        });
         let response = await axios.post(`${apiUrl}/auth/login`, {
             username,
             password
@@ -42,7 +42,6 @@ export const login = (username, password) => async dispatch => {
             : errorMessages.loginFailedNoConnection;
 
         dispatch(showMessage(notificationType.negative, errMsg));
-        dispatch({ type: FETCH_FAILED });
     }
 };
 
@@ -54,8 +53,13 @@ export const logout = () => dispatch => {
 
 export const register = (username, password) => async dispatch => {
     try {
+        dispatch({
+            type: FETCH_START,
+            payload: { fetchType: fetchTypes.register }
+        });
         await axios.post(`${apiUrl}/auth/register`, { username, password });
 
+        dispatch({ type: FETCH_FINISHED });
         dispatch(login(username, password));
     } catch (ex) {
         let errMsg = ex.response

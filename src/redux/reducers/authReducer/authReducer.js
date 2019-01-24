@@ -3,9 +3,9 @@ import { LOGIN, LOGOUT } from './authActionTypes';
 const session = JSON.parse(localStorage.getItem('sessionData'));
 
 const initialState = {
-    bearer: session ? session.bearer : undefined,
+    bearer: session ? session.bearer : null,
     authenticated: session && session.bearer ? !!session.bearer : false,
-    username: session ? session.username : undefined
+    username: session ? session.username : null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -23,8 +23,8 @@ export default (state = initialState, { type, payload }) => {
         case LOGOUT: {
             return Object.assign({}, state, {
                 authenticated: false,
-                bearer: undefined,
-                username: undefined
+                bearer: null,
+                username: null
             });
         }
 

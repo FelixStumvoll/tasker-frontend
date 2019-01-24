@@ -1,13 +1,10 @@
-import { FETCH_START, FETCH_FINISHED, FETCH_FAILED } from './fetchActionTypes';
+import { FETCH_START, FETCH_FINISHED } from './fetchActionTypes';
 
-export const fetchStart = () => ({
-    type: FETCH_START
+export const fetchStart = fetchType => ({
+    type: FETCH_START,
+    payload: { fetchType }
 });
 
 export const fetchFinished = () => ({
     type: FETCH_FINISHED
-});
-
-export const fetchFailed = () => ({
-    type: FETCH_FAILED
 });

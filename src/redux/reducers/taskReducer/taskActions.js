@@ -11,13 +11,10 @@ import {
     TASK_FETCH_FINISHED,
     TASK_REMOVE
 } from './taskActionTypes';
-import {
-    FETCH_START,
-    FETCH_FAILED,
-    FETCH_FINISHED
-} from '../fetchReducer/fetchActionTypes';
+import { FETCH_START, FETCH_FINISHED } from '../fetchReducer/fetchActionTypes';
 import errorMessages from '../../../common/errorMessages';
 import routes from '../../../common/routes';
+import fetchTypes from '../../../common/fetchTypes';
 
 export const createTask = () => async (dispatch, getState) => {
     try {
@@ -120,7 +117,10 @@ export const fetchTasks = () => async (dispatch, getState) => {
     try {
         let { auth } = getState();
 
-        dispatch({ type: FETCH_START });
+        dispatch({
+            type: FETCH_START,
+            payload: { fetchType: fetchTypes.tasks }
+        });
 
         let response = await axios.get(
             `${apiUrl}/task`,
@@ -135,8 +135,6 @@ export const fetchTasks = () => async (dispatch, getState) => {
             });
             dispatch(push(`${routes.task}`));
             dispatch({ type: FETCH_FINISHED });
-        } else {
-            dispatch({ type: FETCH_FAILED });
         }
     } catch (ex) {
         dispatch(
@@ -145,6 +143,5 @@ export const fetchTasks = () => async (dispatch, getState) => {
                 errorMessages.taskFetchFailed
             )
         );
-        dispatch({ type: FETCH_FAILED });
     }
 };

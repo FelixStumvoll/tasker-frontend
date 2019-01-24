@@ -12,7 +12,8 @@ import { fetchTasks } from '../../redux/reducers/taskReducer/taskActions';
 import store from '../../redux/store';
 import LoadingScreen from '../loadingScreen/LoadingScreen';
 import routes from '../../common/routes';
-import RegisterPage from '../registerPage/RegisterPage';
+import RegisterPage from '../authPages/registerPage/RegisterPage';
+import fetchTypes from '../../common/fetchTypes';
 class Router extends Component {
     componentDidMount() {
         let { authenticated, tasksLoaded } = this.props;
@@ -37,7 +38,10 @@ class Router extends Component {
                         render={() => {
                             if (!authenticated)
                                 return <Redirect to={routes.login} />;
-                            if (fetchState.loading && !fetchState.success)
+                            if (
+                                fetchState.loading &&
+                                fetchState.fetchType === fetchTypes.tasks
+                            )
                                 return <LoadingScreen />;
                             return (
                                 <MediaQuery maxWidth={600}>

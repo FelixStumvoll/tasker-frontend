@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Field, reduxForm } from 'redux-form';
+import { Field, Form, reduxForm } from 'redux-form';
 import MediaQuery from 'react-responsive';
-import AuthWrapper from '../authPages/AuthWrapper';
+import { GridLoader } from 'react-spinners';
+
+import AuthWrapper from '../AuthWrapper';
 import checkUsername from './checkUsername';
 import validate from './validateInput';
-import { register } from '../../redux/reducers/authReducer/authActions';
+import { register } from '../../../redux/reducers/authReducer/authActions';
+import fetchTypes from '../../../common/fetchTypes';
 
-const RegisterForm = styled.form`
+const RegisterForm = styled(Form)`
     display: grid;
     grid-template-areas:
         'Label'
@@ -90,7 +93,6 @@ const RegisterButton = styled.button`
     grid-area: RegisterButton;
     width: 100%;
     height: 100%;
-    padding: 10px;
     font-size: 20px;
     font-weight: bold;
     background-color: ${({ theme }) => theme.positiveColor};
@@ -129,6 +131,7 @@ class RegisterPage extends Component {
 
     render() {
         let formInvalid = this.props.invalid;
+        let { fetchState, submitting } = this.props;
         return (
             <AuthWrapper>
                 <RegisterForm
@@ -156,8 +159,22 @@ class RegisterPage extends Component {
                         label="Repeat Password"
                         gridArea="PasswordRepeat"
                     />
-                    <RegisterButton type="submit" disabled={formInvalid}>
-                        Register
+                    <RegisterButton
+                        type="submit"
+                        disabled={formInvalid || submitting}
+                    >
+                        {fetchState.loading &&
+                        (fetchState.fetchType === fetchTypes.register ||
+                            fetchState.fetchType === fetchTypes.login) ? (
+                            <GridLoader
+                                size={10}
+                                sizeUnit={'px'}
+                                css={'margin: auto;'}
+                                color={'white'}
+                            />
+                        ) : (
+                            'Register'
+                        )}
                     </RegisterButton>
                 </RegisterForm>
             </AuthWrapper>
@@ -169,12 +186,16 @@ RegisterPage.propTypes = {
     register: PropTypes.func.isRequired
 };
 
+const mapStateToProps = ({ fetch }) => ({
+    fetchState: fetch
+});
+
 const mapDispatchToProps = {
     register
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(
     reduxForm({

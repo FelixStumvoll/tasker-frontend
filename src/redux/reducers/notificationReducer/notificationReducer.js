@@ -16,11 +16,11 @@ const notificationStyles = {
 
 const initialState = {
     show: false,
-    notificationType: undefined,
+    notificationType: null,
     message: '',
-    style: undefined,
+    style: null,
     delay: 0,
-    id: undefined
+    id: null
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -34,10 +34,10 @@ export default (state = initialState, { type, payload }) => {
         case HIDE_MESSAGE:
             return Object.assign({}, state, {
                 show: false,
-                notificationType: undefined,
+                notificationType: null,
                 message: '',
-                style: undefined,
-                id: undefined
+                style: null,
+                id: null
             });
         default:
             return state;

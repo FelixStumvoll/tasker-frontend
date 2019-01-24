@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { login } from '../../redux/reducers/authReducer/authActions';
 import routes from '../../common/routes';
 import AuthWrapper from '../authPages/AuthWrapper';
+import fetchTypes from '../../common/fetchTypes';
 
 const LoginPanel = styled.form`
     padding: 10px;
@@ -161,7 +162,8 @@ class LoginPage extends Component {
 
                     <PageLabel>Sign In</PageLabel>
                     <LoginButton type="submit" onClick={this.onLoginClick}>
-                        {fetchState.loading ? (
+                        {fetchState.loading &&
+                        fetchState.fetchType === fetchTypes.login ? (
                             <GridLoader
                                 size={10}
                                 sizeUnit={'px'}
@@ -178,10 +180,6 @@ class LoginPage extends Component {
                             Sign Up
                         </RegisterLink>
                     </RegisterSpan>
-                    {/* <OrArea>
-                        <OrText>or</OrText>
-                    </OrArea>
-                    <RegisterButton>Register</RegisterButton> */}
                 </LoginPanel>
             </AuthWrapper>
         );
